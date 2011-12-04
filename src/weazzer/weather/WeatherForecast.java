@@ -28,7 +28,7 @@ public class WeatherForecast {
 	public Float windSpeed;
 	
 	/** The wind direction. */
-	public Float windDirection;
+	public String windDirection;
 	
 	/** The weather condition. */
 	public WeatherCondition weatherCondition;
