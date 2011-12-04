@@ -3,39 +3,256 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
-    <TextView
-        android:id = "@+id/main_title"
+
+    <RelativeLayout
+        android:id="@+id/mainTopLayout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="" />
+        android:layout_height="59dp" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="ApasaMaButtonClickEvent"
-        android:text="Apasa-ma!" />
-
-        <ImageButton
-            android:id="@+id/imageButton1"
+        <TextView
+            android:id="@+id/weatherNowLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_launcher" />
+            android:layout_centerVertical="true"
+            android:text="5°C"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <RadioGroup
-            android:id="@+id/radioGroup1"
+        <TextView
+            android:id="@+id/maximumLabel"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </RadioGroup>
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/weatherNowLabel"
+            android:layout_alignBottom="@+id/weatherNowLabel"
+            android:layout_alignParentRight="true"
+            android:text="...10°C"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="52dp"
-            android:layout_height="68dp"
-            android:onClick="TrollClickEvent"
-            android:src="@drawable/trollface" />
+        <TextView
+            android:id="@+id/minimumLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/weatherNowLabel"
+            android:layout_alignBottom="@+id/weatherNowLabel"
+            android:layout_alignParentLeft="true"
+            android:text="0°C..."
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/mainMainLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/mainCenterLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_weight="1.57" >
+
+            <ImageView
+                android:id="@+id/mainWeatherImageView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/sun" />
+
+            <TextView
+                android:id="@+id/timeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="22dp"
+                android:text="period of day"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/mainNextPeriodsLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0" android:animationCache="false" android:paddingLeft="10dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/firstNextPeriodTitleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:text="evening"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/firstNextPeriodValueLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:text="5°C"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/secondNextPeriodTitleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:text="morning"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/secondNextPeriodValueLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:text="5°C"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout7"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/thirdNextPeriodTitleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:text="night"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/thirdNextPeriodValueLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:text="4°C"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout8"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/fourthNextPeriodTitleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:text="day"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/fourthNextPeriodValueLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:text="12°C"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="20dp"
+                android:layout_height="fill_parent"
+                android:background="#000000"
+                android:src="@drawable/right_arrow" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mainClothesLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp" >
+
+            <ImageView
+                android:id="@+id/TopClothesView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:src="@drawable/trollface" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/OvercoatClothesView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:src="@drawable/trollface" />
+
+                <Button
+                    android:id="@+id/saveButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="33dp"
+                    android:text="Save" android:background="#000000" android:textColor="#ffffff"/>
+
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/BottomClothesView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:src="@drawable/trollface" />
+
+            <LinearLayout
+                android:id="@+id/mainExtraLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/firstExtraView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:src="@drawable/trollface" />
+
+                <ImageView
+                    android:id="@+id/secondExtraView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:src="@drawable/trollface" />
+
+                <ImageView
+                    android:id="@+id/thirdExtraView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:src="@drawable/trollface" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

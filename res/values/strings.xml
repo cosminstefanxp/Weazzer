@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">Weazzer</string>    
-    <string name="settings_menu_label">Settings</string>
+    <string name="settings_menu_label">Settings</string>    
+    <string name="time">time</string>
 
 </resources>
