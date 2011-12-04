@@ -98,6 +98,12 @@ public class MainPanelActivity extends Activity {
 		inflater.inflate(R.menu.main_menu, menu);
 		return true;
 	}
+	
+	public void toLongTermAction() {		
+		Intent activity = new Intent(getBaseContext(),
+				LongTermActivity.class);
+		startActivity(activity);
+	}
 
 	class MyGestureDetector extends SimpleOnGestureListener {
 		private static final int SWIPE_MIN_DISTANCE = 50;

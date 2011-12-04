@@ -171,13 +171,14 @@
                     android:text="12°C"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
-
+
             <ImageButton
                 android:id="@+id/imageButton1"
-                android:layout_width="20dp"
-                android:layout_height="fill_parent"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
                 android:background="#000000"
-                android:src="@drawable/right_arrow" />
+                android:src="@drawable/right_arrow"
+                android:onClick="toLongTermAction" />
 
         </LinearLayout>
 
