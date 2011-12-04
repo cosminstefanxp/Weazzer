@@ -1,3 +1,7 @@
+/*
+ * Weazzer Android Application
+ * 
+ */
 package weazzer.gui;
 
 import android.app.Activity;
@@ -6,7 +10,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,16 +18,43 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+/**
+ * The Class MainPanelActivity.
+ */
 public class MainPanelActivity extends Activity {
 
+	/** The gender. */
+	String gender;
+	
+	/**
+	 * The listener interface for receiving myTouch events.
+	 * The class that is interested in processing a myTouch
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addMyTouchListener<code> method. When
+	 * the myTouch event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see MyTouchEvent
+	 */
 	class MyTouchListener implements View.OnTouchListener {
+		
+		/** The my gesture detector. */
 		GestureDetector mGestureDetector = null;
 
+		/**
+		 * Instantiates a new my touch listener.
+		 *
+		 * @param gestureDetector the gesture detector
+		 */
 		public MyTouchListener(GestureDetector gestureDetector) {
 			super();
 			this.mGestureDetector = gestureDetector;
 		}
 
+		/* (non-Javadoc)
+		 * @see android.view.View.OnTouchListener#onTouch(android.view.View, android.view.MotionEvent)
+		 */
 		public boolean onTouch(View v, MotionEvent aEvent) {
 			if (mGestureDetector.onTouchEvent(aEvent))
 				return true;
@@ -33,9 +63,12 @@ public class MainPanelActivity extends Activity {
 		}
 	}
 
-	String gender;	
 
-	/** Called when the activity is first created. */
+	/**
+	 * Called when the activity is first created.
+	 *
+	 * @param savedInstanceState the saved instance state
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,36 +76,60 @@ public class MainPanelActivity extends Activity {
 
 		ImageView imagine = (ImageView) findViewById(R.id.TopClothesView);
 		GestureDetector mGestureDetector = new GestureDetector(
-				new MyGestureDetector(imagine));
+				new MainPanelGestureDetector(imagine));
 		MyTouchListener mGestureListener = new MyTouchListener(mGestureDetector);
 
 		imagine.setOnTouchListener(mGestureListener);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onStart()
+	 */
 	@Override
 	public void onStart() {
 		super.onStart();
-		getPrefs();
+		getPreferences();
 	}
 
-	private void getPrefs() {
+
+	/**
+	 * Gets the preferences.
+	 *
+	 * @return the preferences
+	 */
+	private void getPreferences() {
 		// Get the xml/preferences.xml preferences
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
 		gender = prefs.getString("genderPref", "male");
 	}
 
+	/**
+	 * Apasa ma button click event.
+	 *
+	 * @param view the view
+	 */
 	public void ApasaMaButtonClickEvent(View view) {
+		//TODO: de sters -- crap
 		Toast.makeText(this, "Salutare Diana, Vali, Filip & Cosmin",
 				Toast.LENGTH_SHORT).show();
 	}
 
+	/**
+	 * Troll click event.
+	 *
+	 * @param view the view
+	 */
 	public void TrollClickEvent(View view) {
+		//TODO: de sters -- crap
 		Intent settingsActivity = new Intent(getBaseContext(),
 				LongTermActivity.class);
 		startActivity(settingsActivity);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -86,12 +143,20 @@ public class MainPanelActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Settings menu button click event.
+	 *
+	 * @param view the view
+	 */
 	public void SettingsMenuButtonClickEvent(View view) {
 		Intent settingsActivity = new Intent(getBaseContext(),
 				SettingsPanelActivity.class);
 		startActivity(settingsActivity);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -99,65 +164,5 @@ public class MainPanelActivity extends Activity {
 		return true;
 	}
 
-	class MyGestureDetector extends SimpleOnGestureListener {
-		private static final int SWIPE_MIN_DISTANCE = 50;
-		private static final int SWIPE_MAX_OFF_PATH = 50;
-		private static final int SWIPE_THRESHOLD_VELOCITY = 50;
-		View owner;
-
-		public MyGestureDetector(View owner) {
-			super();
-			this.owner = owner;
-		}
-
-		// Amazingly enough, this must return true
-		@Override
-		public boolean onDown(MotionEvent e) {
-			return true;
-		}
-
-		void rightSwipe() {
-		}
-
-		void leftSwipe() {
-
-		}
-
-		void upSwipe() {
-
-		}
-
-		void downSwipe() {
-			ImageView imageView = (ImageView) owner;
-			imageView.setImageResource(R.drawable.sun);
-		}
-
-		@Override
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-				float velocityY) {
-			float dX = e2.getX() - e1.getX();
-			float dY = e1.getY() - e2.getY();
-			if (Math.abs(dY) < SWIPE_MAX_OFF_PATH
-					&& Math.abs(velocityX) >= SWIPE_THRESHOLD_VELOCITY
-					&& Math.abs(dX) >= SWIPE_MIN_DISTANCE) {
-				if (dX > 0) {
-					rightSwipe();
-				} else {
-					leftSwipe();
-				}
-				return true;
-			} else if (Math.abs(dX) < SWIPE_MAX_OFF_PATH
-					&& Math.abs(velocityY) >= SWIPE_THRESHOLD_VELOCITY
-					&& Math.abs(dY) >= SWIPE_MIN_DISTANCE) {
-				if (dY > 0) {
-					upSwipe();
-				} else {
-					downSwipe();
-				}
-				return true;
-			}
-			return false;
-		}
-	};
 
 }

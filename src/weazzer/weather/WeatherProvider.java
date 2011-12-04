@@ -27,6 +27,16 @@ public interface WeatherProvider {
 	};
 	
 	/**
+	 * The Enum MeasurementUnit.
+	 */
+	public enum MeasurementUnit {
+		/** Celsius units. */
+		Celsius,
+		/** Farenheit units. */
+		Farenheit
+	}
+	
+	/**
 	 * Gets the current weather.
 	 *
 	 * @return the current weather
@@ -34,7 +44,7 @@ public interface WeatherProvider {
 	public WeatherData getCurrentWeather();
 	
 	/**
-	 * Gets the weather forecast for a given number of days
+	 * Gets the weather forecast for a given number of days.
 	 *
 	 * @param daysCount the days count
 	 * @return the weather forecast
@@ -53,5 +63,18 @@ public interface WeatherProvider {
 	 *
 	 */
 	public void setLocation();
+	
+	/**
+	 * Gets the measurement unit for the weather data.
+	 *
+	 * @return the measurement unit
+	 */
+	public MeasurementUnit getMeasurementUnit();
+	
+	/**
+	 * Sets the measurement unit for the weather data.
+	 *
+	 */
+	public void setMeasurementUnit();
 	
 }
