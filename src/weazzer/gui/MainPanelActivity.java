@@ -104,29 +104,6 @@ public class MainPanelActivity extends Activity {
 		gender = prefs.getString("genderPref", "male");
 	}
 
-	/**
-	 * Apasa ma button click event.
-	 *
-	 * @param view the view
-	 */
-	public void ApasaMaButtonClickEvent(View view) {
-		//TODO: de sters -- crap
-		Toast.makeText(this, "Salutare Diana, Vali, Filip & Cosmin",
-				Toast.LENGTH_SHORT).show();
-	}
-
-	/**
-	 * Troll click event.
-	 *
-	 * @param view the view
-	 */
-	public void TrollClickEvent(View view) {
-		//TODO: de sters -- crap
-		Intent settingsActivity = new Intent(getBaseContext(),
-				LongTermActivity.class);
-		startActivity(settingsActivity);
-	}
-
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
 	 */
@@ -164,7 +141,7 @@ public class MainPanelActivity extends Activity {
 		return true;
 	}
 	
-	public void toLongTermAction() {		
+	public void toLongTermAction(View v) {		
 		Intent activity = new Intent(getBaseContext(),
 				LongTermActivity.class);
 		startActivity(activity);

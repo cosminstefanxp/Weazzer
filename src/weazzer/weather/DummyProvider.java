@@ -26,7 +26,6 @@ public class DummyProvider implements WeatherProvider {
 	/* (non-Javadoc)
 	 * @see weazzer.weather.WeatherProvider#getCurrentWeather()
 	 */
-	@Override
 	public WeatherData getCurrentWeather() {
 		WeatherData wd=new WeatherData();
 		
@@ -42,7 +41,6 @@ public class DummyProvider implements WeatherProvider {
 	/* (non-Javadoc)
 	 * @see weazzer.weather.WeatherProvider#getLocation()
 	 */
-	@Override
 	public String getLocation() {
 		// TODO Auto-generated method stub
 		return null;
@@ -51,7 +49,6 @@ public class DummyProvider implements WeatherProvider {
 	/* (non-Javadoc)
 	 * @see weazzer.weather.WeatherProvider#getWeatherForecast(int)
 	 */
-	@Override
 	public ArrayList<WeatherForecast> getWeatherForecast(int daysCount) {
 		
 		ArrayList<WeatherForecast> wf=new ArrayList<WeatherForecast>();
@@ -74,19 +71,16 @@ public class DummyProvider implements WeatherProvider {
 	/* (non-Javadoc)
 	 * @see weazzer.weather.WeatherProvider#setLocation()
 	 */
-	@Override
 	public void setLocation() {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public MeasurementUnit getMeasurementUnit() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void setMeasurementUnit() {
 		// TODO Auto-generated method stub
 		
