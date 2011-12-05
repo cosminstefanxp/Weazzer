@@ -31,8 +31,11 @@ public class ClothesProvider {
 	/** The overcoats for men. */
 	private ArrayList<ClothingArticle> overcoatsMen;
 	
-	/** The accessories for both. */
-	private ArrayList<ClothingArticle> accessories;
+	/** The accessories for men. */
+	private ArrayList<ClothingArticle> accessoriesWomen;
+	
+	/** The accessories for women. */
+	private ArrayList<ClothingArticle> accessoriesMen;
 	
 	
 	/**
@@ -45,7 +48,8 @@ public class ClothesProvider {
 		shirtsWomen = new ArrayList<ClothingArticle>();
 		overcoatsMen = new ArrayList<ClothingArticle>();
 		overcoatsWomen = new ArrayList<ClothingArticle>();
-		accessories = new ArrayList<ClothingArticle>();
+		accessoriesWomen = new ArrayList<ClothingArticle>();
+		accessoriesMen = new ArrayList<ClothingArticle>();
 		
 		//TODO: Facut intializare hard-coded (sau din baza de date, desi mi se pare mai usor hardcodat)
 		//pentru fiecare haina
@@ -98,8 +102,10 @@ public class ClothesProvider {
 	 * @return the accessories
 	 */
 	public ArrayList<ClothingArticle> getAccessories(UserSex userSex) {
-		return accessories;
+		if(userSex.equals(UserSex.Female))
+			return accessoriesWomen;
+		else
+			return accessoriesMen;
 	}
-
 
 }
