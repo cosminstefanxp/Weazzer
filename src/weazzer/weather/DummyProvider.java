@@ -26,7 +26,7 @@ public class DummyProvider implements WeatherProvider {
 	/* (non-Javadoc)
 	 * @see weazzer.weather.WeatherProvider#getCurrentWeather()
 	 */
-	public WeatherData getCurrentWeather() {
+	public ArrayList<WeatherData> getCurrentWeather() {
 		WeatherData wd=new WeatherData();
 		
 		wd.humidity=0.8f;
@@ -35,7 +35,13 @@ public class DummyProvider implements WeatherProvider {
 		wd.when=new GregorianCalendar();
 		wd.windSpeed=12f;
 		
-		return wd;
+		ArrayList<WeatherData> weatherList=new ArrayList<WeatherData>();
+		weatherList.add(wd);
+		weatherList.add(wd);
+		weatherList.add(wd);
+		weatherList.add(wd);
+		
+		return weatherList;
 	}
 
 	/* (non-Javadoc)

@@ -37,11 +37,11 @@ public interface WeatherProvider {
 	}
 	
 	/**
-	 * Gets the current weather.
+	 * Gets the current weather. It should return a 4 element List with the weather from now, 6 hours, 12 hours and 18 hours from now.
 	 *
 	 * @return the current weather
 	 */
-	public WeatherData getCurrentWeather();
+	public ArrayList<WeatherData> getCurrentWeather();
 	
 	/**
 	 * Gets the weather forecast for a given number of days.
