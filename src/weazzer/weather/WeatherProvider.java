@@ -36,6 +36,7 @@ public interface WeatherProvider {
 		Farenheit
 	}
 	
+	
 	/**
 	 * Gets the current weather. It should return a 4 element List with the weather from now, 6 hours, 12 hours and 18 hours from now.
 	 *
@@ -51,18 +52,29 @@ public interface WeatherProvider {
 	 */
 	public ArrayList<WeatherForecast> getWeatherForecast(int daysCount);
 
+
 	/**
-	 * Gets the location for the weather data.
+	 * Queries the servers and gets the suggested location, given search items for country and city.
 	 *
-	 * @return the location
+	 * @param country the country
+	 * @param city the city
+	 * @return the suggested location
 	 */
-	public String getLocation();
+	public ArrayList<WeatherLocation> getSuggestedLocation(String country, String city);
 	
+	/**
+	 * Gets the selected location.
+	 *
+	 * @return the selected location
+	 */
+	public WeatherLocation getSelectedLocation();
+
 	/**
 	 * Sets the location for the weather data.
 	 *
+	 * @param location the new selected location
 	 */
-	public void setLocation();
+	public void setLocation(WeatherLocation location);
 	
 	/**
 	 * Gets the measurement unit for the weather data.
