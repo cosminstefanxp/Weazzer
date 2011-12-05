@@ -92,7 +92,6 @@ public class DummyProvider implements WeatherProvider {
 	/* (non-Javadoc)
 	 * @see weazzer.weather.WeatherProvider#getSelectedLocation()
 	 */
-	@Override
 	public WeatherLocation getSelectedLocation() {
 		// TODO Auto-generated method stub
 		return null;
@@ -101,7 +100,6 @@ public class DummyProvider implements WeatherProvider {
 	/* (non-Javadoc)
 	 * @see weazzer.weather.WeatherProvider#getSuggestedLocation(java.lang.String, java.lang.String)
 	 */
-	@Override
 	public ArrayList<WeatherLocation> getSuggestedLocation(String country, String city) {
 		// TODO Auto-generated method stub
 		return null;
@@ -110,7 +108,6 @@ public class DummyProvider implements WeatherProvider {
 	/* (non-Javadoc)
 	 * @see weazzer.weather.WeatherProvider#setLocation(weazzer.weather.WeatherLocation)
 	 */
-	@Override
 	public void setLocation(WeatherLocation location) {
 		// TODO Auto-generated method stub
 		
