@@ -41,7 +41,7 @@ public interface WeatherProvider {
 
 
 	/**
-	 * Queries the servers and gets the suggested location, given search items for country and city.
+	 * Queries the servers and gets suggested locations, given search items for country and city.
 	 *
 	 * @param country the country
 	 * @param city the city

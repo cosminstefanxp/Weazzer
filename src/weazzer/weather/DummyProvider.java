@@ -36,7 +36,7 @@ public class DummyProvider implements WeatherProvider {
 		wd.humidity=0.8f;
 		wd.temperature=15f;
 		wd.weatherCondition="Sunny";
-		wd.when=new GregorianCalendar();
+		wd.when="Now";
 		wd.windSpeed=12f;
 		
 		ArrayList<WeatherData> weatherList=new ArrayList<WeatherData>();

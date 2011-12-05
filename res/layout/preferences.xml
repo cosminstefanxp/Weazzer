@@ -4,7 +4,6 @@
                 android:title="First Category">                
                 <ListPreference
                         android:title="Clothes for"
-                        android:summary="male, female, both"
                         android:key="genderPref"
                         android:defaultValue="male"
                         android:entries="@array/genderArray"
