@@ -4,7 +4,6 @@
  */
 package weazzer.weather;
 
-
 /**
  * The Class WeatherData that stores information about real weather. Based on
  * http://www.worldweatheronline.com/free-weather-feed.aspx
@@ -25,13 +24,13 @@ public class WeatherData {
 
 	/** The weather condition. */
 	public String weatherCondition;
-	
+
 	/** The icon name. */
 	public String icon;
 
 	/**
 	 * Gets the when description.
-	 *
+	 * 
 	 * @return the when
 	 */
 	public String getWhen() {
@@ -40,8 +39,9 @@ public class WeatherData {
 
 	/**
 	 * Sets the when when description.
-	 *
-	 * @param when the new when
+	 * 
+	 * @param when
+	 *            the new when
 	 */
 	public void setWhen(String when) {
 		this.when = when;
@@ -49,7 +49,7 @@ public class WeatherData {
 
 	/**
 	 * Gets the temperature.
-	 *
+	 * 
 	 * @return the temperature
 	 */
 	public Float getTemperature() {
@@ -58,8 +58,9 @@ public class WeatherData {
 
 	/**
 	 * Sets the temperature.
-	 *
-	 * @param temperature the new temperature
+	 * 
+	 * @param temperature
+	 *            the new temperature
 	 */
 	public void setTemperature(Float temperature) {
 		this.temperature = temperature;
@@ -67,7 +68,7 @@ public class WeatherData {
 
 	/**
 	 * Gets the wind speed.
-	 *
+	 * 
 	 * @return the wind speed
 	 */
 	public Float getWindSpeed() {
@@ -76,8 +77,9 @@ public class WeatherData {
 
 	/**
 	 * Sets the wind speed.
-	 *
-	 * @param windSpeed the new wind speed
+	 * 
+	 * @param windSpeed
+	 *            the new wind speed
 	 */
 	public void setWindSpeed(Float windSpeed) {
 		this.windSpeed = windSpeed;
@@ -85,7 +87,7 @@ public class WeatherData {
 
 	/**
 	 * Gets the humidity.
-	 *
+	 * 
 	 * @return the humidity
 	 */
 	public Float getHumidity() {
@@ -94,7 +96,7 @@ public class WeatherData {
 
 	/**
 	 * Gets the weather condition.
-	 *
+	 * 
 	 * @return the weather condition
 	 */
 	public String getWeatherCondition() {
@@ -103,8 +105,9 @@ public class WeatherData {
 
 	/**
 	 * Sets the weather condition.
-	 *
-	 * @param weatherCondition the new weather condition
+	 * 
+	 * @param weatherCondition
+	 *            the new weather condition
 	 */
 	public void setWeatherCondition(String weatherCondition) {
 		this.weatherCondition = weatherCondition;
@@ -112,13 +115,14 @@ public class WeatherData {
 
 	/**
 	 * Sets the humidity.
-	 *
-	 * @param humidity the new humidity
+	 * 
+	 * @param humidity
+	 *            the new humidity
 	 */
 	public void setHumidity(Float humidity) {
 		this.humidity = humidity;
 	}
-	
+
 	/**
 	 * @return the icon
 	 */
@@ -127,11 +131,11 @@ public class WeatherData {
 	}
 
 	/**
-	 * @param icon the icon to set
+	 * @param icon
+	 *            the icon to set
 	 */
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-
 
 }

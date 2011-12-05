@@ -34,8 +34,8 @@ import android.widget.TextView;
  * The Class MainPanelActivity.
  */
 public class MainPanelActivity extends Activity {
-	
-	class MainPanelGestureDetector  extends SimpleOnGestureListener {
+
+	class MainPanelGestureDetector extends SimpleOnGestureListener {
 		private static final int SWIPE_MIN_DISTANCE = 50;
 		private static final int SWIPE_MAX_OFF_PATH = 100;
 		private static final int SWIPE_THRESHOLD_VELOCITY = 50;
@@ -45,7 +45,7 @@ public class MainPanelActivity extends Activity {
 			super();
 			this.owner = owner;
 		}
-		
+
 		@Override
 		public boolean onDown(MotionEvent e) {
 			if (owner == findViewById(R.id.fourthNextPeriodLayout)) {
@@ -64,38 +64,77 @@ public class MainPanelActivity extends Activity {
 				currentPeriod = 0;
 				refreshUI();
 			}
-							
+
 			return true;
 		}
 
 		void rightSwipe() {
-			if(owner == findViewById(R.id.mainWeatherImageView)) {
-				if(currentPeriod>0)
+			if (owner == findViewById(R.id.mainWeatherImageView)) {
+				if (currentPeriod > 0)
 					currentPeriod--;
 			}
 			refreshUI();
 		}
 
 		void leftSwipe() {
-			if(owner == findViewById(R.id.mainWeatherImageView)) {
-				if(currentPeriod<3)
+			if (owner == findViewById(R.id.mainWeatherImageView)) {
+				if (currentPeriod < 3)
 					currentPeriod++;
 			}
 			refreshUI();
 		}
 
 		void upSwipe() {
-			if(owner == findViewById(R.id.mainWeatherImageView)) {
-				if(currentPeriod<3)
+			if (owner == findViewById(R.id.mainWeatherImageView)) {
+				if (currentPeriod < 3)
 					currentPeriod++;
+			}
+			if (owner == findViewById(R.id.TopClothesView)) {
+				if (clothesSuggestion.getTopIndex() < clothesSuggestion
+						.getTopSuggestions().size() - 1) {
+					clothesSuggestion.setTopIndex(clothesSuggestion
+							.getTopIndex() + 1);
+				}
+			}
+			if (owner == findViewById(R.id.BottomClothesView)) {
+				if (clothesSuggestion.getBottomIndex() < clothesSuggestion
+						.getBottomSuggestions().size() - 1) {
+					clothesSuggestion.setBottomIndex(clothesSuggestion
+							.getBottomIndex() + 1);
+				}
+			}
+			if (owner == findViewById(R.id.OvercoatClothesView)) {
+				if (clothesSuggestion.getOvercoatIndex() < clothesSuggestion
+						.getOvercoatSuggestions().size() - 1) {
+					clothesSuggestion.setOvercoatIndex(clothesSuggestion
+							.getOvercoatIndex() + 1);
+				}
 			}
 			refreshUI();
 		}
 
-		void downSwipe() {		
-			if(owner == findViewById(R.id.mainWeatherImageView)) {
-				if(currentPeriod>0)
+		void downSwipe() {
+			if (owner == findViewById(R.id.mainWeatherImageView)) {
+				if (currentPeriod > 0)
 					currentPeriod--;
+			}
+			if (owner == findViewById(R.id.TopClothesView)) {
+				if (clothesSuggestion.getTopIndex() > 0) {
+					clothesSuggestion.setTopIndex(clothesSuggestion
+							.getTopIndex() - 1);
+				}
+			}
+			if (owner == findViewById(R.id.BottomClothesView)) {
+				if (clothesSuggestion.getBottomIndex() > 0) {
+					clothesSuggestion.setBottomIndex(clothesSuggestion
+							.getBottomIndex() - 1);
+				}
+			}
+			if (owner == findViewById(R.id.OvercoatClothesView)) {
+				if (clothesSuggestion.getOvercoatIndex() > 0) {
+					clothesSuggestion.setOvercoatIndex(clothesSuggestion
+							.getOvercoatIndex() - 1);
+				}
 			}
 			refreshUI();
 		}
@@ -134,37 +173,41 @@ public class MainPanelActivity extends Activity {
 	int currentPeriod;
 	String measurementUnitSuffix;
 	WeatherLocation weatherLocation;
-	
+	SuggestionsEngine suggestionsEngine;
+
 	ClothesSuggestion clothesSuggestion;
-	
+
 	/**
-	 * The listener interface for receiving myTouch events.
-	 * The class that is interested in processing a myTouch
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addMyTouchListener<code> method. When
+	 * The listener interface for receiving myTouch events. The class that is
+	 * interested in processing a myTouch event implements this interface, and
+	 * the object created with that class is registered with a component using
+	 * the component's <code>addMyTouchListener<code> method. When
 	 * the myTouch event occurs, that object's appropriate
 	 * method is invoked.
-	 *
+	 * 
 	 * @see MyTouchEvent
 	 */
 	class MyTouchListener implements View.OnTouchListener {
-		
+
 		/** The my gesture detector. */
 		GestureDetector mGestureDetector = null;
 
 		/**
 		 * Instantiates a new my touch listener.
-		 *
-		 * @param gestureDetector the gesture detector
+		 * 
+		 * @param gestureDetector
+		 *            the gesture detector
 		 */
 		public MyTouchListener(GestureDetector gestureDetector) {
 			super();
 			this.mGestureDetector = gestureDetector;
 		}
 
-		/* (non-Javadoc)
-		 * @see android.view.View.OnTouchListener#onTouch(android.view.View, android.view.MotionEvent)
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see android.view.View.OnTouchListener#onTouch(android.view.View,
+		 * android.view.MotionEvent)
 		 */
 		public boolean onTouch(View v, MotionEvent aEvent) {
 			if (mGestureDetector.onTouchEvent(aEvent))
@@ -174,55 +217,73 @@ public class MainPanelActivity extends Activity {
 		}
 	}
 
-
 	/**
 	 * Called when the activity is first created.
-	 *
-	 * @param savedInstanceState the saved instance state
+	 * 
+	 * @param savedInstanceState
+	 *            the saved instance state
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		int swipedImgIds[] = {R.id.TopClothesView, R.id.BottomClothesView, R.id.OvercoatClothesView, R.id.mainWeatherImageView,
-				R.id.firstNextPeriodLayout, R.id.secondNextPeriodLayout, R.id.thirdNextPeriodLayout, R.id.fourthNextPeriodLayout};
+		int swipedImgIds[] = { R.id.TopClothesView, R.id.BottomClothesView,
+				R.id.OvercoatClothesView, R.id.mainWeatherImageView,
+				R.id.firstNextPeriodLayout, R.id.secondNextPeriodLayout,
+				R.id.thirdNextPeriodLayout, R.id.fourthNextPeriodLayout };
 		for (int id : swipedImgIds) {
 			View view = findViewById(id);
 			GestureDetector mGestureDetector = new GestureDetector(
 					new MainPanelGestureDetector(view));
-			MyTouchListener mGestureListener = new MyTouchListener(mGestureDetector);
-	
+			MyTouchListener mGestureListener = new MyTouchListener(
+					mGestureDetector);
+
 			view.setOnTouchListener(mGestureListener);
 		}
-		
+
 		weatherProvider = new DummyProvider();
+		suggestionsEngine =  new SuggestionsEngine();
 		currentPeriod = 0;
 	}
-	
+
 	/**
 	 * Do stuff that don't change at user interaction. Is called by onStart().
 	 */
 	private void initializeUI() {
 		try {
-			for(int currentPeriod=0; currentPeriod<4; currentPeriod++) {
-				WeatherData currentWeatherData = weatherProvider.getCurrentWeather().get(currentPeriod);
+			for (int currentPeriod = 0; currentPeriod < 4; currentPeriod++) {
+				WeatherData currentWeatherData = weatherProvider
+						.getCurrentWeather().get(currentPeriod);
 				String prefix = null;
-				switch(currentPeriod) {
-					case 0 : prefix = "first"; break;
-					case 1: prefix = "second"; break;
-					case 2: prefix = "third"; break;
-					case 3: prefix = "fourth"; break;
+				switch (currentPeriod) {
+				case 0:
+					prefix = "first";
+					break;
+				case 1:
+					prefix = "second";
+					break;
+				case 2:
+					prefix = "third";
+					break;
+				case 3:
+					prefix = "fourth";
+					break;
 				}
-				int idTemperatureLabel = R.id.class.getField(prefix+"NextPeriodValueLabel").getInt(null);
+				int idTemperatureLabel = R.id.class.getField(
+						prefix + "NextPeriodValueLabel").getInt(null);
 				TextView temperatureLabel = (TextView) findViewById(idTemperatureLabel);
-				temperatureLabel.setText(currentWeatherData.getTemperature()+measurementUnitSuffix);
-				int idWhenLabel = R.id.class.getField(prefix+"NextPeriodTitleLabel").getInt(null);
+				temperatureLabel.setText(currentWeatherData.getTemperature()
+						+ measurementUnitSuffix);
+				int idWhenLabel = R.id.class.getField(
+						prefix + "NextPeriodTitleLabel").getInt(null);
 				TextView whenLabel = (TextView) findViewById(idWhenLabel);
 				whenLabel.setText(currentWeatherData.getWhen());
-				int idImage = R.id.class.getField(prefix+"NextPeriodImageView").getInt(null);
+				int idImage = R.id.class.getField(
+						prefix + "NextPeriodImageView").getInt(null);
 				ImageView imageView = (ImageView) findViewById(idImage);
-				imageView.setImageResource(getResourceIdForWeather(false, currentWeatherData.getIcon()));	
+				imageView.setImageResource(getResourceIdForWeather(false,
+						currentWeatherData.getIcon()));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -230,46 +291,51 @@ public class MainPanelActivity extends Activity {
 		TextView locationLabel = (TextView) findViewById(R.id.locationLabel);
 		locationLabel.setText(weatherLocation.city);
 	}
-	
-	
+
 	/**
-	 * Do stuff that change at user interaction. Is called by onStart() after initializeUI.
+	 * Do stuff that change at user interaction. Is called by onStart() after
+	 * initializeUI.
 	 */
 	private void refreshUI() {
-		WeatherData currentWeatherData = weatherProvider.getCurrentWeather().get(currentPeriod);
+		WeatherData currentWeatherData = weatherProvider.getCurrentWeather()
+				.get(currentPeriod);
 		ImageView centralImage = (ImageView) findViewById(R.id.mainWeatherImageView);
-		centralImage.setImageResource(getResourceIdForWeather(true, currentWeatherData.getIcon()));		
+		centralImage.setImageResource(getResourceIdForWeather(true,
+				currentWeatherData.getIcon()));
 		TextView timeLabel = (TextView) findViewById(R.id.timeLabel);
 		timeLabel.setText(currentWeatherData.getWhen());
 		TextView humidityLabel = (TextView) findViewById(R.id.humidityLabel);
 		humidityLabel.setText(currentWeatherData.getHumidity().toString());
 		TextView windLabel = (TextView) findViewById(R.id.windLabel);
-		windLabel.setText(currentWeatherData.getWindSpeed()+"km/h");
+		windLabel.setText(currentWeatherData.getWindSpeed() + "km/h");
 		TextView weatherNowLabel = (TextView) findViewById(R.id.weatherNowLabel);
-		weatherNowLabel.setText(currentWeatherData.getTemperature().toString()+measurementUnitSuffix);		
+		weatherNowLabel.setText(currentWeatherData.getTemperature().toString()
+				+ measurementUnitSuffix);
 		LinearLayout columnLayouts[] = {
 				(LinearLayout) findViewById(R.id.firstNextPeriodLayout),
 				(LinearLayout) findViewById(R.id.secondNextPeriodLayout),
 				(LinearLayout) findViewById(R.id.thirdNextPeriodLayout),
 				(LinearLayout) findViewById(R.id.fourthNextPeriodLayout) };
-		for (int i=0;i<4;i++) {
-			if (i==currentPeriod) 
-				columnLayouts[i].setBackgroundColor(Color.rgb(100,100,100));
+		for (int i = 0; i < 4; i++) {
+			if (i == currentPeriod)
+				columnLayouts[i].setBackgroundColor(Color.rgb(100, 100, 100));
 			else
-				columnLayouts[i].setBackgroundColor(Color.rgb(0,0,0));
+				columnLayouts[i].setBackgroundColor(Color.rgb(0, 0, 0));
 		}
-		
-		//clothes stuff
-		clothesSuggestion = (new SuggestionsEngine()).getSuggestion(currentWeatherData, UserSex.Male);
+
+		// clothes stuff
+		clothesSuggestion = suggestionsEngine.getSuggestion(
+				currentWeatherData, UserSex.Male);
 		int bottomIndex = clothesSuggestion.getBottomIndex();
-		((ImageView)findViewById(R.id.BottomClothesView))
-			.setImageResource(clothesSuggestion.getBottomSuggestions().get(bottomIndex).getResource());
+		((ImageView) findViewById(R.id.BottomClothesView))
+				.setImageResource(clothesSuggestion.getBottomSuggestions()
+						.get(bottomIndex).getResource());
 	}
 
 	private int getResourceIdForWeather(Boolean big, String iconName) {
-		String prefix = big?"big_":"small_";
+		String prefix = big ? "big_" : "small_";
 		try {
-			Field field = R.drawable.class.getField(prefix+iconName);
+			Field field = R.drawable.class.getField(prefix + iconName);
 			return field.getInt(null);
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
@@ -284,7 +350,9 @@ public class MainPanelActivity extends Activity {
 		return 0;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onStart()
 	 */
 	@Override
@@ -295,27 +363,30 @@ public class MainPanelActivity extends Activity {
 		refreshUI();
 	}
 
-
 	/**
 	 * Gets the preferences from the system preferences in Android.
-	 *
+	 * 
 	 * @return the preferences
 	 */
 	private void getPreferences() {
-		// Get the xml/preferences.xml preferences 
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		
-		//Gender
+		// Get the xml/preferences.xml preferences
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(getBaseContext());
+
+		// Gender
 		gender = prefs.getString("genderPref", "male");
 		// TODO
-		measurementUnitSuffix = "°C";		
-		//Weather location
-		weatherLocation=new WeatherLocation();
-		weatherLocation.city=prefs.getString("cityLocationPref", "Bucharest");
-		weatherLocation.country=prefs.getString("countryLocationPref", "Romania");		
+		measurementUnitSuffix = "°C";
+		// Weather location
+		weatherLocation = new WeatherLocation();
+		weatherLocation.city = prefs.getString("cityLocationPref", "Bucharest");
+		weatherLocation.country = prefs.getString("countryLocationPref",
+				"Romania");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
 	 */
 	@Override
@@ -333,8 +404,9 @@ public class MainPanelActivity extends Activity {
 
 	/**
 	 * Settings menu button click event.
-	 *
-	 * @param view the view
+	 * 
+	 * @param view
+	 *            the view
 	 */
 	public void SettingsMenuButtonClickEvent(View view) {
 		Intent settingsActivity = new Intent(getBaseContext(),
@@ -342,7 +414,9 @@ public class MainPanelActivity extends Activity {
 		startActivity(settingsActivity);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */
 	@Override
@@ -351,12 +425,14 @@ public class MainPanelActivity extends Activity {
 		inflater.inflate(R.menu.main_menu, menu);
 		return true;
 	}
-	
-	public void toLongTermAction(View v) {		
-		Intent activity = new Intent(getBaseContext(),
-				LongTermActivity.class);
+
+	public void toLongTermAction(View v) {
+		Intent activity = new Intent(getBaseContext(), LongTermActivity.class);
 		startActivity(activity);
 	}
-
+	
+	public void onSaveSuggestions(View v) {
+		suggestionsEngine.updateUserChoice(clothesSuggestion);
+	}
 
 }

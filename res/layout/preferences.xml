@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-	<PreferenceCategory android:title="General" >
+    <PreferenceCategory android:title="General" >
 
-		<ListPreference
-			android:defaultValue="male"
-			android:entries="@array/genderArray"
-			android:entryValues="@array/genderValues"
-			android:key="genderPref"
-			android:summary="Select gender for clothes"
-			android:title="Gender Selection" />
-	</PreferenceCategory>
+        <ListPreference
+            android:defaultValue="male"
+            android:entries="@array/genderArray"
+            android:entryValues="@array/genderValues"
+            android:key="genderPref"
+            android:summary="Select gender for clothes"
+            android:title="Gender Selection" />
+    </PreferenceCategory>
 
-	<PreferenceCategory android:title="Weather Provider" >
+    <PreferenceCategory android:title="Weather Provider" >
 
-		<PreferenceScreen
-			android:key="weatherLocationPrefScreen"
-			android:summary="Select your location for the weather data"
-			android:title="Weather Location" >
+        <PreferenceScreen
+            android:key="weatherLocationPrefScreen"
+            android:summary="Select your location for the weather data"
+            android:title="Weather Location" >
 
-			<PreferenceCategory android:title="Search Location" >
+            <PreferenceCategory android:title="Search Location" >
 
-				<EditTextPreference
-					android:key="countryLocationPref"
-					android:name="Country"
-					android:summary="Edit the country for the weather data"
-					android:title="Country" />
+                <EditTextPreference
+                    android:key="countryLocationPref"
+                    android:name="Country"
+                    android:summary="Edit the country for the weather data"
+                    android:title="Country" />
 
-				<EditTextPreference
-					android:key="tmpCityLocationPref"
-					android:name="City"
-					android:summary="Edit the full name of the city for the weather data"
-					android:title="City" />
+                <EditTextPreference
+                    android:key="tmpCityLocationPref"
+                    android:name="City"
+                    android:summary="Edit the full name of the city for the weather data"
+                    android:title="City" />
 
-				<Preference
-					android:key="searchLocationPref"
-					android:summary="Search for the location, using the fields above"
-					android:title="Search" />
-			</PreferenceCategory>
+                <Preference
+                    android:key="searchLocationPref"
+                    android:summary="Search for the location, using the fields above"
+                    android:title="Search" />
+            </PreferenceCategory>
 
-			<PreferenceCategory android:title="Selected Weather Location" >
+            <PreferenceCategory android:title="Selected Weather Location" >
 
-				<ListPreference
-					android:defaultValue="None"
-					android:enabled="false"
-					android:entries="@array/locationArray"
-					android:entryValues="@array/locationValues"
-					android:key="cityLocationPref"
-					android:summary="Select the final location."
-					android:title="Weather Location" />
-			</PreferenceCategory>
-		</PreferenceScreen>
-	</PreferenceCategory>
+                <ListPreference
+                    android:defaultValue="None"
+                    android:enabled="false"
+                    android:entries="@array/locationArray"
+                    android:entryValues="@array/locationValues"
+                    android:key="cityLocationPref"
+                    android:summary="Select the final location."
+                    android:title="Weather Location" />
+            </PreferenceCategory>
+        </PreferenceScreen>
+    </PreferenceCategory>
 
 </PreferenceScreen>

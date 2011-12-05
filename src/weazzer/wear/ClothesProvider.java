@@ -11,35 +11,35 @@ import weazzer.gui.R;
 import weazzer.wear.ClothingArticle.UserSex;
 
 /**
- * The Class ClothesProvider that obtains various ArrayLists of existent ClothingArticles.
+ * The Class ClothesProvider that obtains various ArrayLists of existent
+ * ClothingArticles.
  */
 public class ClothesProvider {
-	
+
 	/** The pants for women. */
 	private ArrayList<ClothingArticle> pantsWomen;
-	
+
 	/** The pants for men. */
 	private ArrayList<ClothingArticle> pantsMen;
-	
+
 	/** The shirts for women. */
 	private ArrayList<ClothingArticle> shirtsWomen;
-	
+
 	/** The shirts for men. */
 	private ArrayList<ClothingArticle> shirtsMen;
-	
+
 	/** The overcoats for women. */
 	private ArrayList<ClothingArticle> overcoatsWomen;
-	
+
 	/** The overcoats for men. */
 	private ArrayList<ClothingArticle> overcoatsMen;
-	
+
 	/** The accessories for men. */
 	private ArrayList<ClothingArticle> accessoriesWomen;
-	
+
 	/** The accessories for women. */
 	private ArrayList<ClothingArticle> accessoriesMen;
-	
-	
+
 	/**
 	 * Instantiates a new clothes provider.
 	 */
@@ -52,20 +52,23 @@ public class ClothesProvider {
 		overcoatsWomen = new ArrayList<ClothingArticle>();
 		accessoriesWomen = new ArrayList<ClothingArticle>();
 		accessoriesMen = new ArrayList<ClothingArticle>();
-		
-		ClothingArticle CA = new ClothingArticle("pantalon", ClothingArticle.Type.Pants, UserSex.Female, R.drawable.pantalon1, 2.0f);
+
+		ClothingArticle CA = new ClothingArticle("pantalon",
+				ClothingArticle.Type.Pants, UserSex.Female,
+				R.drawable.pantalon1, 2.0f);
 		pantsMen.add(CA);
 		// TODO formez restul listelor
 	}
 
 	/**
 	 * Gets the pants, according to the user's sex.
-	 *
-	 * @param userSex the user sex
+	 * 
+	 * @param userSex
+	 *            the user sex
 	 * @return the pants
 	 */
 	public ArrayList<ClothingArticle> getPants(UserSex userSex) {
-		if(userSex.equals(UserSex.Female))
+		if (userSex.equals(UserSex.Female))
 			return pantsWomen;
 		else
 			return pantsMen;
@@ -73,12 +76,13 @@ public class ClothesProvider {
 
 	/**
 	 * Gets the shirts, according to the user's sex.
-	 *
-	 * @param userSex the user sex
+	 * 
+	 * @param userSex
+	 *            the user sex
 	 * @return the shirts
 	 */
 	public ArrayList<ClothingArticle> getShirts(UserSex userSex) {
-		if(userSex.equals(UserSex.Female))
+		if (userSex.equals(UserSex.Female))
 			return shirtsWomen;
 		else
 			return shirtsMen;
@@ -86,12 +90,13 @@ public class ClothesProvider {
 
 	/**
 	 * Gets the overcoats, according to the user's sex.
-	 *
-	 * @param userSex the user sex
+	 * 
+	 * @param userSex
+	 *            the user sex
 	 * @return the overcoats
 	 */
 	public ArrayList<ClothingArticle> getOvercoats(UserSex userSex) {
-		if(userSex.equals(UserSex.Female))
+		if (userSex.equals(UserSex.Female))
 			return overcoatsWomen;
 		else
 			return overcoatsMen;
@@ -99,12 +104,13 @@ public class ClothesProvider {
 
 	/**
 	 * Gets the accessories, according to the user's sex.
-	 *
-	 * @param userSex the user sex
+	 * 
+	 * @param userSex
+	 *            the user sex
 	 * @return the accessories
 	 */
 	public ArrayList<ClothingArticle> getAccessories(UserSex userSex) {
-		if(userSex.equals(UserSex.Female))
+		if (userSex.equals(UserSex.Female))
 			return accessoriesWomen;
 		else
 			return accessoriesMen;
