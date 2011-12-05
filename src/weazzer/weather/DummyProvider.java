@@ -31,7 +31,7 @@ public class DummyProvider implements WeatherProvider {
 		
 		wd.humidity=0.8f;
 		wd.temperature=15f;
-		wd.weatherCondition=WeatherCondition.Clear;
+		wd.weatherCondition="Sunny";
 		wd.when=new GregorianCalendar();
 		wd.windSpeed=12f;
 		
@@ -65,7 +65,7 @@ public class DummyProvider implements WeatherProvider {
 			forecast.forecastDate.add(Calendar.DAY_OF_MONTH, i);
 			forecast.tempMax=24f+i;
 			forecast.tempMin=16f-i;
-			forecast.weatherCondition=WeatherCondition.Rain;
+			forecast.weatherCondition="Rain";
 			forecast.windDirection="NE";
 			forecast.windSpeed=14f;
 			

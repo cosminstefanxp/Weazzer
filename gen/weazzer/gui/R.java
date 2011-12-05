@@ -15,10 +15,16 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int right_arrow=0x7f020001;
-        public static final int sun=0x7f020002;
-        public static final int trollface=0x7f020003;
+        public static final int big_cloudy=0x7f020000;
+        public static final int big_rain=0x7f020001;
+        public static final int big_sunny=0x7f020002;
+        public static final int cloudy=0x7f020003;
+        public static final int fog=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int rain=0x7f020006;
+        public static final int right_arrow=0x7f020007;
+        public static final int sunny=0x7f020008;
+        public static final int trollface=0x7f020009;
     }
     public static final class id {
         public static final int BottomClothesView=0x7f070026;

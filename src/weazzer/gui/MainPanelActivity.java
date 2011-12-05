@@ -4,6 +4,9 @@
  */
 package weazzer.gui;
 
+import weazzer.weather.DummyProvider;
+import weazzer.weather.WeatherData;
+import weazzer.weather.WeatherProvider;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +27,8 @@ public class MainPanelActivity extends Activity {
 
 	/** The gender. */
 	String gender;
+	WeatherProvider weatherProvider;
+	int currentPeriod;
 	
 	/**
 	 * The listener interface for receiving myTouch events.
@@ -73,13 +78,34 @@ public class MainPanelActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		View view = findViewById(R.id.TopClothesView);
-		ImageView imagine = (ImageView) view;
-		GestureDetector mGestureDetector = new GestureDetector(
-				new MainPanelGestureDetector(imagine));
-		MyTouchListener mGestureListener = new MyTouchListener(mGestureDetector);
+		int swipedImgIds[] = {R.id.TopClothesView, R.id.BottomClothesView, R.id.OvercoatClothesView, R.id.mainWeatherImageView};
+		for (int id : swipedImgIds) {
+			ImageView imagine = (ImageView) findViewById(id);
+			GestureDetector mGestureDetector = new GestureDetector(
+					new MainPanelGestureDetector(imagine));
+			MyTouchListener mGestureListener = new MyTouchListener(mGestureDetector);
+	
+			imagine.setOnTouchListener(mGestureListener);
+		}
+		
+		weatherProvider = new DummyProvider();
+		currentPeriod = 0;
+		refreshUI();
+	}
 
-		imagine.setOnTouchListener(mGestureListener);
+	private void refreshUI() {
+		WeatherData currentWeatherData = weatherProvider.getCurrentWeather().get(currentPeriod);
+		ImageView centralImage = (ImageView) findViewById(R.id.mainWeatherImageView);
+		centralImage.setImageResource(getResourceIdForWeatherBig(currentWeatherData.getWeatherCondition()));		
+	}
+
+	private int getResourceIdForWeatherBig(String weatherCondition) {
+		weatherCondition = weatherCondition.toLowerCase();
+		if(weatherCondition.equals("sunny")) {
+			return R.drawable.big_sunny;
+		} else {
+			return R.drawable.big_rain;
+		}
 	}
 
 	/* (non-Javadoc)

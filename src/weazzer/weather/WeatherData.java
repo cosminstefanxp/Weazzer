@@ -6,8 +6,6 @@ package weazzer.weather;
 
 import java.util.Calendar;
 
-import weazzer.weather.WeatherProvider.WeatherCondition;
-
 /**
  * The Class WeatherData that stores information about real weather.
  * Based on http://www.worldweatheronline.com/free-weather-feed.aspx
@@ -15,6 +13,22 @@ import weazzer.weather.WeatherProvider.WeatherCondition;
 public class WeatherData {
 	
 	
+	public Float getHumidity() {
+		return humidity;
+	}
+
+	public String getWeatherCondition() {
+		return weatherCondition;
+	}
+
+	public void setWeatherCondition(String weatherCondition) {
+		this.weatherCondition = weatherCondition;
+	}
+
+	public void setHumidity(Float humidity) {
+		this.humidity = humidity;
+	}
+
 	/** The when. */
 	public Calendar when;
 	
@@ -28,7 +42,7 @@ public class WeatherData {
 	public Float humidity;
 	
 	/** The weather condition. */
-	public WeatherCondition weatherCondition;
+	public String weatherCondition;
 	
 	public Calendar getWhen() {
 		return when;
@@ -52,14 +66,6 @@ public class WeatherData {
 	
 	public void setWindSpeed(Float windSpeed) {
 		this.windSpeed = windSpeed;
-	}
-	
-	public Float getHumidity() {
-		return humidity;
-	}
-	
-	public void sethumidity(Float humidity) {
-		this.humidity = humidity;
 	}
 	
 	

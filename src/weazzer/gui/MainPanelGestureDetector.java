@@ -3,7 +3,6 @@ package weazzer.gui;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.GestureDetector.SimpleOnGestureListener;
-import android.widget.ImageView;
 
 public class MainPanelGestureDetector  extends SimpleOnGestureListener {
 	private static final int SWIPE_MIN_DISTANCE = 50;
@@ -33,9 +32,7 @@ public class MainPanelGestureDetector  extends SimpleOnGestureListener {
 
 	}
 
-	void downSwipe() {
-		ImageView imageView = (ImageView) owner;
-		imageView.setImageResource(R.drawable.sun);
+	void downSwipe() {		
 	}
 
 	@Override
