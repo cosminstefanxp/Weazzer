@@ -6,6 +6,8 @@ package weazzer.wear;
 
 import java.util.ArrayList;
 
+import weazzer.gui.R;
+
 import weazzer.wear.ClothingArticle.UserSex;
 
 /**
@@ -51,9 +53,9 @@ public class ClothesProvider {
 		accessoriesWomen = new ArrayList<ClothingArticle>();
 		accessoriesMen = new ArrayList<ClothingArticle>();
 		
-		//TODO: Facut intializare hard-coded (sau din baza de date, desi mi se pare mai usor hardcodat)
-		//pentru fiecare haina
-		//Imaginile trebuie puse in res/drawable si in ClothingArticle trebuie pus fara extensie (vezi documentatia de acolo)
+		ClothingArticle CA = new ClothingArticle("pantalon", ClothingArticle.Type.Pants, UserSex.Female, R.drawable.pantalon1, 2.0f);
+		pantsMen.add(CA);
+		// TODO formez restul listelor
 	}
 
 	/**

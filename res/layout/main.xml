@@ -293,7 +293,7 @@
             android:layout_weight="0.30" >
 
             <ImageView
-                android:id="@+id/TopClothesView"
+                android:id="@+id/BottomClothesView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
@@ -323,7 +323,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/BottomClothesView"
+                android:id="@+id/TopClothesView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"

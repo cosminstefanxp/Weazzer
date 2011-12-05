@@ -6,6 +6,9 @@ package weazzer.gui;
 
 import java.lang.reflect.Field;
 
+import weazzer.wear.ClothesSuggestion;
+import weazzer.wear.ClothingArticle.UserSex;
+import weazzer.wear.SuggestionsEngine;
 import weazzer.weather.DummyProvider;
 import weazzer.weather.WeatherData;
 import weazzer.weather.WeatherLocation;
@@ -132,6 +135,8 @@ public class MainPanelActivity extends Activity {
 	String measurementUnitSuffix;
 	WeatherLocation weatherLocation;
 	
+	ClothesSuggestion clothesSuggestion;
+	
 	/**
 	 * The listener interface for receiving myTouch events.
 	 * The class that is interested in processing a myTouch
@@ -247,11 +252,18 @@ public class MainPanelActivity extends Activity {
 				(LinearLayout) findViewById(R.id.secondNextPeriodLayout),
 				(LinearLayout) findViewById(R.id.thirdNextPeriodLayout),
 				(LinearLayout) findViewById(R.id.fourthNextPeriodLayout) };
-		for (int i=0;i<4;i++)
+		for (int i=0;i<4;i++) {
 			if (i==currentPeriod) 
 				columnLayouts[i].setBackgroundColor(Color.rgb(100,100,100));
 			else
 				columnLayouts[i].setBackgroundColor(Color.rgb(0,0,0));
+		}
+		
+		//clothes stuff
+		clothesSuggestion = (new SuggestionsEngine()).getSuggestion(currentWeatherData, UserSex.Male);
+		int bottomIndex = clothesSuggestion.getBottomIndex();
+		((ImageView)findViewById(R.id.BottomClothesView))
+			.setImageResource(clothesSuggestion.getBottomSuggestions().get(bottomIndex).getResource());
 	}
 
 	private int getResourceIdForWeather(Boolean big, String iconName) {
