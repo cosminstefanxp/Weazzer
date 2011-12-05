@@ -12,20 +12,7 @@ import java.util.ArrayList;
  */
 public interface WeatherProvider {
 
-	/**
-	 * The Enum WeatherCondition.
-	 */
-	public enum WeatherCondition {	
-		/** Rain. */
-		Rain, 
-		 /** Clear. */
-		 Clear, 
-		 /** Snow. */
-		 Snow, 
-		 /** Fog. */
-		 Fog
-	};
-	
+
 	/**
 	 * The Enum MeasurementUnit.
 	 */

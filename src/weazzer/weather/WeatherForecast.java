@@ -6,7 +6,6 @@ package weazzer.weather;
 
 import java.util.Calendar;
 
-import weazzer.weather.WeatherProvider.WeatherCondition;
 
 /**
  * The Class WeatherForecast that stores information about the weather which is forecasted.
@@ -55,11 +54,11 @@ public class WeatherForecast {
 		this.windDirection = windDirection;
 	}
 
-	public WeatherCondition getWeatherCondition() {
+	public String getWeatherCondition() {
 		return weatherCondition;
 	}
 
-	public void setWeatherCondition(WeatherCondition weatherCondition) {
+	public void setWeatherCondition(String weatherCondition) {
 		this.weatherCondition = weatherCondition;
 	}
 
@@ -79,7 +78,7 @@ public class WeatherForecast {
 	public String windDirection;
 	
 	/** The weather condition. */
-	public WeatherCondition weatherCondition;
+	public String weatherCondition;
 	
 	
 }
