@@ -40,6 +40,7 @@ public class DummyProvider implements WeatherProvider {
 		weatherList.add(wd);
 		weatherList.add(wd);
 		weatherList.add(wd);
+		weatherList.add(wd);
 		
 		return weatherList;
 	}
