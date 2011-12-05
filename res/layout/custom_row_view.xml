@@ -24,82 +24,57 @@
                 android:textColor="#FF0000"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-        </TableRow>
+
+            <ImageView
+                android:id="@+id/weatherImageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/big_cloudy" />
 
+        </TableRow>
+
         <TableRow
             android:id="@+id/tableRow2"
             android:layout_width="200dp"
             android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/windSpeed"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:text="text"
+                android:textColor="#FFFF00"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/windDirection"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:text="text"
+                android:textColor="#FFFF00"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tempMin"
-                android:layout_width="80dp"
                 android:layout_height="fill_parent"
-                android:layout_gravity="left"
-                android:layout_margin="4dp"
-                android:layout_weight="1.0"
-                android:paddingLeft="20dp"
-                android:text="text"
-                android:textColor="#FFFF00"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/windSpeed"
-                android:layout_width="60dp"
-                android:layout_height="fill_parent"
-                android:layout_gravity="left"
-                android:layout_margin="4dp"
                 android:layout_weight="1.0"
                 android:text="text"
                 android:textColor="#FFFF00"
                 android:textSize="14sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/weatherCondition"
-                android:layout_width="60dp"
-                android:layout_height="fill_parent"
-                android:layout_gravity="left"
-                android:layout_margin="4dp"
-                android:layout_weight="1.0"
-                android:text="text"
-                android:textColor="#FFFF00"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow3"
-            android:layout_width="200dp"
-            android:layout_height="fill_parent" >
 
             <TextView
                 android:id="@+id/tempMax"
-                android:layout_width="80dp"
                 android:layout_height="fill_parent"
-                android:layout_margin="4dp"
                 android:layout_weight="1.0"
-                android:paddingLeft="20dp"
                 android:text="text"
                 android:textColor="#FFFF00"
                 android:textSize="14sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/windDirection"
-                android:layout_width="120dp"
-                android:layout_height="fill_parent"
-                android:layout_gravity="left"
-                android:layout_margin="4dp"
-                android:layout_weight="1.0"
-                android:layout_span="2"
-                android:text="text"
-                android:textColor="#FFFF00"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
         </TableRow>
+
     </TableLayout>
 
 </LinearLayout>

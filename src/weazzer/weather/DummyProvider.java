@@ -66,6 +66,7 @@ public class DummyProvider implements WeatherProvider {
 			forecast.weatherCondition="Rain";
 			forecast.windDirection="NE";
 			forecast.windSpeed=14f;
+			forecast.icon = "sunny";
 			
 			wf.add(forecast);
 		}

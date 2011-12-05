@@ -4,6 +4,7 @@
  */
 package weazzer.gui;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -72,7 +74,7 @@ public class WeatherForecastAdapter extends BaseAdapter {
 			holder.windSpeed = (TextView) convertView.findViewById(R.id.windSpeed);
 			holder.tempMin = (TextView) convertView.findViewById(R.id.tempMin);
 			holder.windDirection = (TextView) convertView.findViewById(R.id.windDirection);
-			holder.weatherCondition = (TextView) convertView.findViewById(R.id.weatherCondition);
+			holder.weatherCondition = (ImageView) convertView.findViewById(R.id.weatherImageView);
 
 			convertView.setTag(holder);
 		} else {
@@ -85,8 +87,26 @@ public class WeatherForecastAdapter extends BaseAdapter {
 		holder.windSpeed.setText(forecast.get(position).getWindSpeed().toString() + " km/h");
 		holder.tempMin.setText(forecast.get(position).getTempMin().toString() + " C");
 		holder.windDirection.setText(forecast.get(position).getWindDirection().toString());
-		holder.weatherCondition.setText(forecast.get(position).getWeatherCondition().toString());
+		holder.weatherCondition.setImageResource(getResourceIdForWeather(false, forecast.get(position).getIcon()));		
 		return convertView;
+	}
+	
+	private int getResourceIdForWeather(Boolean big, String iconName) {
+		String prefix = big?"big_":"small_";
+		try {
+			Field field = R.drawable.class.getField(prefix+iconName);
+			return field.getInt(null);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	/**
@@ -110,6 +130,6 @@ public class WeatherForecastAdapter extends BaseAdapter {
 		TextView windDirection;
 		
 		/** The weather condition. */
-		TextView weatherCondition;
+		ImageView weatherCondition;
 	}
 }

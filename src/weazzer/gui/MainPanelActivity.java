@@ -204,6 +204,8 @@ public class MainPanelActivity extends Activity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		TextView locationLabel = (TextView) findViewById(R.id.locationLabel);
+		locationLabel.setText(weatherLocation.city);
 	}
 	
 	
