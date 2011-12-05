@@ -29,4 +29,38 @@ public class WeatherData {
 	
 	/** The weather condition. */
 	public WeatherCondition weatherCondition;
+	
+	public Calendar getWhen() {
+		return when;
+	}
+	
+	public void setWhen(Calendar when) {
+		this.when = when;
+	}
+	
+	public Float getTemperature() {
+		return temperature;
+	}
+	
+	public void setTemperature(Float temperature) {
+		this.temperature = temperature;
+	}
+	
+	public Float getWindSpeed() {
+		return windSpeed;
+	}
+	
+	public void setWindSpeed(Float windSpeed) {
+		this.windSpeed = windSpeed;
+	}
+	
+	public Float getHumidity() {
+		return humidity;
+	}
+	
+	public void sethumidity(Float humidity) {
+		this.humidity = humidity;
+	}
+	
+	
 }

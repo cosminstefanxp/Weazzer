@@ -74,7 +74,8 @@ public class MainPanelActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		ImageView imagine = (ImageView) findViewById(R.id.TopClothesView);
+		View view = findViewById(R.id.TopClothesView);
+		ImageView imagine = (ImageView) view;
 		GestureDetector mGestureDetector = new GestureDetector(
 				new MainPanelGestureDetector(imagine));
 		MyTouchListener mGestureListener = new MyTouchListener(mGestureDetector);

@@ -1,18 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
- android:orientation="vertical" 
- android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-  <TextView android:id="@+id/name"
-  android:textSize="14sp" 
-  android:textStyle="bold" 
-  android:textColor="#FFFF00" 
-  android:layout_width="wrap_content" 
-  android:layout_height="wrap_content"/>
- <TextView android:id="@+id/cityState" 
-  android:layout_width="wrap_content" 
-  android:layout_height="wrap_content"/>
- <TextView android:id="@+id/phone" 
-  android:layout_width="wrap_content" 
-  android:layout_height="wrap_content"/>
+    android:layout_width="fill_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/forecastDate"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:textColor="#FFFF00"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="text" />
+
+    <TextView
+        android:id="@+id/tempMax"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:textColor="#FFFF00"
+        android:textSize="14sp"
+        android:textStyle="bold" 
+        android:text="text" />
+
+    <TextView
+        android:id="@+id/tempMin"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:textColor="#FFFF00"
+        android:textSize="14sp"
+        android:textStyle="bold"
+                android:text="text" />
+
+    <TextView
+        android:id="@+id/windSpeed"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:textColor="#FFFF00"
+        android:textSize="14sp"
+        android:textStyle="bold"        
+         android:text="text" />
+
+    <TextView
+        android:id="@+id/windDirection"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:textColor="#FFFF00"
+        android:textSize="14sp"
+        android:textStyle="bold"        
+         android:text="text" />
+    
+    <TextView
+        android:id="@+id/weatherCondition"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:textColor="#FFFF00"
+        android:textSize="14sp"
+        android:textStyle="bold"       
+        android:text="text" />
+
 </LinearLayout>

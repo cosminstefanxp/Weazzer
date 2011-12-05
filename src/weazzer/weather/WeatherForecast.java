@@ -15,6 +15,54 @@ import weazzer.weather.WeatherProvider.WeatherCondition;
 public class WeatherForecast {
 
 	
+	public Calendar getForecastDate() {
+		return forecastDate;
+	}
+
+	public void setForecastDate(Calendar forecastDate) {
+		this.forecastDate = forecastDate;
+	}
+
+	public Float getTempMax() {
+		return tempMax;
+	}
+
+	public void setTempMax(Float tempMax) {
+		this.tempMax = tempMax;
+	}
+
+	public Float getTempMin() {
+		return tempMin;
+	}
+
+	public void setTempMin(Float tempMin) {
+		this.tempMin = tempMin;
+	}
+
+	public Float getWindSpeed() {
+		return windSpeed;
+	}
+
+	public void setWindSpeed(Float windSpeed) {
+		this.windSpeed = windSpeed;
+	}
+
+	public String getWindDirection() {
+		return windDirection;
+	}
+
+	public void setWindDirection(String windDirection) {
+		this.windDirection = windDirection;
+	}
+
+	public WeatherCondition getWeatherCondition() {
+		return weatherCondition;
+	}
+
+	public void setWeatherCondition(WeatherCondition weatherCondition) {
+		this.weatherCondition = weatherCondition;
+	}
+
 	/** The forecast date. */
 	public Calendar forecastDate;
 	
@@ -32,4 +80,6 @@ public class WeatherForecast {
 	
 	/** The weather condition. */
 	public WeatherCondition weatherCondition;
+	
+	
 }
