@@ -6,6 +6,7 @@ package weazzer.gui;
 
 import weazzer.weather.DummyProvider;
 import weazzer.weather.WeatherData;
+import weazzer.weather.WeatherLocation;
 import weazzer.weather.WeatherProvider;
 import android.app.Activity;
 import android.content.Intent;
@@ -29,6 +30,7 @@ public class MainPanelActivity extends Activity {
 	String gender;
 	WeatherProvider weatherProvider;
 	int currentPeriod;
+	WeatherLocation weatherLocation;
 	
 	/**
 	 * The listener interface for receiving myTouch events.
@@ -119,15 +121,21 @@ public class MainPanelActivity extends Activity {
 
 
 	/**
-	 * Gets the preferences.
+	 * Gets the preferences from the system preferences in Android.
 	 *
 	 * @return the preferences
 	 */
 	private void getPreferences() {
-		// Get the xml/preferences.xml preferences
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(getBaseContext());
+		// Get the xml/preferences.xml preferences 
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		
+		//Gender
 		gender = prefs.getString("genderPref", "male");
+		
+		//Weather location
+		weatherLocation=new WeatherLocation();
+		weatherLocation.city=prefs.getString("cityLocationPref", "Bucharest");
+		weatherLocation.country=prefs.getString("countryLocationPref", "Romania");		
 	}
 
 	/* (non-Javadoc)
