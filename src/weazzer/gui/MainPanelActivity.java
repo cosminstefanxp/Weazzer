@@ -42,9 +42,26 @@ public class MainPanelActivity extends Activity {
 			super();
 			this.owner = owner;
 		}
-
+		
 		@Override
 		public boolean onDown(MotionEvent e) {
+			if (owner == findViewById(R.id.fourthNextPeriodLayout)) {
+				currentPeriod = 3;
+				refreshUI();
+			}
+			if (owner == findViewById(R.id.thirdNextPeriodLayout)) {
+				currentPeriod = 2;
+				refreshUI();
+			}
+			if (owner == findViewById(R.id.secondNextPeriodLayout)) {
+				currentPeriod = 1;
+				refreshUI();
+			}
+			if (owner == findViewById(R.id.firstNextPeriodLayout)) {
+				currentPeriod = 0;
+				refreshUI();
+			}
+							
 			return true;
 		}
 
@@ -163,14 +180,15 @@ public class MainPanelActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		int swipedImgIds[] = {R.id.TopClothesView, R.id.BottomClothesView, R.id.OvercoatClothesView, R.id.mainWeatherImageView};
+		int swipedImgIds[] = {R.id.TopClothesView, R.id.BottomClothesView, R.id.OvercoatClothesView, R.id.mainWeatherImageView,
+				R.id.firstNextPeriodLayout, R.id.secondNextPeriodLayout, R.id.thirdNextPeriodLayout, R.id.fourthNextPeriodLayout};
 		for (int id : swipedImgIds) {
-			ImageView imagine = (ImageView) findViewById(id);
+			View view = findViewById(id);
 			GestureDetector mGestureDetector = new GestureDetector(
-					new MainPanelGestureDetector(imagine));
+					new MainPanelGestureDetector(view));
 			MyTouchListener mGestureListener = new MyTouchListener(mGestureDetector);
 	
-			imagine.setOnTouchListener(mGestureListener);
+			view.setOnTouchListener(mGestureListener);
 		}
 		
 		weatherProvider = new DummyProvider();
