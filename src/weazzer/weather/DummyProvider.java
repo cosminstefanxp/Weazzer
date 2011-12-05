@@ -31,21 +31,21 @@ public class DummyProvider implements WeatherProvider {
 	 * @see weazzer.weather.WeatherProvider#getCurrentWeather()
 	 */
 	public ArrayList<WeatherData> getCurrentWeather() {
-		WeatherData wd=new WeatherData();
-		
-		wd.humidity=0.8f;
-		wd.temperature=15f;
-		wd.weatherCondition="Sunny";
-		wd.when="Now";
-		wd.windSpeed=12f;
+
 		
 		ArrayList<WeatherData> weatherList=new ArrayList<WeatherData>();
-		weatherList.add(wd);
-		weatherList.add(wd);
-		weatherList.add(wd);
-		weatherList.add(wd);
-		weatherList.add(wd);
-		
+		for (int i=1; i<5; i++) {
+			WeatherData wd=new WeatherData();
+			
+			wd.humidity=i*0.8f;
+			wd.temperature=i*2f;
+			wd.weatherCondition=i!=2?"Sunny":"Rain";
+			wd.when=i==1?"Now":i==2?"In 2H":i==3?"In 5H":"In 10H";
+			wd.windSpeed=i*2f;
+			wd.icon=i!=2?"sunny":"rain";
+			weatherList.add(wd);
+		}
+
 		return weatherList;
 	}
 

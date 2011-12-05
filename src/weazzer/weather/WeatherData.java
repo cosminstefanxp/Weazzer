@@ -25,6 +25,9 @@ public class WeatherData {
 
 	/** The weather condition. */
 	public String weatherCondition;
+	
+	/** The icon name. */
+	public String icon;
 
 	/**
 	 * Gets the when description.
@@ -115,5 +118,20 @@ public class WeatherData {
 	public void setHumidity(Float humidity) {
 		this.humidity = humidity;
 	}
+	
+	/**
+	 * @return the icon
+	 */
+	public String getIcon() {
+		return icon;
+	}
+
+	/**
+	 * @param icon the icon to set
+	 */
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
 
 }

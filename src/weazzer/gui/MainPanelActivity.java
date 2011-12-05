@@ -4,12 +4,15 @@
  */
 package weazzer.gui;
 
+import java.lang.reflect.Field;
+
 import weazzer.weather.DummyProvider;
 import weazzer.weather.WeatherData;
 import weazzer.weather.WeatherProvider;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.GestureDetector;
@@ -18,17 +21,97 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * The Class MainPanelActivity.
  */
 public class MainPanelActivity extends Activity {
+	
+	class MainPanelGestureDetector  extends SimpleOnGestureListener {
+		private static final int SWIPE_MIN_DISTANCE = 50;
+		private static final int SWIPE_MAX_OFF_PATH = 100;
+		private static final int SWIPE_THRESHOLD_VELOCITY = 50;
+		View owner;
+
+		public MainPanelGestureDetector(View owner) {
+			super();
+			this.owner = owner;
+		}
+
+		@Override
+		public boolean onDown(MotionEvent e) {
+			return true;
+		}
+
+		void rightSwipe() {
+			if(owner == findViewById(R.id.mainWeatherImageView)) {
+				if(currentPeriod>0)
+					currentPeriod--;
+			}
+			refreshUI();
+		}
+
+		void leftSwipe() {
+			if(owner == findViewById(R.id.mainWeatherImageView)) {
+				if(currentPeriod<3)
+					currentPeriod++;
+			}
+			refreshUI();
+		}
+
+		void upSwipe() {
+			if(owner == findViewById(R.id.mainWeatherImageView)) {
+				if(currentPeriod<3)
+					currentPeriod++;
+			}
+			refreshUI();
+		}
+
+		void downSwipe() {		
+			if(owner == findViewById(R.id.mainWeatherImageView)) {
+				if(currentPeriod>0)
+					currentPeriod--;
+			}
+			refreshUI();
+		}
+
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+				float velocityY) {
+			float dX = e2.getX() - e1.getX();
+			float dY = e1.getY() - e2.getY();
+			if (Math.abs(dY) < SWIPE_MAX_OFF_PATH
+					&& Math.abs(velocityX) >= SWIPE_THRESHOLD_VELOCITY
+					&& Math.abs(dX) >= SWIPE_MIN_DISTANCE) {
+				if (dX > 0) {
+					rightSwipe();
+				} else {
+					leftSwipe();
+				}
+				return true;
+			} else if (Math.abs(dX) < SWIPE_MAX_OFF_PATH
+					&& Math.abs(velocityY) >= SWIPE_THRESHOLD_VELOCITY
+					&& Math.abs(dY) >= SWIPE_MIN_DISTANCE) {
+				if (dY > 0) {
+					upSwipe();
+				} else {
+					downSwipe();
+				}
+				return true;
+			}
+			return false;
+		}
+	}
 
 	/** The gender. */
 	String gender;
 	WeatherProvider weatherProvider;
 	int currentPeriod;
+	String measurementUnitSuffix;
 	
 	/**
 	 * The listener interface for receiving myTouch events.
@@ -90,22 +173,81 @@ public class MainPanelActivity extends Activity {
 		
 		weatherProvider = new DummyProvider();
 		currentPeriod = 0;
-		refreshUI();
 	}
-
+	
+	/**
+	 * Do stuff that don't change at user interaction. Is called by onStart().
+	 */
+	private void initializeUI() {
+		try {
+			for(int currentPeriod=0; currentPeriod<4; currentPeriod++) {
+				WeatherData currentWeatherData = weatherProvider.getCurrentWeather().get(currentPeriod);
+				String prefix = null;
+				switch(currentPeriod) {
+					case 0 : prefix = "first"; break;
+					case 1: prefix = "second"; break;
+					case 2: prefix = "third"; break;
+					case 3: prefix = "fourth"; break;
+				}
+				int idTemperatureLabel = R.id.class.getField(prefix+"NextPeriodValueLabel").getInt(null);
+				TextView temperatureLabel = (TextView) findViewById(idTemperatureLabel);
+				temperatureLabel.setText(currentWeatherData.getTemperature()+measurementUnitSuffix);
+				int idWhenLabel = R.id.class.getField(prefix+"NextPeriodTitleLabel").getInt(null);
+				TextView whenLabel = (TextView) findViewById(idWhenLabel);
+				whenLabel.setText(currentWeatherData.getWhen());
+				int idImage = R.id.class.getField(prefix+"NextPeriodImageView").getInt(null);
+				ImageView imageView = (ImageView) findViewById(idImage);
+				imageView.setImageResource(getResourceIdForWeather(false, currentWeatherData.getIcon()));	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * Do stuff that change at user interaction. Is called by onStart() after initializeUI.
+	 */
 	private void refreshUI() {
 		WeatherData currentWeatherData = weatherProvider.getCurrentWeather().get(currentPeriod);
 		ImageView centralImage = (ImageView) findViewById(R.id.mainWeatherImageView);
-		centralImage.setImageResource(getResourceIdForWeatherBig(currentWeatherData.getWeatherCondition()));		
+		centralImage.setImageResource(getResourceIdForWeather(true, currentWeatherData.getIcon()));		
+		TextView timeLabel = (TextView) findViewById(R.id.timeLabel);
+		timeLabel.setText(currentWeatherData.getWhen());
+		TextView humidityLabel = (TextView) findViewById(R.id.humidityLabel);
+		humidityLabel.setText(currentWeatherData.getHumidity().toString());
+		TextView windLabel = (TextView) findViewById(R.id.windLabel);
+		windLabel.setText(currentWeatherData.getWindSpeed()+"km/h");
+		TextView weatherNowLabel = (TextView) findViewById(R.id.weatherNowLabel);
+		weatherNowLabel.setText(currentWeatherData.getTemperature().toString()+measurementUnitSuffix);		
+		LinearLayout columnLayouts[] = {
+				(LinearLayout) findViewById(R.id.firstNextPeriodLayout),
+				(LinearLayout) findViewById(R.id.secondNextPeriodLayout),
+				(LinearLayout) findViewById(R.id.thirdNextPeriodLayout),
+				(LinearLayout) findViewById(R.id.fourthNextPeriodLayout) };
+		for (int i=0;i<4;i++)
+			if (i==currentPeriod) 
+				columnLayouts[i].setBackgroundColor(Color.rgb(100,100,100));
+			else
+				columnLayouts[i].setBackgroundColor(Color.rgb(0,0,0));
 	}
 
-	private int getResourceIdForWeatherBig(String weatherCondition) {
-		weatherCondition = weatherCondition.toLowerCase();
-		if(weatherCondition.equals("sunny")) {
-			return R.drawable.big_sunny;
-		} else {
-			return R.drawable.big_rain;
+	private int getResourceIdForWeather(Boolean big, String iconName) {
+		String prefix = big?"big_":"small_";
+		try {
+			Field field = R.drawable.class.getField(prefix+iconName);
+			return field.getInt(null);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -115,6 +257,8 @@ public class MainPanelActivity extends Activity {
 	public void onStart() {
 		super.onStart();
 		getPreferences();
+		initializeUI();
+		refreshUI();
 	}
 
 
@@ -128,6 +272,8 @@ public class MainPanelActivity extends Activity {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
 		gender = prefs.getString("genderPref", "male");
+		// TODO
+		measurementUnitSuffix = "°C";
 	}
 
 	/* (non-Javadoc)

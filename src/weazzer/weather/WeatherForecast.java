@@ -14,6 +14,20 @@ import java.util.Calendar;
 public class WeatherForecast {
 
 	
+	/**
+	 * @return the icon
+	 */
+	public String getIcon() {
+		return icon;
+	}
+
+	/**
+	 * @param icon the icon to set
+	 */
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
 	public Calendar getForecastDate() {
 		return forecastDate;
 	}
@@ -79,6 +93,9 @@ public class WeatherForecast {
 	
 	/** The weather condition. */
 	public String weatherCondition;
+	
+	/** The icon name. */
+	public String icon;
 	
 	
 }

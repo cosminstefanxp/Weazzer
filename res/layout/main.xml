@@ -3,42 +3,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
-    <RelativeLayout
-        android:id="@+id/mainTopLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="59dp" >
-
-        <TextView
-            android:id="@+id/weatherNowLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="5°C"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/maximumLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/weatherNowLabel"
-            android:layout_alignBottom="@+id/weatherNowLabel"
-            android:layout_alignParentRight="true"
-            android:text="...10°C"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/minimumLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/weatherNowLabel"
-            android:layout_alignBottom="@+id/weatherNowLabel"
-            android:layout_alignParentLeft="true"
-            android:text="0°C..."
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/mainMainLayout"
@@ -70,25 +34,35 @@
                 android:layout_marginBottom="22dp"
                 android:text="7:00"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/windLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="5km/h NE"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-
+
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/humidityLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView1"
-                android:layout_alignBottom="@+id/textView1"
+                android:layout_alignBaseline="@+id/windLabel"
+                android:layout_alignBottom="@+id/windLabel"
                 android:layout_alignParentRight="true"
                 android:text="66%"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/weatherNowLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/timeLabel"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="17dp"
+                android:text="5°C"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
         </RelativeLayout>
 
@@ -97,9 +71,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.0" android:animationCache="false" android:paddingLeft="10dp">
-
+
             <LinearLayout
-                android:id="@+id/linearLayout5"
+                android:id="@+id/firstNextPeriodLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="1.0"
@@ -112,13 +86,13 @@
                     android:layout_weight="1.0"
                     android:text="7:00"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
-
+
                 <ImageView
-                    android:id="@+id/imageView1"
+                    android:id="@+id/firstNextPeriodImageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
-                    android:src="@drawable/sunny" />
+                    android:src="@drawable/small_sunny" />
 
                 <TextView
                     android:id="@+id/firstNextPeriodValueLabel"
@@ -129,9 +103,9 @@
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </LinearLayout>
-
+
             <LinearLayout
-                android:id="@+id/linearLayout6"
+                android:id="@+id/secondNextPeriodLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="1.0"
@@ -144,13 +118,13 @@
                     android:layout_weight="1.0"
                     android:text="13:00"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
-
+
                 <ImageView
-                    android:id="@+id/ImageView01"
+                    android:id="@+id/secondNextPeriodImageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
-                    android:src="@drawable/sunny" />
+                    android:src="@drawable/small_sunny" />
 
                 <TextView
                     android:id="@+id/secondNextPeriodValueLabel"
@@ -160,9 +134,9 @@
                     android:text="5°C"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
-
+
             <LinearLayout
-                android:id="@+id/linearLayout7"
+                android:id="@+id/thirdNextPeriodLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="1.0"
@@ -175,13 +149,13 @@
                     android:layout_weight="1.0"
                     android:text="19:00"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
-
+
                 <ImageView
-                    android:id="@+id/ImageView02"
+                    android:id="@+id/thirdNextPeriodImageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
-                    android:src="@drawable/rain" />
+                    android:src="@drawable/small_sunny" />
 
                 <TextView
                     android:id="@+id/thirdNextPeriodValueLabel"
@@ -191,9 +165,9 @@
                     android:text="4°C"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
-
+
             <LinearLayout
-                android:id="@+id/linearLayout8"
+                android:id="@+id/fourthNextPeriodLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="1.0"
@@ -206,13 +180,13 @@
                     android:layout_weight="1.0"
                     android:text="1:00"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
-
+
                 <ImageView
-                    android:id="@+id/ImageView03"
+                    android:id="@+id/fourthNextPeriodImageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
-                    android:src="@drawable/sunny" />
+                    android:src="@drawable/small_sunny" />
 
                 <TextView
                     android:id="@+id/fourthNextPeriodValueLabel"
