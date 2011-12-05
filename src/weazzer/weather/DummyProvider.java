@@ -102,7 +102,11 @@ public class DummyProvider implements WeatherProvider {
 	 */
 	public ArrayList<WeatherLocation> getSuggestedLocation(String country, String city) {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<WeatherLocation> locations=new ArrayList<WeatherLocation>();
+		locations.add(new WeatherLocation("Pitesti","Romania"));
+		locations.add(new WeatherLocation("Bucuresti","Romania"));
+		
+		return locations;
 	}
 
 	/* (non-Javadoc)
