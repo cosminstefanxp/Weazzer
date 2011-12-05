@@ -4,8 +4,7 @@
  */
 package weazzer.wear;
 
-import java.util.ArrayList;
-
+import weazzer.wear.ClothingArticle.UserSex;
 import weazzer.weather.WeatherData;
 
 /**
@@ -13,7 +12,7 @@ import weazzer.weather.WeatherData;
  * For each of the four clothing categories (Pants, Shirt, Overcoat and Accessories), the SuggestionEngine should
  * keep different variables for the user's preferences.
  */
-public abstract class SuggestionsEngine {
+public class SuggestionsEngine {
 	
 	/**
 	 * Gets the suggestion for a specific type of article, based on the given articles list and 
@@ -24,24 +23,18 @@ public abstract class SuggestionsEngine {
 	 * @param weather the weather
 	 * @return the suggestion
 	 */
-	public ClothingArticle getSuggestion(ClothingArticle.Type type,
-			ArrayList<ClothingArticle> articles, WeatherData weather) {
-		// TODO: Implementation
-		return null;
-	}
-
-	/**
-	 * Gets the suggestion for matching accesories, based on the given articles list and 
-	 * the weather information. 
-	 *
-	 * @param accesories the usable accesories
-	 * @param weather the weather
-	 * @return the recommended accesories
-	 */
-	public ArrayList<ClothingArticle> getAccesories(ArrayList<ClothingArticle> accesories,
-			WeatherData weather) {
-		// TODO: Implementation
-		return null;
+	public ClothesSuggestion getSuggestion(WeatherData weather, UserSex gender) {
+		ClothesProvider clothesProvider = new ClothesProvider();
+		ClothesSuggestion CS = new ClothesSuggestion();
+		CS.setBottomSuggestions(clothesProvider.getPants(gender));
+		CS.setTopSuggestions(clothesProvider.getShirts(gender));
+		CS.setOvercoatSuggestions(clothesProvider.getOvercoats(gender));
+		CS.setAccessoriesSuggestions(clothesProvider.getAccessories(gender));
+		CS.setTopIndex(0);
+		CS.setBottomIndex(0);
+		CS.setOvercoatIndex(0);
+		
+		return CS;
 	}
 	
 	/**
