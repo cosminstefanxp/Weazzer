@@ -53,10 +53,15 @@ public class ClothesProvider {
 		accessoriesWomen = new ArrayList<ClothingArticle>();
 		accessoriesMen = new ArrayList<ClothingArticle>();
 
-		ClothingArticle CA = new ClothingArticle("pantalon",
+		ClothingArticle clothingArticle;
+		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Female,
 				R.drawable.pantalon1, 2.0f);
-		pantsMen.add(CA);
+		pantsMen.add(clothingArticle);
+		clothingArticle = new ClothingArticle("pantalon",
+				ClothingArticle.Type.Pants, UserSex.Female,
+				R.drawable.pantalon2, 2.0f);
+		pantsMen.add(clothingArticle);
 		// TODO formez restul listelor
 	}
 
