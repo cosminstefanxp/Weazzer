@@ -74,12 +74,24 @@ public class ClothesProvider {
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Female,
+				R.drawable.skirt2, 2.0f);
+		pantsWomen.add(clothingArticle);
+		
+		clothingArticle = new ClothingArticle("pantalon",
+				ClothingArticle.Type.Pants, UserSex.Female,
 				R.drawable.pantalon2, 2.0f);
 		pantsWomen.add(clothingArticle);
-		/*
-		// TOPS Male
 		
-		// !!!
+		// TOPS Male
+		clothingArticle = new ClothingArticle("tricou",
+				ClothingArticle.Type.Pants, UserSex.Male,
+				R.drawable.tricou1m, 2.0f);
+		shirtsMen.add(clothingArticle);
+		
+		clothingArticle = new ClothingArticle("tricou",
+				ClothingArticle.Type.Pants, UserSex.Male,
+				R.drawable.tricou2m, 2.0f);
+		shirtsMen.add(clothingArticle);
 		
 		// tops Female
 		clothingArticle = new ClothingArticle("tricou",
@@ -91,8 +103,63 @@ public class ClothesProvider {
 				ClothingArticle.Type.Pants, UserSex.Female,
 				R.drawable.tricou2f, 2.0f);
 		shirtsWomen.add(clothingArticle);
-		*/
-		// TODO formez restul listelor
+		
+		// OVERCOAT Male
+		clothingArticle = new ClothingArticle("geaca",
+				ClothingArticle.Type.Overcoat, UserSex.Male,
+				R.drawable.coat1m, 2.0f);
+		overcoatsMen.add(clothingArticle);
+		
+		clothingArticle = new ClothingArticle("geaca",
+				ClothingArticle.Type.Overcoat, UserSex.Male,
+				R.drawable.coat2m, 2.0f);
+		overcoatsMen.add(clothingArticle);
+		
+		// Overcoat Female
+		clothingArticle = new ClothingArticle("geaca",
+				ClothingArticle.Type.Overcoat, UserSex.Female,
+				R.drawable.coat1f, 2.0f);
+		overcoatsWomen.add(clothingArticle);
+		
+		clothingArticle = new ClothingArticle("geaca",
+				ClothingArticle.Type.Overcoat, UserSex.Female,
+				R.drawable.coat2f, 2.0f);
+		overcoatsWomen.add(clothingArticle);
+		
+		// ACCESSORIES Male
+		
+		clothingArticle = new ClothingArticle("accesoriu",
+				ClothingArticle.Type.Accessory, UserSex.Male,
+				R.drawable.glassesm, 2.0f);
+		accessoriesMen.add(clothingArticle);
+		
+		clothingArticle = new ClothingArticle("accesoriu",
+				ClothingArticle.Type.Accessory, UserSex.Male,
+				R.drawable.hatm, 2.0f);
+		accessoriesMen.add(clothingArticle);
+		
+		clothingArticle = new ClothingArticle("accesoriu",
+				ClothingArticle.Type.Accessory, UserSex.Male,
+				R.drawable.umbrella, 2.0f);
+		accessoriesMen.add(clothingArticle);
+		
+		// Accessories Female
+		
+		clothingArticle = new ClothingArticle("accesoriu",
+				ClothingArticle.Type.Accessory, UserSex.Female,
+				R.drawable.glassesf, 2.0f);
+		accessoriesWomen.add(clothingArticle);
+		
+		clothingArticle = new ClothingArticle("accesoriu",
+				ClothingArticle.Type.Accessory, UserSex.Female,
+				R.drawable.hatf, 2.0f);
+		accessoriesWomen.add(clothingArticle);
+		
+		clothingArticle = new ClothingArticle("accesoriu",
+				ClothingArticle.Type.Accessory, UserSex.Female,
+				R.drawable.umbrella, 2.0f);
+		accessoriesWomen.add(clothingArticle);
+		
 	}
 
 	/**
