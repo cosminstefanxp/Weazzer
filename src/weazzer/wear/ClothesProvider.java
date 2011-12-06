@@ -54,14 +54,44 @@ public class ClothesProvider {
 		accessoriesMen = new ArrayList<ClothingArticle>();
 
 		ClothingArticle clothingArticle;
+		
+		// PANTS Male
 		clothingArticle = new ClothingArticle("pantalon",
-				ClothingArticle.Type.Pants, UserSex.Female,
+				ClothingArticle.Type.Pants, UserSex.Male,
 				R.drawable.pantalon1, 2.0f);
 		pantsMen.add(clothingArticle);
+		
+		clothingArticle = new ClothingArticle("pantalon",
+				ClothingArticle.Type.Pants, UserSex.Male,
+				R.drawable.pantalon2, 2.0f);
+		pantsMen.add(clothingArticle);
+				
+		// pants Female
+		clothingArticle = new ClothingArticle("pantalon",
+				ClothingArticle.Type.Pants, UserSex.Female,
+				R.drawable.skirt1, 2.0f);
+		pantsWomen.add(clothingArticle);
+		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Female,
 				R.drawable.pantalon2, 2.0f);
-		pantsMen.add(clothingArticle);
+		pantsWomen.add(clothingArticle);
+		/*
+		// TOPS Male
+		
+		// !!!
+		
+		// tops Female
+		clothingArticle = new ClothingArticle("tricou",
+				ClothingArticle.Type.Pants, UserSex.Female,
+				R.drawable.tricou1f, 2.0f);
+		shirtsWomen.add(clothingArticle);
+		
+		clothingArticle = new ClothingArticle("tricou",
+				ClothingArticle.Type.Pants, UserSex.Female,
+				R.drawable.tricou2f, 2.0f);
+		shirtsWomen.add(clothingArticle);
+		*/
 		// TODO formez restul listelor
 	}
 

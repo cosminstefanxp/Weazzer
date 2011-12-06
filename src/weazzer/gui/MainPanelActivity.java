@@ -362,9 +362,10 @@ public class MainPanelActivity extends Activity {
 					currentWeatherData, gender.equals("male") ? UserSex.Male
 							: UserSex.Female);
 		int bottomIndex = clothesSuggestion[currentPeriod].getBottomIndex();
+		int resourceId = clothesSuggestion[currentPeriod]
+				.getBottomSuggestions().get(bottomIndex).getResource();
 		((ImageView) findViewById(R.id.BottomClothesView))
-				.setImageResource(clothesSuggestion[currentPeriod]
-						.getBottomSuggestions().get(bottomIndex).getResource());
+				.setImageResource(resourceId);
 	}
 
 	private int getResourceIdForWeather(Boolean big, String iconName) {
