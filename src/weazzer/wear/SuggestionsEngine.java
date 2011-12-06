@@ -44,8 +44,9 @@ public class SuggestionsEngine {
 	/**
 	 * Updates the SuggestionEngine's internal variables according to the user
 	 * choice for the weather.
+	 * @param currentWeatherData 
 	 */
-	public void updateUserChoice(ClothesSuggestion clothesSuggestion) {
+	public void updateUserChoice(WeatherData currentWeatherData, ClothesSuggestion clothesSuggestion) {
 		// TODO implementation		
 	}
 

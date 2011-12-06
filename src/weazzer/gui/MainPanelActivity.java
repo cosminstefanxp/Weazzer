@@ -5,6 +5,7 @@
 package weazzer.gui;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import weazzer.wear.ClothesSuggestion;
 import weazzer.wear.ClothingArticle.UserSex;
@@ -103,24 +104,27 @@ public class MainPanelActivity extends Activity {
 					currentPeriod++;
 			}
 			if (owner == findViewById(R.id.TopClothesView)) {
-				if (clothesSuggestion.getTopIndex() < clothesSuggestion
+				if (clothesSuggestion[currentPeriod].getTopIndex() < clothesSuggestion[currentPeriod]
 						.getTopSuggestions().size() - 1) {
-					clothesSuggestion.setTopIndex(clothesSuggestion
-							.getTopIndex() + 1);
+					clothesSuggestion[currentPeriod]
+							.setTopIndex(clothesSuggestion[currentPeriod]
+									.getTopIndex() + 1);
 				}
 			}
 			if (owner == findViewById(R.id.BottomClothesView)) {
-				if (clothesSuggestion.getBottomIndex() < clothesSuggestion
+				if (clothesSuggestion[currentPeriod].getBottomIndex() < clothesSuggestion[currentPeriod]
 						.getBottomSuggestions().size() - 1) {
-					clothesSuggestion.setBottomIndex(clothesSuggestion
-							.getBottomIndex() + 1);
+					clothesSuggestion[currentPeriod]
+							.setBottomIndex(clothesSuggestion[currentPeriod]
+									.getBottomIndex() + 1);
 				}
 			}
 			if (owner == findViewById(R.id.OvercoatClothesView)) {
-				if (clothesSuggestion.getOvercoatIndex() < clothesSuggestion
+				if (clothesSuggestion[currentPeriod].getOvercoatIndex() < clothesSuggestion[currentPeriod]
 						.getOvercoatSuggestions().size() - 1) {
-					clothesSuggestion.setOvercoatIndex(clothesSuggestion
-							.getOvercoatIndex() + 1);
+					clothesSuggestion[currentPeriod]
+							.setOvercoatIndex(clothesSuggestion[currentPeriod]
+									.getOvercoatIndex() + 1);
 				}
 			}
 			refreshUI();
@@ -132,21 +136,24 @@ public class MainPanelActivity extends Activity {
 					currentPeriod--;
 			}
 			if (owner == findViewById(R.id.TopClothesView)) {
-				if (clothesSuggestion.getTopIndex() > 0) {
-					clothesSuggestion.setTopIndex(clothesSuggestion
-							.getTopIndex() - 1);
+				if (clothesSuggestion[currentPeriod].getTopIndex() > 0) {
+					clothesSuggestion[currentPeriod]
+							.setTopIndex(clothesSuggestion[currentPeriod]
+									.getTopIndex() - 1);
 				}
 			}
 			if (owner == findViewById(R.id.BottomClothesView)) {
-				if (clothesSuggestion.getBottomIndex() > 0) {
-					clothesSuggestion.setBottomIndex(clothesSuggestion
-							.getBottomIndex() - 1);
+				if (clothesSuggestion[currentPeriod].getBottomIndex() > 0) {
+					clothesSuggestion[currentPeriod]
+							.setBottomIndex(clothesSuggestion[currentPeriod]
+									.getBottomIndex() - 1);
 				}
 			}
 			if (owner == findViewById(R.id.OvercoatClothesView)) {
-				if (clothesSuggestion.getOvercoatIndex() > 0) {
-					clothesSuggestion.setOvercoatIndex(clothesSuggestion
-							.getOvercoatIndex() - 1);
+				if (clothesSuggestion[currentPeriod].getOvercoatIndex() > 0) {
+					clothesSuggestion[currentPeriod]
+							.setOvercoatIndex(clothesSuggestion[currentPeriod]
+									.getOvercoatIndex() - 1);
 				}
 			}
 			refreshUI();
@@ -196,7 +203,9 @@ public class MainPanelActivity extends Activity {
 	/** The current suggestion engine. */
 	SuggestionsEngine suggestionsEngine;
 	/** The current clothes selection. */
-	ClothesSuggestion clothesSuggestion;
+	ClothesSuggestion clothesSuggestion[];
+	/** The current weather. */
+	List<WeatherData> weather;
 
 	/**
 	 * The listener interface for receiving myTouch events. The class that is
@@ -268,6 +277,7 @@ public class MainPanelActivity extends Activity {
 		weatherProvider = new DummyProvider();
 		suggestionsEngine = new SuggestionsEngine();
 		currentPeriod = 0;
+		clothesSuggestion = new ClothesSuggestion[4];
 	}
 
 	/**
@@ -321,8 +331,7 @@ public class MainPanelActivity extends Activity {
 	 */
 	private void refreshUI() {
 		// weather stuff.
-		WeatherData currentWeatherData = weatherProvider.getCurrentWeather()
-				.get(currentPeriod);
+		WeatherData currentWeatherData = weather.get(currentPeriod);
 		ImageView centralImage = (ImageView) findViewById(R.id.mainWeatherImageView);
 		centralImage.setImageResource(getResourceIdForWeather(true,
 				currentWeatherData.getIcon()));
@@ -348,12 +357,14 @@ public class MainPanelActivity extends Activity {
 		}
 
 		// clothes stuff
-		clothesSuggestion = suggestionsEngine.getSuggestion(currentWeatherData,
-				UserSex.Male);
-		int bottomIndex = clothesSuggestion.getBottomIndex();
+		if (clothesSuggestion[currentPeriod] == null)
+			clothesSuggestion[currentPeriod] = suggestionsEngine.getSuggestion(
+					currentWeatherData, gender.equals("male") ? UserSex.Male
+							: UserSex.Female);
+		int bottomIndex = clothesSuggestion[currentPeriod].getBottomIndex();
 		((ImageView) findViewById(R.id.BottomClothesView))
-				.setImageResource(clothesSuggestion.getBottomSuggestions()
-						.get(bottomIndex).getResource());
+				.setImageResource(clothesSuggestion[currentPeriod]
+						.getBottomSuggestions().get(bottomIndex).getResource());
 	}
 
 	private int getResourceIdForWeather(Boolean big, String iconName) {
@@ -382,6 +393,7 @@ public class MainPanelActivity extends Activity {
 	public void onStart() {
 		super.onStart();
 		getPreferences();
+		weather = weatherProvider.getCurrentWeather();
 		initializeUI();
 		refreshUI();
 	}
@@ -466,7 +478,8 @@ public class MainPanelActivity extends Activity {
 	 * @param v
 	 */
 	public void onSaveSuggestions(View v) {
-		suggestionsEngine.updateUserChoice(clothesSuggestion);
+		WeatherData currentWeatherData = weather.get(currentPeriod);
+		suggestionsEngine.updateUserChoice(currentWeatherData,clothesSuggestion[currentPeriod]);
 	}
 
 }
