@@ -84,11 +84,9 @@ public class WeatherForecastAdapter extends BaseAdapter {
 			holder.forecastDate = (TextView) convertView
 					.findViewById(R.id.forecastDate);
 			holder.tempMax = (TextView) convertView.findViewById(R.id.tempMax);
-			holder.windSpeed = (TextView) convertView
-					.findViewById(R.id.windSpeed);
-			holder.tempMin = (TextView) convertView.findViewById(R.id.tempMin);
-			holder.windDirection = (TextView) convertView
-					.findViewById(R.id.windDirection);
+			holder.windDetails = (TextView) convertView
+					.findViewById(R.id.wind);
+			holder.tempMin = (TextView) convertView.findViewById(R.id.tempMin);			
 			holder.weatherCondition = (ImageView) convertView
 					.findViewById(R.id.weatherImageView);
 
@@ -103,13 +101,11 @@ public class WeatherForecastAdapter extends BaseAdapter {
 				+ forecast.get(position).getForecastDate().get(Calendar.MONTH));
 		holder.tempMax.setText(forecast.get(position).getTempMax().toString()
 				+ " C");
-		holder.windSpeed.setText(forecast.get(position).getWindSpeed()
+		holder.windDetails.setText(forecast.get(position).getWindSpeed()
 				.toString()
-				+ " km/h");
+				+ " km/h"+forecast.get(position).getWindDirection());
 		holder.tempMin.setText(forecast.get(position).getTempMin().toString()
-				+ " C");
-		holder.windDirection.setText(forecast.get(position).getWindDirection()
-				.toString());
+				+ " C");		
 		holder.weatherCondition.setImageResource(getResourceIdForWeather(false,
 				forecast.get(position).getIcon()));
 		return convertView;
@@ -121,7 +117,6 @@ public class WeatherForecastAdapter extends BaseAdapter {
 			Field field = R.drawable.class.getField(prefix + iconName);
 			return field.getInt(null);
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchFieldException e) {
 			e.printStackTrace();
@@ -147,12 +142,9 @@ public class WeatherForecastAdapter extends BaseAdapter {
 		/** The temp min. */
 		TextView tempMin;
 
-		/** The wind speed. */
-		TextView windSpeed;
-
-		/** The wind direction. */
-		TextView windDirection;
-
+		/** The wind details. */
+		TextView windDetails;
+		
 		/** The weather condition. */
 		ImageView weatherCondition;
 	}

@@ -23,7 +23,7 @@ public class LongTermActivity extends Activity {
 		setContentView(R.layout.long_term);
 
 		DummyProvider provider = new DummyProvider();
-		ArrayList<WeatherForecast> forecast = provider.getWeatherForecast(10);
+		ArrayList<WeatherForecast> forecast = provider.getWeatherForecast(7);
 
 		final ListView lv1 = (ListView) findViewById(R.id.nextDaysView);
 		lv1.setAdapter(new WeatherForecastAdapter(this, forecast));

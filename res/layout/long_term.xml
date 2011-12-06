@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
-        android:text="10 days forecast"
+        android:text="7 day forecast"
         android:textColor="#00aa00"
         android:textSize="20sp"
         android:textStyle="bold" />

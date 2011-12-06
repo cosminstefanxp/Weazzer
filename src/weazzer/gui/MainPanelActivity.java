@@ -35,10 +35,19 @@ import android.widget.TextView;
  */
 public class MainPanelActivity extends Activity {
 
+	/**
+	 * Listen on swipes, taps, etc.
+	 * 
+	 * @author ze
+	 * 
+	 */
 	class MainPanelGestureDetector extends SimpleOnGestureListener {
 		private static final int SWIPE_MIN_DISTANCE = 50;
 		private static final int SWIPE_MAX_OFF_PATH = 100;
 		private static final int SWIPE_THRESHOLD_VELOCITY = 50;
+		/**
+		 * Whose events are listened.
+		 */
 		View owner;
 
 		public MainPanelGestureDetector(View owner) {
@@ -48,6 +57,7 @@ public class MainPanelActivity extends Activity {
 
 		@Override
 		public boolean onDown(MotionEvent e) {
+			// Taps on the four next periods.
 			if (owner == findViewById(R.id.fourthNextPeriodLayout)) {
 				currentPeriod = 3;
 				refreshUI();
@@ -68,6 +78,7 @@ public class MainPanelActivity extends Activity {
 			return true;
 		}
 
+		// All swipes on the main image shift currentPeriod.
 		void rightSwipe() {
 			if (owner == findViewById(R.id.mainWeatherImageView)) {
 				if (currentPeriod > 0)
@@ -84,6 +95,8 @@ public class MainPanelActivity extends Activity {
 			refreshUI();
 		}
 
+		// Up, down swipes on clothes shift the current clothe
+		// index in the array.
 		void upSwipe() {
 			if (owner == findViewById(R.id.mainWeatherImageView)) {
 				if (currentPeriod < 3)
@@ -139,6 +152,9 @@ public class MainPanelActivity extends Activity {
 			refreshUI();
 		}
 
+		/**
+		 * Detect Fling (Swipe).
+		 */
 		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 				float velocityY) {
@@ -167,14 +183,19 @@ public class MainPanelActivity extends Activity {
 		}
 	}
 
-	/** The gender. */
+	/** The gender from preferences. */
 	String gender;
+	/** The current weather provider. */
 	WeatherProvider weatherProvider;
+	/** A period from 0 to 3. */
 	int currentPeriod;
+	/** C or F from preferences. */
 	String measurementUnitSuffix;
+	/** The location from preferences. */
 	WeatherLocation weatherLocation;
+	/** The current suggestion engine. */
 	SuggestionsEngine suggestionsEngine;
-
+	/** The current clothes selection. */
 	ClothesSuggestion clothesSuggestion;
 
 	/**
@@ -228,6 +249,7 @@ public class MainPanelActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		// Add swipe detectors to everything that needs it.
 		int swipedImgIds[] = { R.id.TopClothesView, R.id.BottomClothesView,
 				R.id.OvercoatClothesView, R.id.mainWeatherImageView,
 				R.id.firstNextPeriodLayout, R.id.secondNextPeriodLayout,
@@ -242,8 +264,9 @@ public class MainPanelActivity extends Activity {
 			view.setOnTouchListener(mGestureListener);
 		}
 
+		// Initialize providers and indexes.
 		weatherProvider = new DummyProvider();
-		suggestionsEngine =  new SuggestionsEngine();
+		suggestionsEngine = new SuggestionsEngine();
 		currentPeriod = 0;
 	}
 
@@ -294,9 +317,10 @@ public class MainPanelActivity extends Activity {
 
 	/**
 	 * Do stuff that change at user interaction. Is called by onStart() after
-	 * initializeUI.
+	 * initializeUI and after all user interaction.
 	 */
 	private void refreshUI() {
+		// weather stuff.
 		WeatherData currentWeatherData = weatherProvider.getCurrentWeather()
 				.get(currentPeriod);
 		ImageView centralImage = (ImageView) findViewById(R.id.mainWeatherImageView);
@@ -324,8 +348,8 @@ public class MainPanelActivity extends Activity {
 		}
 
 		// clothes stuff
-		clothesSuggestion = suggestionsEngine.getSuggestion(
-				currentWeatherData, UserSex.Male);
+		clothesSuggestion = suggestionsEngine.getSuggestion(currentWeatherData,
+				UserSex.Male);
 		int bottomIndex = clothesSuggestion.getBottomIndex();
 		((ImageView) findViewById(R.id.BottomClothesView))
 				.setImageResource(clothesSuggestion.getBottomSuggestions()
@@ -337,8 +361,7 @@ public class MainPanelActivity extends Activity {
 		try {
 			Field field = R.drawable.class.getField(prefix + iconName);
 			return field.getInt(null);
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
+		} catch (SecurityException e) { //
 			e.printStackTrace();
 		} catch (NoSuchFieldException e) {
 			e.printStackTrace();
@@ -375,8 +398,9 @@ public class MainPanelActivity extends Activity {
 
 		// Gender
 		gender = prefs.getString("genderPref", "male");
-		// TODO
-		measurementUnitSuffix = "°C";
+		// Measurement unit
+		measurementUnitSuffix = prefs.getString("muPref", "Celsius").equals(
+				"Celsius") ? "°C" : "°F";
 		// Weather location
 		weatherLocation = new WeatherLocation();
 		weatherLocation.city = prefs.getString("cityLocationPref", "Bucharest");
@@ -426,11 +450,21 @@ public class MainPanelActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * On pressing the arrow for long term.
+	 * 
+	 * @param v
+	 */
 	public void toLongTermAction(View v) {
 		Intent activity = new Intent(getBaseContext(), LongTermActivity.class);
 		startActivity(activity);
 	}
-	
+
+	/**
+	 * On pressing the save button.
+	 * 
+	 * @param v
+	 */
 	public void onSaveSuggestions(View v) {
 		suggestionsEngine.updateUserChoice(clothesSuggestion);
 	}

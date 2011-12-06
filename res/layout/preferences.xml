@@ -13,6 +13,13 @@
             android:key="genderPref"
             android:summary="Select gender for clothes"
             android:title="Gender Selection" />
+        <ListPreference
+            android:defaultValue="Celsius"
+            android:entries="@array/muArray"
+            android:entryValues="@array/muValues"
+            android:key="muPref"
+            android:summary="Select temperature unit"
+            android:title="Temperature" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Weather Provider" >
