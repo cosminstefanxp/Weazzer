@@ -73,23 +73,28 @@ public class ClothingArticle {
 
 	/**
 	 * Instantiates a new clothing article.
-	 * 
-	 * @param name
-	 *            the name
-	 * @param type
-	 *            the type
-	 * @param userSex
-	 *            the user sex
-	 * @param resource
-	 *            the resource
-	 * @param heatFactor
-	 *            the heat factor
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @param userSex the user sex
+	 * @param resource the resource
+	 * @param heatFactor the heat factor
 	 */
 	public ClothingArticle(String name, Type type, UserSex userSex,
 			int resource, Float heatFactor) {
 		this(name, type, userSex, resource, 0, heatFactor);
 	}
 
+	/**
+	 * Instantiates a new clothing article.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @param userSex the user sex
+	 * @param resource the resource
+	 * @param resourceGray the resource gray
+	 * @param heatFactor the heat factor
+	 */
 	public ClothingArticle(String name, Type type, UserSex userSex,
 			int resource, int resourceGray, Float heatFactor) {
 		super();
@@ -159,6 +164,8 @@ public class ClothingArticle {
 	}
 
 	/**
+	 * Gets the user sex.
+	 *
 	 * @return the userSex
 	 */
 	public UserSex getUserSex() {
@@ -166,14 +173,17 @@ public class ClothingArticle {
 	}
 
 	/**
-	 * @param userSex
-	 *            the userSex to set
+	 * Sets the user sex.
+	 *
+	 * @param userSex the userSex to set
 	 */
 	public void setUserSex(UserSex userSex) {
 		this.userSex = userSex;
 	}
 
 	/**
+	 * Gets the resource.
+	 *
 	 * @return the resource
 	 */
 	public int getResource() {
@@ -181,17 +191,28 @@ public class ClothingArticle {
 	}
 
 	/**
-	 * @param resource
-	 *            the resource to set
+	 * Sets the resource.
+	 *
+	 * @param resource the resource to set
 	 */
 	public void setResource(int resource) {
 		this.resource = resource;
 	}
 
+	/**
+	 * Gets the resource gray.
+	 *
+	 * @return the resource gray
+	 */
 	public int getResourceGray() {
 		return resourceGray;
 	}
 
+	/**
+	 * Sets the resource gray.
+	 *
+	 * @param resourceGray the new resource gray
+	 */
 	public void setResourceGray(int resourceGray) {
 		this.resourceGray = resourceGray;
 	}	
