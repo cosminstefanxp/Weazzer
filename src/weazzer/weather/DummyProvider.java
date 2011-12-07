@@ -45,6 +45,7 @@ public class DummyProvider implements WeatherProvider {
 					: "In 10H";
 			wd.windSpeed = i * 2f;
 			wd.icon = i != 2 ? "sunny" : "rain";
+			wd.feelsLike = wd.temperature + 1;
 			weatherList.add(wd);
 		}
 

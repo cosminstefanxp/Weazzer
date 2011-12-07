@@ -130,34 +130,34 @@ public class ClothesProvider {
 		
 		clothingArticle = new ClothingArticle("accesoriu",
 				ClothingArticle.Type.Accessory, UserSex.Male,
-				R.drawable.glassesm, 2.0f);
+				R.drawable.glassesm, R.drawable.glassesm_g, 2.0f);
 		accessoriesMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("accesoriu",
 				ClothingArticle.Type.Accessory, UserSex.Male,
-				R.drawable.hatm, 2.0f);
+				R.drawable.hatm, R.drawable.hatm_g, 2.0f);
 		accessoriesMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("accesoriu",
 				ClothingArticle.Type.Accessory, UserSex.Male,
-				R.drawable.umbrella, 2.0f);
+				R.drawable.umbrella, R.drawable.umbrella_g, 2.0f);
 		accessoriesMen.add(clothingArticle);
 		
 		// Accessories Female
 		
 		clothingArticle = new ClothingArticle("accesoriu",
 				ClothingArticle.Type.Accessory, UserSex.Female,
-				R.drawable.glassesf, 2.0f);
+				R.drawable.glassesf, R.drawable.glassesf_g, 2.0f);
 		accessoriesWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("accesoriu",
 				ClothingArticle.Type.Accessory, UserSex.Female,
-				R.drawable.hatf, 2.0f);
+				R.drawable.hatf, R.drawable.hatf_g, 2.0f);
 		accessoriesWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("accesoriu",
 				ClothingArticle.Type.Accessory, UserSex.Female,
-				R.drawable.umbrella, 2.0f);
+				R.drawable.umbrella, R.drawable.umbrella_g, 2.0f);
 		accessoriesWomen.add(clothingArticle);
 		
 	}

@@ -4,6 +4,8 @@
  */
 package weazzer.wear;
 
+import java.util.ArrayList;
+
 import weazzer.wear.ClothingArticle.UserSex;
 import weazzer.weather.WeatherData;
 
@@ -37,7 +39,11 @@ public class SuggestionsEngine {
 		CS.setTopIndex(0);
 		CS.setBottomIndex(0);
 		CS.setOvercoatIndex(0);
-
+		ArrayList<Boolean> accesoriesSelect = new ArrayList<Boolean>();
+		accesoriesSelect.add(true);
+		accesoriesSelect.add(false);
+		accesoriesSelect.add(true);
+		CS.setAccessoriesSelect(accesoriesSelect);		
 		return CS;
 	}
 

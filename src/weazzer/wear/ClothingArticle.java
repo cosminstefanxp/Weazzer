@@ -44,9 +44,15 @@ public class ClothingArticle {
 
 	/**
 	 * The name of the Android resource of the image (without extension). Should
-	 * be something like R.drawable.pans1
+	 * be something like R.drawable.pants1
 	 */
 	private int resource;
+	
+	/**
+	 * The name of the Android resource of the grayed image (without extension). Should
+	 * be something like R.drawable.pants1_gray
+	 */
+	private int resourceGray;
 
 	/** The heat factor of the article. */
 	private Float heatFactor;
@@ -81,14 +87,20 @@ public class ClothingArticle {
 	 */
 	public ClothingArticle(String name, Type type, UserSex userSex,
 			int resource, Float heatFactor) {
+		this(name, type, userSex, resource, 0, heatFactor);
+	}
+
+	public ClothingArticle(String name, Type type, UserSex userSex,
+			int resource, int resourceGray, Float heatFactor) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.userSex = userSex;
 		this.resource = resource;
+		this.resourceGray = resourceGray;
 		this.heatFactor = heatFactor;
-	}
-
+	}	
+	
 	/**
 	 * Gets the name.
 	 * 
@@ -176,4 +188,11 @@ public class ClothingArticle {
 		this.resource = resource;
 	}
 
+	public int getResourceGray() {
+		return resourceGray;
+	}
+
+	public void setResourceGray(int resourceGray) {
+		this.resourceGray = resourceGray;
+	}	
 }

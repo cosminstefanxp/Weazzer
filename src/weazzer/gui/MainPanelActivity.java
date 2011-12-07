@@ -5,6 +5,7 @@
 package weazzer.gui;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import weazzer.wear.ClothesSuggestion;
@@ -92,6 +93,8 @@ public class MainPanelActivity extends Activity {
 			if (owner == findViewById(R.id.mainWeatherImageView)) {
 				if (currentPeriod < 3)
 					currentPeriod++;
+				if (currentPeriod == 3) 
+					toLongTermAction(owner);
 			}
 			refreshUI();
 		}
@@ -102,6 +105,8 @@ public class MainPanelActivity extends Activity {
 			if (owner == findViewById(R.id.mainWeatherImageView)) {
 				if (currentPeriod < 3)
 					currentPeriod++;
+				if (currentPeriod == 3) 
+					toLongTermAction(owner);
 			}
 			if (owner == findViewById(R.id.TopClothesView)) {
 				if (clothesSuggestion[currentPeriod].getTopIndex() < clothesSuggestion[currentPeriod]
@@ -196,8 +201,10 @@ public class MainPanelActivity extends Activity {
 	WeatherProvider weatherProvider;
 	/** A period from 0 to 3. */
 	int currentPeriod;
-	/** C or F from preferences. */
+	/** °C or °F from preferences. */
 	String measurementUnitSuffix;
+	/** Celsius or Fahrenheit from preferences. */
+	String measurementUnit;
 	/** The location from preferences. */
 	WeatherLocation weatherLocation;
 	/** The current suggestion engine. */
@@ -335,14 +342,10 @@ public class MainPanelActivity extends Activity {
 		ImageView centralImage = (ImageView) findViewById(R.id.mainWeatherImageView);
 		centralImage.setImageResource(getResourceIdForWeather(true,
 				currentWeatherData.getIcon()));
-		TextView timeLabel = (TextView) findViewById(R.id.timeLabel);
-		timeLabel.setText(currentWeatherData.getWhen());
-		TextView humidityLabel = (TextView) findViewById(R.id.humidityLabel);
-		humidityLabel.setText(currentWeatherData.getHumidity().toString());
-		TextView windLabel = (TextView) findViewById(R.id.windLabel);
-		windLabel.setText(currentWeatherData.getWindSpeed() + "km/h");
-		TextView weatherNowLabel = (TextView) findViewById(R.id.weatherNowLabel);
-		weatherNowLabel.setText(currentWeatherData.getTemperature().toString()
+		TextView feelsLike = (TextView) findViewById(R.id.feelsLikeLabel);
+		feelsLike.setText(convertTemp(currentWeatherData.getFeelsLike())+measurementUnitSuffix);
+		TextView weatherNowLabel = (TextView) findViewById(R.id.mainTemperatureLabel);		
+		weatherNowLabel.setText(convertTemp(currentWeatherData.getTemperature())
 				+ measurementUnitSuffix);
 		LinearLayout columnLayouts[] = {
 				(LinearLayout) findViewById(R.id.firstNextPeriodLayout),
@@ -357,15 +360,51 @@ public class MainPanelActivity extends Activity {
 		}
 
 		// clothes stuff
-		if (clothesSuggestion[currentPeriod] == null)
-			clothesSuggestion[currentPeriod] = suggestionsEngine.getSuggestion(
-					currentWeatherData, gender.equals("male") ? UserSex.Male
-							: UserSex.Female);
+		
 		int bottomIndex = clothesSuggestion[currentPeriod].getBottomIndex();
+		int topIndex = clothesSuggestion[currentPeriod].getTopIndex();
+		int overcoatIndex = clothesSuggestion[currentPeriod].getOvercoatIndex();
 		int resourceId = clothesSuggestion[currentPeriod]
 				.getBottomSuggestions().get(bottomIndex).getResource();
 		((ImageView) findViewById(R.id.BottomClothesView))
 				.setImageResource(resourceId);
+		resourceId = clothesSuggestion[currentPeriod]
+				.getTopSuggestions().get(topIndex).getResource();
+		((ImageView) findViewById(R.id.TopClothesView))
+				.setImageResource(resourceId);
+		resourceId = clothesSuggestion[currentPeriod]
+				.getOvercoatSuggestions().get(overcoatIndex).getResource();
+		((ImageView) findViewById(R.id.OvercoatClothesView))
+				.setImageResource(resourceId);
+		
+		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(0))			
+			((ImageView) findViewById(R.id.firstExtraView)).setImageResource
+				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(0).getResource());
+		else
+			((ImageView) findViewById(R.id.firstExtraView)).setImageResource
+				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(0).getResourceGray());
+		
+		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(1))			
+			((ImageView) findViewById(R.id.secondExtraView)).setImageResource
+				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(1).getResource());
+		else
+			((ImageView) findViewById(R.id.secondExtraView)).setImageResource
+				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(1).getResourceGray());
+		
+		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(2))			
+			((ImageView) findViewById(R.id.thirdExtraView)).setImageResource
+				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(2).getResource());
+		else
+			((ImageView) findViewById(R.id.thirdExtraView)).setImageResource
+				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(2).getResourceGray());
+	}
+
+	private Float convertTemp(Float temperature) {
+		// convert if Fahrenheit
+		if(!measurementUnit.equals("Celsius")) {
+			return temperature*9/5+32;
+		}
+		return temperature;
 	}
 
 	private int getResourceIdForWeather(Boolean big, String iconName) {
@@ -395,6 +434,10 @@ public class MainPanelActivity extends Activity {
 		super.onStart();
 		getPreferences();
 		weather = weatherProvider.getCurrentWeather();
+		for(int period = 0 ;  period<4;period++)
+		clothesSuggestion[period] = suggestionsEngine.getSuggestion(
+				weather.get(period), gender.equals("male") ? UserSex.Male
+						: UserSex.Female);
 		initializeUI();
 		refreshUI();
 	}
@@ -412,7 +455,8 @@ public class MainPanelActivity extends Activity {
 		// Gender
 		gender = prefs.getString("genderPref", "male");
 		// Measurement unit
-		measurementUnitSuffix = prefs.getString("muPref", "Celsius").equals(
+		measurementUnit = prefs.getString("muPref", "Celsius");
+		measurementUnitSuffix = measurementUnit.equals(
 				"Celsius") ? "°C" : "°F";
 		// Weather location
 		weatherLocation = new WeatherLocation();
@@ -437,19 +481,7 @@ public class MainPanelActivity extends Activity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-	}
-
-	/**
-	 * Settings menu button click event.
-	 * 
-	 * @param view
-	 *            the view
-	 */
-	public void SettingsMenuButtonClickEvent(View view) {
-		Intent settingsActivity = new Intent(getBaseContext(),
-				SettingsPanelActivity.class);
-		startActivity(settingsActivity);
-	}
+	}	
 
 	/*
 	 * (non-Javadoc)
@@ -482,5 +514,23 @@ public class MainPanelActivity extends Activity {
 		WeatherData currentWeatherData = weather.get(currentPeriod);
 		suggestionsEngine.updateUserChoice(currentWeatherData,clothesSuggestion[currentPeriod]);
 	}
-
+	
+	public void onFirstExtraToggle(View v) {
+		ArrayList<Boolean> choice = clothesSuggestion[currentPeriod].getAccessoriesSelect();
+		choice.set(0, !choice.get(0));
+		refreshUI();
+	}
+	
+	public void onSecondExtraToggle(View v) {
+		ArrayList<Boolean> choice = clothesSuggestion[currentPeriod].getAccessoriesSelect();
+		choice.set(1, !choice.get(1));
+		refreshUI();
+	}
+	
+	public void onThirdExtraToggle(View v) {
+		ArrayList<Boolean> choice = clothesSuggestion[currentPeriod].getAccessoriesSelect();
+		choice.set(2, !choice.get(2));
+		refreshUI();
+	}
+	
 }

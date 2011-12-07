@@ -12,14 +12,23 @@ import java.util.ArrayList;
 public class ClothesSuggestion {
 
 	// liste pentru fiecare din cele 4 categorii deja sortate
-	ArrayList<ClothingArticle> TopSuggestions;
-	ArrayList<ClothingArticle> BottomSuggestions;
-	ArrayList<ClothingArticle> OvercoatSuggestions;
-	ArrayList<ClothingArticle> AccessoriesSuggestions;
+	private ArrayList<ClothingArticle> TopSuggestions;
+	private ArrayList<ClothingArticle> BottomSuggestions;
+	private ArrayList<ClothingArticle> OvercoatSuggestions;
+	private ArrayList<ClothingArticle> AccessoriesSuggestions;
+	private ArrayList<Boolean> AccessoriesSelect;	
 
-	int topIndex;
-	int bottomIndex;
-	int overcoatIndex;
+	private int topIndex;
+	private int bottomIndex;
+	private int overcoatIndex;
+
+	public ArrayList<Boolean> getAccessoriesSelect() {
+		return AccessoriesSelect;
+	}
+
+	public void setAccessoriesSelect(ArrayList<Boolean> accessoriesSelect) {
+		AccessoriesSelect = accessoriesSelect;
+	}
 
 	/**
 	 * @return the topSuggestions

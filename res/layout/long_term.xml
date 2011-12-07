@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
         android:text="7 day forecast"
-        android:textColor="#00aa00"
+        android:textColor="#eeeeee"
         android:textSize="20sp"
         android:textStyle="bold" />
 

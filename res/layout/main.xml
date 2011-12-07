@@ -10,70 +10,6 @@
         android:layout_height="fill_parent"
         android:orientation="vertical" >
 
-        <RelativeLayout
-            android:id="@+id/mainCenterLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:layout_weight="1.37" >
-
-            <ImageView
-                android:id="@+id/mainWeatherImageView"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/big_sunny" />
-
-            <TextView
-                android:id="@+id/timeLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="22dp"
-                android:text="7:00"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/windLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:text="5km/h NE"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/humidityLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/windLabel"
-                android:layout_alignBottom="@+id/windLabel"
-                android:layout_alignParentRight="true"
-                android:text="66%"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/weatherNowLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/timeLabel"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="17dp"
-                android:text="5°C"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/locationLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:text="In puii mei"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-        </RelativeLayout>
-
         <LinearLayout
             android:id="@+id/mainNextPeriodsLayout"
             android:layout_width="fill_parent"
@@ -260,72 +196,158 @@
                 </RelativeLayout>
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/RelativeLayout08"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent" >
+            <LinearLayout
+                android:id="@+id/to7DaysLayout"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1.0"
+                android:orientation="vertical" >
 
-                <ImageButton
-                    android:id="@+id/imageButton1"
-                    android:layout_width="40dp"
+                <ImageView
+                    android:id="@+id/to7DaysImage"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:background="#000000"
                     android:onClick="toLongTermAction"
-                    android:src="@drawable/right_arrow" />
-            </RelativeLayout>
+                    android:src="@drawable/next" />
+            </LinearLayout>
         </LinearLayout>
 
+        <RelativeLayout
+            android:id="@+id/mainCenterLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_weight="0.60" >
+
+            <ImageView
+                android:id="@+id/mainWeatherImageView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="45dp"
+                android:src="@drawable/big_sunny" />
+
+            <TextView
+                android:id="@+id/leftScrollText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/smaller"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/locationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/textView1"
+                android:text="locatie"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/rightScrollText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/leftScrollText"
+                android:layout_alignBottom="@+id/leftScrollText"
+                android:layout_alignParentRight="true"
+                android:text=">"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/mainTemperatureLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_toRightOf="@+id/leftScrollText"
+                android:text="5C"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="40dp" />
+
+            <TextView
+                android:id="@+id/feelsLikeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/mainTemperatureLabel"
+                android:layout_marginRight="5dp"
+                android:text="5°C"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/feelsLikeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/feelsLikeLabel"
+                android:layout_alignBottom="@+id/feelsLikeLabel"
+                android:layout_toLeftOf="@+id/feelsLikeLabel"
+                android:text="feels like "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </RelativeLayout>
+
         <LinearLayout
             android:id="@+id/mainClothesLayout"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_weight="0.30" >
 
-            <ImageView
-                android:id="@+id/BottomClothesView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:src="@drawable/trollface" />
-
             <LinearLayout
-                android:id="@+id/linearLayout1"
+                android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="1.0"
                 android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="99dp"
+                    android:layout_marginTop="10dp" >
 
-                <ImageView
-                    android:id="@+id/OvercoatClothesView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.0"
-                    android:src="@drawable/trollface" />
+                    <ImageView
+                        android:id="@+id/BottomClothesView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:src="@drawable/umbrella" />
+
+                    <ImageView
+                        android:id="@+id/OvercoatClothesView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:src="@drawable/umbrella" />
+
+                    <ImageView
+                        android:id="@+id/TopClothesView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:src="@drawable/umbrella" />
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/saveButton"
                     android:layout_width="fill_parent"
-                    android:layout_height="33dp"
+                    android:layout_height="35dp"
                     android:background="#000000"
+                    android:onClick="onSaveSuggestions"
                     android:text="Save"
-                    android:textColor="#ffffff" 
-                    android:onClick="onSaveSuggestions"/>
-            </LinearLayout>
+                    android:textColor="#ffffff"
+                    android:textSize="20dp" />
 
-            <ImageView
-                android:id="@+id/TopClothesView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:src="@drawable/trollface" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/mainExtraLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="78dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="1.0"
                 android:orientation="vertical" >
 
                 <ImageView
@@ -333,23 +355,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
-                    android:src="@drawable/trollface" />
+                    android:onClick="onFirstExtraToggle"
+                    android:src="@drawable/umbrella" />
 
                 <ImageView
                     android:id="@+id/secondExtraView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
-                    android:src="@drawable/trollface" />
+                    android:onClick="onSecondExtraToggle"
+                    android:src="@drawable/umbrella" />
 
                 <ImageView
                     android:id="@+id/thirdExtraView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
-                    android:src="@drawable/trollface" />
+                    android:onClick="onThirdExtraToggle"
+                    android:src="@drawable/umbrella" />
             </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

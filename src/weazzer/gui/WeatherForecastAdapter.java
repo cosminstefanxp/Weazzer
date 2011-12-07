@@ -28,6 +28,10 @@ public class WeatherForecastAdapter extends BaseAdapter {
 
 	/** The inflater. */
 	private LayoutInflater mInflater;
+	
+	private String measurementUnit;
+	
+	private String measurementUnitSuffix;
 
 	/**
 	 * Instantiates a new weather forecast adapter.
@@ -38,9 +42,13 @@ public class WeatherForecastAdapter extends BaseAdapter {
 	 *            the results
 	 */
 	public WeatherForecastAdapter(Context context,
-			ArrayList<WeatherForecast> results) {
+			ArrayList<WeatherForecast> results,
+			String measurementUnit) {
 		forecast = results;
 		mInflater = LayoutInflater.from(context);
+		this.measurementUnit = measurementUnit;
+		measurementUnitSuffix = measurementUnit.equals(
+				"Celsius") ? "°C" : "°F";
 	}
 
 	/*
@@ -83,10 +91,7 @@ public class WeatherForecastAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.forecastDate = (TextView) convertView
 					.findViewById(R.id.forecastDate);
-			holder.tempMax = (TextView) convertView.findViewById(R.id.tempMax);
-			holder.windDetails = (TextView) convertView
-					.findViewById(R.id.wind);
-			holder.tempMin = (TextView) convertView.findViewById(R.id.tempMin);			
+			holder.temp = (TextView) convertView.findViewById(R.id.temperatureLabel);			
 			holder.weatherCondition = (ImageView) convertView
 					.findViewById(R.id.weatherImageView);
 
@@ -99,16 +104,20 @@ public class WeatherForecastAdapter extends BaseAdapter {
 				.get(Calendar.DAY_OF_MONTH)
 				+ "/"
 				+ forecast.get(position).getForecastDate().get(Calendar.MONTH));
-		holder.tempMax.setText(forecast.get(position).getTempMax().toString()
-				+ " C");
-		holder.windDetails.setText(forecast.get(position).getWindSpeed()
-				.toString()
-				+ " km/h"+forecast.get(position).getWindDirection());
-		holder.tempMin.setText(forecast.get(position).getTempMin().toString()
-				+ " C");		
+		holder.temp.setText(convertTemp(forecast.get(position).getTempMax())
+				+" to " + convertTemp(forecast.get(position).getTempMin()) 
+						+ measurementUnitSuffix);	
 		holder.weatherCondition.setImageResource(getResourceIdForWeather(false,
 				forecast.get(position).getIcon()));
 		return convertView;
+	}
+	
+	private Float convertTemp(Float temperature) {
+		// convert if Fahrenheit
+		if(!measurementUnit.equals("Celsius")) {
+			return temperature*9/5+32;
+		}
+		return temperature;
 	}
 
 	private int getResourceIdForWeather(Boolean big, String iconName) {
@@ -137,15 +146,10 @@ public class WeatherForecastAdapter extends BaseAdapter {
 		TextView forecastDate;
 
 		/** The temp max. */
-		TextView tempMax;
-
-		/** The temp min. */
-		TextView tempMin;
-
-		/** The wind details. */
-		TextView windDetails;
+		TextView temp;
 		
 		/** The weather condition. */
 		ImageView weatherCondition;
 	}
+	
 }

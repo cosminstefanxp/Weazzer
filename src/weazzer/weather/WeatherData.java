@@ -27,6 +27,17 @@ public class WeatherData {
 
 	/** The icon name. */
 	public String icon;
+	
+	/** The temperature it feels like. */
+	public Float feelsLike;
+
+	public Float getFeelsLike() {
+		return feelsLike;
+	}
+
+	public void setFeelsLike(Float feelsLike) {
+		this.feelsLike = feelsLike;
+	}
 
 	/**
 	 * Gets the when description.
