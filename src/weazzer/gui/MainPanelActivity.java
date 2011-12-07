@@ -31,6 +31,7 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * The Class MainPanelActivity.
@@ -201,7 +202,7 @@ public class MainPanelActivity extends Activity {
 	WeatherProvider weatherProvider;
 	/** A period from 0 to 3. */
 	int currentPeriod;
-	/** °C or °F from preferences. */
+	/** ï¿½C or ï¿½F from preferences. */
 	String measurementUnitSuffix;
 	/** Celsius or Fahrenheit from preferences. */
 	String measurementUnit;
@@ -457,12 +458,25 @@ public class MainPanelActivity extends Activity {
 		// Measurement unit
 		measurementUnit = prefs.getString("muPref", "Celsius");
 		measurementUnitSuffix = measurementUnit.equals(
-				"Celsius") ? "°C" : "°F";
-		// Weather location
-		weatherLocation = new WeatherLocation();
-		weatherLocation.city = prefs.getString("cityLocationPref", "Bucharest");
-		weatherLocation.country = prefs.getString("countryLocationPref",
-				"Romania");
+				"Celsius") ? "ï¿½C" : "ï¿½F";
+		// Weather location - null if missing
+		//Get the selected value
+		String[] locations=prefs.getString("locationPref", "").split("[ ,]");
+		//Check if it's ok
+		if(locations.length!=3)
+		{
+			prefs.edit().remove("locationPref").commit();
+			Toast.makeText(getBaseContext(),
+					"Missing location information. Please set your location in the settings section!",
+					Toast.LENGTH_LONG).show();
+			weatherLocation=new WeatherLocation("<Missing>", "<Missing>");
+		}
+		else
+		{
+			weatherLocation = new WeatherLocation();
+			weatherLocation.city = prefs.getString("cityLocationPref", "Bucharest");
+			weatherLocation.country = prefs.getString("countryLocationPref","Romania");
+		}
 	}
 
 	/*
