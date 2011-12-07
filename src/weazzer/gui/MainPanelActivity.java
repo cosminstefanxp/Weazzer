@@ -91,10 +91,10 @@ public class MainPanelActivity extends Activity {
 
 		void leftSwipe() {
 			if (owner == findViewById(R.id.mainWeatherImageView)) {
-				if (currentPeriod < 3)
-					currentPeriod++;
 				if (currentPeriod == 3) 
 					toLongTermAction(owner);
+				else if (currentPeriod < 3)
+					currentPeriod++;
 			}
 			refreshUI();
 		}
@@ -103,10 +103,10 @@ public class MainPanelActivity extends Activity {
 		// index in the array.
 		void upSwipe() {
 			if (owner == findViewById(R.id.mainWeatherImageView)) {
-				if (currentPeriod < 3)
-					currentPeriod++;
 				if (currentPeriod == 3) 
 					toLongTermAction(owner);
+				else if (currentPeriod < 3)
+					currentPeriod++;
 			}
 			if (owner == findViewById(R.id.TopClothesView)) {
 				if (clothesSuggestion[currentPeriod].getTopIndex() < clothesSuggestion[currentPeriod]
