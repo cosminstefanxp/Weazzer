@@ -24,117 +24,87 @@ public class SettingsPanelActivity extends PreferenceActivity {
 
 		// Prepare preference selection for location selection
 		EditTextPreference countryLocationPref = (EditTextPreference) findPreference("countryLocationPref");
-		EditTextPreference tmpCityLocationPref = (EditTextPreference) findPreference("tmpCityLocationPref");
-		ListPreference finalCityLocationPref = (ListPreference) findPreference("cityLocationPref");
+		EditTextPreference cityLocationPref = (EditTextPreference) findPreference("cityLocationPref");
+		ListPreference finalLocationPref = (ListPreference) findPreference("locationPref");
 		Preference searchLocationPref = (Preference) findPreference("searchLocationPref");
 
-		// Set the title accordingly
-		countryLocationPref.setTitle("Country - "
-				+ countryLocationPref.getText());
-		tmpCityLocationPref.setTitle("City - "
-				+ finalCityLocationPref.getValue());
-		finalCityLocationPref.setSummary(finalCityLocationPref.getValue()
-				+ ", " + countryLocationPref.getText());
+		// Set the title accordingly, if a selection was already made
+		if (finalLocationPref.getValue()!=null) {
+			//Get the selected value
+			String[] locations=finalLocationPref.getValue().split("[ ,]");
+			//Check if it's ok
+			if(locations.length!=3)
+			{
+				Toast.makeText(getBaseContext(), "Illegal value for location! Resetting!", Toast.LENGTH_SHORT).show();
+				finalLocationPref.setValue(null);
+			}
+
+			//Set stuff accordingly
+			countryLocationPref.setText(locations[2]);
+			cityLocationPref.setText(locations[0]);
+			finalLocationPref.setSummary(locations[0] + ", " + locations[2]);
+			finalLocationPref.setEnabled(true);
+		}
 
 		// Set Listeners
+		finalLocationPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				// Get preferences for country and city
+				EditTextPreference countryLocationPref = (EditTextPreference) findPreference("countryLocationPref");
+				EditTextPreference cityLocationPref = (EditTextPreference) findPreference("cityLocationPref");
+				ListPreference locationPref = (ListPreference) findPreference("locationPref");
 
-		finalCityLocationPref
-				.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				// Set accordingly
+				String[] locations=((String)newValue).split("[ ,]");				
+				countryLocationPref.setText(locations[2]);
+				cityLocationPref.setText(locations[0]);	
+				countryLocationPref.setTitle("Country - " + countryLocationPref.getText());
+				cityLocationPref.setTitle("City - " + cityLocationPref.getText());
+				locationPref.setSummary(locations[0] + ", " + locations[2]);
 
-					public boolean onPreferenceChange(Preference preference,
-							Object newValue) {
-						// Get preferences for country and city
-						EditTextPreference countryLocationPref = (EditTextPreference) findPreference("countryLocationPref");
-						EditTextPreference cityLocationPref = (EditTextPreference) findPreference("tmpCityLocationPref");
-						ListPreference cityPref = (ListPreference) findPreference("cityLocationPref");
+				return true;
+			}
+		});
 
-						// Set accordingly
-						countryLocationPref
-								.setText(SettingsPanelActivity.locations.get(0).country);
-						cityLocationPref.setText((String) newValue);
-						cityPref.setSummary(newValue + ", "
-								+ countryLocationPref.getText());
+		searchLocationPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			public boolean onPreferenceClick(Preference preference) {
+				Toast.makeText(getBaseContext(), "Searching for your location!", Toast.LENGTH_SHORT).show();
 
-						return true;
-					}
-				});
+				// Get preferences for country and city
+				EditTextPreference countryLocationPref = (EditTextPreference) findPreference("countryLocationPref");
+				EditTextPreference cityLocationPref = (EditTextPreference) findPreference("cityLocationPref");
+				ListPreference locationPref = (ListPreference) findPreference("locationPref");
 
-		countryLocationPref
-				.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				// Search for the given suggestion
+				WeatherProvider weatherProvider = new DummyProvider();
+				SettingsPanelActivity.locations = weatherProvider.getSuggestedLocation(countryLocationPref
+						.getText(), cityLocationPref.getText());
 
-					public boolean onPreferenceChange(Preference preference,
-							Object newValue) {
-						preference.setTitle("Country - " + newValue);
-						return true;
-					}
-				});
-
-		tmpCityLocationPref
-				.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-
-					public boolean onPreferenceChange(Preference preference,
-							Object newValue) {
-						preference.setTitle("City - " + newValue);
-						return true;
-					}
-				});
-
-		searchLocationPref
-				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-					public boolean onPreferenceClick(Preference preference) {
-						Toast.makeText(getBaseContext(),
-								"Searching for your location!",
-								Toast.LENGTH_SHORT).show();
-
-						// Get preferences for country and city
-						EditTextPreference countryLocationPref = (EditTextPreference) findPreference("countryLocationPref");
-						EditTextPreference cityLocationPref = (EditTextPreference) findPreference("tmpCityLocationPref");
-						ListPreference cityPref = (ListPreference) findPreference("cityLocationPref");
-
-						// Set the title accordingly
-						countryLocationPref.setTitle("Country - "
-								+ countryLocationPref.getText());
-						cityLocationPref.setTitle("City - "
-								+ cityLocationPref.getText());
-
-						// Search for the given suggestion
-						WeatherProvider weatherProvider = new DummyProvider();
-						SettingsPanelActivity.locations = weatherProvider
-								.getSuggestedLocation(
-										countryLocationPref.getText(),
-										cityLocationPref.getText());
-
-						if (SettingsPanelActivity.locations == null
-								|| SettingsPanelActivity.locations.isEmpty()) {
-							Toast.makeText(
-									getBaseContext(),
-									"No location was found with the given country and city name. Please try again!",
-									Toast.LENGTH_LONG).show();
-						} else {
-							String[] suggestedCities = new String[SettingsPanelActivity.locations
-									.size()];
-							// Prepare the list of cities
-							for (int i = 0; i < SettingsPanelActivity.locations
-									.size(); i++) {
-								suggestedCities[i] = SettingsPanelActivity.locations
-										.get(i).city;
-							}
-
-							// Set the city list
-							cityPref.setEntryValues(suggestedCities);
-							cityPref.setEntries(suggestedCities);
-							cityPref.setEnabled(true);
-							cityPref.setValueIndex(0);
-
-							Toast.makeText(getBaseContext(),
-									"Select the city from the list above!",
-									Toast.LENGTH_LONG).show();
-						}
-
-						return true;
+				if (SettingsPanelActivity.locations == null || SettingsPanelActivity.locations.isEmpty()) {
+					Toast.makeText(getBaseContext(),
+							"No location was found with the given country and city name. Please try again!",
+							Toast.LENGTH_LONG).show();
+				} else {
+					String[] suggestedLocations = new String[SettingsPanelActivity.locations.size()];
+					// Prepare the list of cities
+					for (int i = 0; i < SettingsPanelActivity.locations.size(); i++) {
+						suggestedLocations[i] = SettingsPanelActivity.locations.get(i).city+", "+SettingsPanelActivity.locations.get(i).country;
 					}
 
-				});
+					// Set the city list
+					locationPref.setEntryValues(suggestedLocations);
+					locationPref.setEntries(suggestedLocations);
+					locationPref.setEnabled(true);
+					locationPref.setValueIndex(0);
+					locationPref.setSummary(suggestedLocations[0]);
+
+					Toast.makeText(getBaseContext(), "Select the location from the list above!",
+							Toast.LENGTH_LONG).show();
+				}
+
+				return true;
+			}
+
+		});
 	}
 }

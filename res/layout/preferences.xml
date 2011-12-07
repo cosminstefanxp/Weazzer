@@ -38,7 +38,7 @@
                     android:title="Country" />
 
                 <EditTextPreference
-                    android:key="tmpCityLocationPref"
+                    android:key="cityLocationPref"
                     android:name="City"
                     android:summary="Edit the full name of the city for the weather data"
                     android:title="City" />
@@ -52,12 +52,11 @@
             <PreferenceCategory android:title="Selected Weather Location" >
 
                 <ListPreference
-                    android:defaultValue="None"
                     android:enabled="false"
                     android:entries="@array/locationArray"
                     android:entryValues="@array/locationValues"
-                    android:key="cityLocationPref"
-                    android:summary="Select the final location."
+                    android:key="locationPref"
+                    android:summary="Weather location was not selected!"
                     android:title="Weather Location" />
             </PreferenceCategory>
         </PreferenceScreen>
