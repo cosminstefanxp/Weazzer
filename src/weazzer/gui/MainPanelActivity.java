@@ -44,9 +44,9 @@ public class MainPanelActivity extends Activity {
 	 * 
 	 */
 	class MainPanelGestureDetector extends SimpleOnGestureListener {
-		private static final int SWIPE_MIN_DISTANCE = 50;
+		private static final int SWIPE_MIN_DISTANCE = 20;
 		private static final int SWIPE_MAX_OFF_PATH = 100;
-		private static final int SWIPE_THRESHOLD_VELOCITY = 50;
+		private static final int SWIPE_THRESHOLD_VELOCITY = 30;
 		/**
 		 * Whose events are listened.
 		 */
@@ -109,28 +109,13 @@ public class MainPanelActivity extends Activity {
 					currentPeriod++;
 			}
 			if (owner == findViewById(R.id.TopClothesView)) {
-				if (clothesSuggestion[currentPeriod].getTopIndex() < clothesSuggestion[currentPeriod]
-						.getTopSuggestions().size() - 1) {
-					clothesSuggestion[currentPeriod]
-							.setTopIndex(clothesSuggestion[currentPeriod]
-									.getTopIndex() + 1);
-				}
+				onTopDownPress(owner);
 			}
 			if (owner == findViewById(R.id.BottomClothesView)) {
-				if (clothesSuggestion[currentPeriod].getBottomIndex() < clothesSuggestion[currentPeriod]
-						.getBottomSuggestions().size() - 1) {
-					clothesSuggestion[currentPeriod]
-							.setBottomIndex(clothesSuggestion[currentPeriod]
-									.getBottomIndex() + 1);
-				}
+				onBottomDownPress(owner);
 			}
 			if (owner == findViewById(R.id.OvercoatClothesView)) {
-				if (clothesSuggestion[currentPeriod].getOvercoatIndex() < clothesSuggestion[currentPeriod]
-						.getOvercoatSuggestions().size() - 1) {
-					clothesSuggestion[currentPeriod]
-							.setOvercoatIndex(clothesSuggestion[currentPeriod]
-									.getOvercoatIndex() + 1);
-				}
+				onOvercoatDownPress(owner);
 			}
 			refreshUI();
 		}
@@ -141,25 +126,13 @@ public class MainPanelActivity extends Activity {
 					currentPeriod--;
 			}
 			if (owner == findViewById(R.id.TopClothesView)) {
-				if (clothesSuggestion[currentPeriod].getTopIndex() > 0) {
-					clothesSuggestion[currentPeriod]
-							.setTopIndex(clothesSuggestion[currentPeriod]
-									.getTopIndex() - 1);
-				}
+				onTopUpPress(owner);
 			}
 			if (owner == findViewById(R.id.BottomClothesView)) {
-				if (clothesSuggestion[currentPeriod].getBottomIndex() > 0) {
-					clothesSuggestion[currentPeriod]
-							.setBottomIndex(clothesSuggestion[currentPeriod]
-									.getBottomIndex() - 1);
-				}
+				onBottomUpPress(owner);
 			}
 			if (owner == findViewById(R.id.OvercoatClothesView)) {
-				if (clothesSuggestion[currentPeriod].getOvercoatIndex() > 0) {
-					clothesSuggestion[currentPeriod]
-							.setOvercoatIndex(clothesSuggestion[currentPeriod]
-									.getOvercoatIndex() - 1);
-				}
+				onOvercoatUpPress(owner);
 			}
 			refreshUI();
 		}
@@ -377,26 +350,42 @@ public class MainPanelActivity extends Activity {
 		((ImageView) findViewById(R.id.OvercoatClothesView))
 				.setImageResource(resourceId);
 		
-		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(0))			
+		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(0))	{	
 			((ImageView) findViewById(R.id.firstExtraView)).setImageResource
 				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(0).getResource());
-		else
+			((ImageView) findViewById(R.id.firstX)).setVisibility(ImageView.INVISIBLE);
+		}
+		else { 
 			((ImageView) findViewById(R.id.firstExtraView)).setImageResource
 				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(0).getResourceGray());
-		
-		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(1))			
+			((ImageView) findViewById(R.id.firstX)).setVisibility(ImageView.VISIBLE);
+		}
+		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(1))			{
 			((ImageView) findViewById(R.id.secondExtraView)).setImageResource
 				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(1).getResource());
-		else
+			((ImageView) findViewById(R.id.secondX)).setVisibility(ImageView.INVISIBLE);
+		}
+		else {
 			((ImageView) findViewById(R.id.secondExtraView)).setImageResource
 				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(1).getResourceGray());
-		
-		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(2))			
+			((ImageView) findViewById(R.id.secondX)).setVisibility(ImageView.VISIBLE);
+		}
+		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(2)) {			
 			((ImageView) findViewById(R.id.thirdExtraView)).setImageResource
 				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(2).getResource());
-		else
+			((ImageView) findViewById(R.id.thirdX)).setVisibility(ImageView.INVISIBLE);
+		}
+		else {
 			((ImageView) findViewById(R.id.thirdExtraView)).setImageResource
 				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(2).getResourceGray());
+			((ImageView) findViewById(R.id.thirdX)).setVisibility(ImageView.VISIBLE);
+		}
+		
+		if (currentPeriod==0) {
+			((ImageView) findViewById(R.id.imageView1)).setVisibility(ImageView.INVISIBLE);
+		} else {
+			((ImageView) findViewById(R.id.imageView1)).setVisibility(ImageView.VISIBLE);
+		}
 	}
 
 	private Float convertTemp(Float temperature) {
@@ -532,5 +521,73 @@ public class MainPanelActivity extends Activity {
 		choice.set(2, !choice.get(2));
 		refreshUI();
 	}
+
 	
+	public void onLeftArrowPress(View v) {
+		if (currentPeriod > 0)
+			currentPeriod--;
+		refreshUI();
+	}
+	
+	public void onRightArrowPress(View v) {
+		if (currentPeriod == 3) 
+			toLongTermAction(null);
+		else if (currentPeriod < 3)
+			currentPeriod++;
+		refreshUI();
+	}
+	
+	public void onOvercoatDownPress(View v) {
+		if (clothesSuggestion[currentPeriod].getOvercoatIndex() < clothesSuggestion[currentPeriod]
+				.getOvercoatSuggestions().size() - 1) {
+			clothesSuggestion[currentPeriod]
+					.setOvercoatIndex(clothesSuggestion[currentPeriod]
+							.getOvercoatIndex() + 1);
+		}	
+		refreshUI();
+	}
+	
+	public void onBottomDownPress(View v) {
+		if (clothesSuggestion[currentPeriod].getBottomIndex() < clothesSuggestion[currentPeriod]
+				.getBottomSuggestions().size() - 1) {
+			clothesSuggestion[currentPeriod]
+					.setBottomIndex(clothesSuggestion[currentPeriod]
+							.getBottomIndex() + 1);
+		}
+		refreshUI();
+	}
+	
+	public void onTopDownPress(View v) {
+		if (clothesSuggestion[currentPeriod].getTopIndex() < clothesSuggestion[currentPeriod]
+				.getTopSuggestions().size() - 1) {
+			clothesSuggestion[currentPeriod]
+					.setTopIndex(clothesSuggestion[currentPeriod]
+							.getTopIndex() + 1);
+		}
+		refreshUI();
+	}
+	
+	public void onTopUpPress(View v) {
+		if (clothesSuggestion[currentPeriod].getTopIndex() > 0) {
+			clothesSuggestion[currentPeriod]
+					.setTopIndex(clothesSuggestion[currentPeriod]
+							.getTopIndex() - 1);
+		}
+	}
+	
+	public void onBottomUpPress(View v) {
+		if (clothesSuggestion[currentPeriod].getBottomIndex() > 0) {
+			clothesSuggestion[currentPeriod]
+					.setBottomIndex(clothesSuggestion[currentPeriod]
+							.getBottomIndex() - 1);
+		}
+	}
+	
+	public void onOvercoatUpPress(View v) {
+		if (clothesSuggestion[currentPeriod].getOvercoatIndex() > 0) {
+			clothesSuggestion[currentPeriod]
+					.setOvercoatIndex(clothesSuggestion[currentPeriod]
+							.getOvercoatIndex() - 1);
+		}
+	}
 }
