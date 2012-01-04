@@ -339,6 +339,43 @@ public class MainPanelActivity extends Activity {
 		int bottomIndex = clothesSuggestion[currentPeriod].getBottomIndex();
 		int topIndex = clothesSuggestion[currentPeriod].getTopIndex();
 		int overcoatIndex = clothesSuggestion[currentPeriod].getOvercoatIndex();
+		if (bottomIndex==0) {
+			((ImageView) findViewById(R.id.bottomTopArrow)).setVisibility(ImageView.INVISIBLE);
+		} else {
+			((ImageView) findViewById(R.id.bottomTopArrow)).setVisibility(ImageView.VISIBLE);
+		}
+		
+		if (topIndex==0) {
+			((ImageView) findViewById(R.id.upTopArrow)).setVisibility(ImageView.INVISIBLE);
+		} else {
+			((ImageView) findViewById(R.id.upTopArrow)).setVisibility(ImageView.VISIBLE);
+		}
+		
+		if (overcoatIndex==0) {
+			((ImageView) findViewById(R.id.overcoatTopArrow)).setVisibility(ImageView.INVISIBLE);
+		} else {
+			((ImageView) findViewById(R.id.overcoatTopArrow)).setVisibility(ImageView.VISIBLE);
+		}
+		
+		if (bottomIndex==clothesSuggestion[currentPeriod].getBottomSuggestions().size()-1) {
+			((ImageView) findViewById(R.id.downBottomArrow)).setVisibility(ImageView.INVISIBLE);
+		} else {
+			((ImageView) findViewById(R.id.downBottomArrow)).setVisibility(ImageView.VISIBLE);
+		}
+		
+		if (overcoatIndex==clothesSuggestion[currentPeriod].getOvercoatSuggestions().size()-1) {
+			((ImageView) findViewById(R.id.downOvercoatArrow)).setVisibility(ImageView.INVISIBLE);
+		} else {
+			((ImageView) findViewById(R.id.downOvercoatArrow)).setVisibility(ImageView.VISIBLE);
+		}
+		
+		if (topIndex==clothesSuggestion[currentPeriod].getTopSuggestions().size()-1) {
+			((ImageView) findViewById(R.id.downTopArrow)).setVisibility(ImageView.INVISIBLE);
+		} else {
+			((ImageView) findViewById(R.id.downTopArrow)).setVisibility(ImageView.VISIBLE);
+		}
+		
+		
 		int resourceId = clothesSuggestion[currentPeriod]
 				.getBottomSuggestions().get(bottomIndex).getResource();
 		((ImageView) findViewById(R.id.BottomClothesView))

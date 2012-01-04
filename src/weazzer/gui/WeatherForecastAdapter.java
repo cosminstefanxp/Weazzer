@@ -103,7 +103,7 @@ public class WeatherForecastAdapter extends BaseAdapter {
 		holder.forecastDate.setText(forecast.get(position).getForecastDate()
 				.get(Calendar.DAY_OF_MONTH)
 				+ "/"
-				+ forecast.get(position).getForecastDate().get(Calendar.MONTH));
+				+ (forecast.get(position).getForecastDate().get(Calendar.MONTH)+1));
 		holder.temp.setText(convertTemp(forecast.get(position).getTempMin())
 				+" to " + convertTemp(forecast.get(position).getTempMax()) 
 						+ measurementUnitSuffix);	

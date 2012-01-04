@@ -317,9 +317,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
                         android:orientation="vertical" >
-
+
                         <ImageView
-                            android:id="@+id/imageView2"
+                            android:id="@+id/upTopArrow"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:onClick="onTopUpPress"
@@ -331,13 +331,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1.0"
                             android:src="@drawable/umbrella" />
-
+
                         <ImageView
-                            android:id="@+id/ImageView05"
+                            android:id="@+id/downTopArrow"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:onClick="onTopDownPress"
                             android:src="@drawable/downarrow" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -346,9 +347,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
                         android:orientation="vertical" >
-
+
                         <ImageView
-                            android:id="@+id/ImageView02"
+                            android:id="@+id/bottomTopArrow"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:onClick="onBottomUpPress"
@@ -360,13 +361,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1.0"
                             android:src="@drawable/umbrella" />
-
+
                         <ImageView
-                            android:id="@+id/ImageView06"
+                            android:id="@+id/downBottomArrow"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:onClick="onBottomDownPress"
                             android:src="@drawable/downarrow" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -375,9 +377,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
                         android:orientation="vertical" >
-
+
                         <ImageView
-                            android:id="@+id/ImageView03"
+                            android:id="@+id/overcoatTopArrow"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:onClick="onOvercoatUpPress"
@@ -389,13 +391,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1.0"
                             android:src="@drawable/umbrella" />
-
+
                         <ImageView
-                            android:id="@+id/ImageView04"
+                            android:id="@+id/downOvercoatArrow"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:onClick="onOvercoatDownPress"
                             android:src="@drawable/downarrow" />
+
                     </LinearLayout>
                 </LinearLayout>
 
