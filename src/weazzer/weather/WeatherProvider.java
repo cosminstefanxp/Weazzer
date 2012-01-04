@@ -78,6 +78,6 @@ public interface WeatherProvider {
 	 * Sets the measurement unit for the weather data.
 	 * 
 	 */
-	public void setMeasurementUnit();
+	public void setMeasurementUnit(MeasurementUnit value);
 
 }
