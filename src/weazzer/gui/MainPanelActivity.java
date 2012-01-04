@@ -5,6 +5,7 @@
 package weazzer.gui;
 
 import java.lang.reflect.Field;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,7 +176,7 @@ public class MainPanelActivity extends Activity {
 	WeatherProvider weatherProvider;
 	/** A period from 0 to 3. */
 	int currentPeriod;
-	/** ï¿½C or ï¿½F from preferences. */
+	/** °C or °F from preferences. */
 	String measurementUnitSuffix;
 	/** Celsius or Fahrenheit from preferences. */
 	String measurementUnit;
@@ -287,7 +288,7 @@ public class MainPanelActivity extends Activity {
 				int idTemperatureLabel = R.id.class.getField(
 						prefix + "NextPeriodValueLabel").getInt(null);
 				TextView temperatureLabel = (TextView) findViewById(idTemperatureLabel);
-				temperatureLabel.setText(currentWeatherData.getTemperature()
+				temperatureLabel.setText(convertTemp(currentWeatherData.getTemperature())
 						+ measurementUnitSuffix);
 				int idWhenLabel = R.id.class.getField(
 						prefix + "NextPeriodTitleLabel").getInt(null);
@@ -389,12 +390,13 @@ public class MainPanelActivity extends Activity {
 		}
 	}
 
-	private Float convertTemp(Float temperature) {
+	private String convertTemp(Float temperature) {
+		Float newTemperature = temperature;
 		// convert if Fahrenheit
 		if(!measurementUnit.equals("Celsius")) {
-			return temperature*9/5+32;
+			newTemperature = temperature*9/5+32;
 		}
-		return temperature;
+		return (new DecimalFormat("#").format(newTemperature));
 	}
 
 	private int getResourceIdForWeather(Boolean big, String iconName) {
@@ -447,7 +449,7 @@ public class MainPanelActivity extends Activity {
 		// Measurement unit
 		measurementUnit = prefs.getString("muPref", "Celsius");
 		measurementUnitSuffix = measurementUnit.equals(
-				"Celsius") ? "ï¿½C" : "ï¿½F";
+				"Celsius") ? "°C" : "°F";
 		// Weather location - null if missing
 		//Get the selected value
 		String[] locations=prefs.getString("locationPref", "").split("[ ,]");
