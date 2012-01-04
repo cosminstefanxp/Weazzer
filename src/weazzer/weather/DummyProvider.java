@@ -68,22 +68,44 @@ public class DummyProvider implements WeatherProvider {
 	 */
 	public ArrayList<WeatherData> getCurrentWeather() {
 
-		ArrayList<WeatherData> weatherList = new ArrayList<WeatherData>();
-		for (int i = 1; i < 5; i++) {
-			WeatherData wd = new WeatherData();
-
-			wd.humidity = i * 0.8f;
-			wd.temperature = i * 2f;
-			wd.weatherCondition = i != 2 ? "Sunny" : "Rain";
-			wd.when = i == 1 ? "Now" : i == 2 ? "In 2H" : i == 3 ? "In 5H"
-					: "In 10H";
-			wd.windSpeed = i * 2f;
-			wd.icon = i != 2 ? "sunny" : "rain";
-			wd.feelsLike = wd.temperature + 1;
-			weatherList.add(wd);
+		try {
+			String url = 
+					String.format(
+						"%s/api/%s/hourly/q/%s.json", 
+						SERVER, API_KEY, location
+					);
+			String response = sendGetRequest(url);
+			JSONObject json = new JSONObject(response);
+			JSONArray hourlyData = 
+				json.getJSONArray("hourly_forecast");
+			
+			ArrayList<WeatherData> weatherList = new ArrayList<WeatherData>();
+			for (int i = 1; i < 5; i++) {
+				JSONObject hObj = hourlyData.getJSONObject((i-1)*4);
+				WeatherData wd = new WeatherData();
+					
+				Float temp = Float.parseFloat(hObj.getJSONObject("temp").getString("english"));
+				wd.temperature = new Float((temp - 32) / 1.8);
+	
+				wd.humidity = Float.parseFloat(hObj.getString("humidity"));
+				wd.weatherCondition = hObj.getString("condition");
+				wd.when = i == 1 ? "Now" : i == 2 ? "In 4H" : i == 3 ? "In 8H"
+						: "In 12H";
+				wd.windSpeed = Float.parseFloat(hObj.getJSONObject("wspd").getString("english"));
+				wd.icon = hObj.getString("icon");
+				
+				temp = Float.parseFloat(hObj.getJSONObject("feelslike").getString("english"));	
+				wd.feelsLike = new Float((temp - 32) / 1.8);
+				weatherList.add(wd);
+			}
+	
+			return weatherList;
 		}
-
-		return weatherList;
+		catch (Exception ex) {
+			System.out.println(ex);
+		}
+		
+		return null;
 	}
 
 	/*
