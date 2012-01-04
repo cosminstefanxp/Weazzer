@@ -105,10 +105,6 @@ public class DummyProvider implements WeatherProvider {
 				json.getJSONObject("forecast")
 					.getJSONObject("simpleforecast")
 					.getJSONArray("forecastday");
-
-			String unitType = "celsius";
-			if (measurementUnit == MeasurementUnit.Farenheit)
-				unitType = "fahrenheit";
 			
 			ArrayList<WeatherForecast> wf = new ArrayList<WeatherForecast>();
 			for (int i = 0; i < daysCount && i < forecastData.length(); i++) {
@@ -117,8 +113,8 @@ public class DummyProvider implements WeatherProvider {
 				WeatherForecast forecast = new WeatherForecast();
 				forecast.forecastDate = new GregorianCalendar();
 				forecast.forecastDate.add(Calendar.DAY_OF_MONTH, i);
-				forecast.tempMax = Float.parseFloat(day.getJSONObject("high").getString(unitType));
-				forecast.tempMin = Float.parseFloat(day.getJSONObject("low").getString(unitType));
+				forecast.tempMax = Float.parseFloat(day.getJSONObject("high").getString("celsius"));
+				forecast.tempMin = Float.parseFloat(day.getJSONObject("low").getString("celsius"));
 				forecast.weatherCondition = day.getString("conditions");
 				forecast.windDirection = day.getJSONObject("avewind").getString("dir");
 				forecast.windSpeed = Float.parseFloat(day.getJSONObject("avewind").getString("kph")); // TODO: or miles?
