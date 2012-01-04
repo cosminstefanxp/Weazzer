@@ -587,6 +587,7 @@ public class MainPanelActivity extends Activity {
 					.setTopIndex(clothesSuggestion[currentPeriod]
 							.getTopIndex() - 1);
 		}
+		refreshUI();
 	}
 	
 	public void onBottomUpPress(View v) {
@@ -595,6 +596,7 @@ public class MainPanelActivity extends Activity {
 					.setBottomIndex(clothesSuggestion[currentPeriod]
 							.getBottomIndex() - 1);
 		}
+		refreshUI();
 	}
 	
 	public void onOvercoatUpPress(View v) {
@@ -603,5 +605,6 @@ public class MainPanelActivity extends Activity {
 					.setOvercoatIndex(clothesSuggestion[currentPeriod]
 							.getOvercoatIndex() - 1);
 		}
+		refreshUI();
 	}
 }
