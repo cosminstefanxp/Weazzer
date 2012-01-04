@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import weazzer.weather.DummyProvider;
 import weazzer.weather.WeatherForecast;
+import weazzer.weather.WeatherProvider.MeasurementUnit;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,13 +29,16 @@ public class LongTermActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.long_term);
 
-		DummyProvider provider = new DummyProvider();
-		ArrayList<WeatherForecast> forecast = provider.getWeatherForecast(7);
-
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
-	
 		String measurementUnit = prefs.getString("muPref", "Celsius");
+		MeasurementUnit mu = MeasurementUnit.Farenheit;;
+		if (measurementUnit.equals("Celsius"))
+			mu = MeasurementUnit.Celsius;
+
+		DummyProvider provider = new DummyProvider();
+		provider.setMeasurementUnit(mu);
+		ArrayList<WeatherForecast> forecast = provider.getWeatherForecast(7);
 		
 		final ListView lv1 = (ListView) findViewById(R.id.nextDaysView);
 		lv1.setAdapter(new WeatherForecastAdapter(this, forecast, measurementUnit));
