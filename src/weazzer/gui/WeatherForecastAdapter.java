@@ -104,8 +104,8 @@ public class WeatherForecastAdapter extends BaseAdapter {
 				.get(Calendar.DAY_OF_MONTH)
 				+ "/"
 				+ forecast.get(position).getForecastDate().get(Calendar.MONTH));
-		holder.temp.setText(convertTemp(forecast.get(position).getTempMax())
-				+" to " + convertTemp(forecast.get(position).getTempMin()) 
+		holder.temp.setText(convertTemp(forecast.get(position).getTempMin())
+				+" to " + convertTemp(forecast.get(position).getTempMax()) 
 						+ measurementUnitSuffix);	
 		holder.weatherCondition.setImageResource(getResourceIdForWeather(false,
 				forecast.get(position).getIcon()));
