@@ -171,23 +171,24 @@ public class MainPanelActivity extends Activity {
 	}
 
 	/** The gender from preferences. */
-	String gender;
+	private String gender;
 	/** The current weather provider. */
-	WeatherProvider weatherProvider;
+	private WeatherProvider weatherProvider;
 	/** A period from 0 to 3. */
-	int currentPeriod;
+	private int currentPeriod;
 	/** °C or °F from preferences. */
-	String measurementUnitSuffix;
+	private String measurementUnitSuffix;
 	/** Celsius or Fahrenheit from preferences. */
-	String measurementUnit;
+	private String measurementUnit;
 	/** The location from preferences. */
-	WeatherLocation weatherLocation;
+	private WeatherLocation weatherLocation;
 	/** The current suggestion engine. */
-	SuggestionsEngine suggestionsEngine;
+	private SuggestionsEngine suggestionsEngine;
 	/** The current clothes selection. */
-	ClothesSuggestion clothesSuggestion[];
+	private ClothesSuggestion clothesSuggestion[];
 	/** The current weather. */
-	List<WeatherData> weather;
+	private List<WeatherData> weather;
+	private SharedPreferences prefs;
 
 	/**
 	 * The listener interface for receiving myTouch events. The class that is
@@ -268,8 +269,7 @@ public class MainPanelActivity extends Activity {
 	private void initializeUI() {
 		try {
 			for (int currentPeriod = 0; currentPeriod < 4; currentPeriod++) {
-				WeatherData currentWeatherData = weatherProvider
-						.getCurrentWeather().get(currentPeriod);
+				WeatherData currentWeatherData =weather.get(currentPeriod);
 				String prefix = null;
 				switch (currentPeriod) {
 				case 0:
@@ -478,7 +478,7 @@ public class MainPanelActivity extends Activity {
 	 */
 	private void getPreferences() {
 		// Get the xml/preferences.xml preferences
-		SharedPreferences prefs = PreferenceManager
+		prefs = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
 
 		// Gender
