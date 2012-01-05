@@ -1,0 +1,57 @@
+pants1m		
+pants2m
+pants3m
+pants4m
+
+pants1f
+pants2f
+pants3f
+pants4f
+pants5f
+pants6f
+pants7f
+
+shirt1m
+shirt2m
+shirt3m
+shirt4m
+shirt5m
+shirt6m
+shirt7m
+shirt8m
+shirt9m
+
+shirt1f		
+shirt2f
+shirt3f
+shirt4f
+shirt5f
+shirt6f
+shirt7f
+shirt8f
+shirt9f
+
+coat1m		-4
+coat2m		 0
+coat3m		 2
+coat4m		 6
+coat5m		10
+coat6m		12
+coat7m	    15
+coat8m		18
+coat0m		24
+
+coat1f		-4
+coat2f		 0
+coat3f		 2
+coat4f		 6
+coat5f		10
+coat6f		15
+coat0f		24
+
+
+
+
+
+
+
