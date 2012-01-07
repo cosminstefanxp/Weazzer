@@ -180,7 +180,7 @@ public class MainPanelActivity extends Activity {
 	private WeatherProvider weatherProvider;
 	/** A period from 0 to 3. */
 	private int currentPeriod;
-	/** °C or °F from preferences. */
+	/** ï¿½C or ï¿½F from preferences. */
 	private String measurementUnitSuffix;
 	/** Metric or Farenheit from preferences. */
 	private String systemUnit;
@@ -539,14 +539,14 @@ public class MainPanelActivity extends Activity {
 		gender = prefs.getString("genderPref", "male");
 		// Measurement unit
 		systemUnit = prefs.getString("suPref", "Metric");
-		measurementUnitSuffix = systemUnit.equals("Metric") ? "°C" : "°F";
+		measurementUnitSuffix = systemUnit.equals("Metric") ? "ï¿½C" : "ï¿½F";
 		windSuffix = systemUnit.equals("Metric") ? "km/h" : "mph";
 
 		// Weather location - null if missing
 		// Get the selected value
-		String[] locations = prefs.getString("locationPref", "").split("[ ,]");
+		String[] locations = prefs.getString("locationPref", "").split("[,]");
 		// Check if it's ok
-		if (locations.length != 3) {
+		if (locations.length != 2) {
 			prefs.edit().remove("locationPref").commit();
 			Toast.makeText(
 					getBaseContext(),
