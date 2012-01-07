@@ -218,7 +218,7 @@
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_weight="0.51" >
-
+
             <ImageView
                 android:id="@+id/mainWeatherImageView"
                 android:layout_width="fill_parent"
@@ -227,16 +227,6 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/feelsLikeLabel"
                 android:src="@drawable/big_sunny" />
-
-            <TextView
-                android:id="@+id/locationLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/textView1"
-                android:text="locatie"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/mainTemperatureLabel"
@@ -289,6 +279,24 @@
                 android:layout_weight="1.0"
                 android:onClick="onRightArrowPress"
                 android:src="@drawable/rightarrow" />
+
+            <TextView
+                android:id="@+id/locationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/mainTemperatureLabel"
+                android:layout_alignParentBottom="true"
+                android:text="location"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/windLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/feelsLikeLabel"
+                android:text="wind" />
+
         </RelativeLayout>
 
         <LinearLayout
@@ -330,7 +338,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.0"
-                            android:src="@drawable/umbrella" />
+                            android:src="@drawable/coat0f" />
 
                         <ImageView
                             android:id="@+id/downTopArrow"
@@ -360,7 +368,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.0"
-                            android:src="@drawable/umbrella" />
+                            android:src="@drawable/coat0f" />
 
                         <ImageView
                             android:id="@+id/downBottomArrow"
@@ -390,7 +398,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.0"
-                            android:src="@drawable/umbrella" />
+                            android:src="@drawable/coat0f" />
 
                         <ImageView
                             android:id="@+id/downOvercoatArrow"
@@ -430,7 +438,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onFirstExtraToggle"
-                        android:src="@drawable/umbrella" />
+                        android:src="@drawable/coat0f" />
 
                     <ImageView
                         android:id="@+id/firstX"
@@ -451,7 +459,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onSecondExtraToggle"
-                        android:src="@drawable/umbrella" />
+                        android:src="@drawable/coat0f" />
 
                     <ImageView
                         android:id="@+id/secondX"
@@ -474,7 +482,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onThirdExtraToggle"
-                        android:src="@drawable/umbrella" />
+                        android:src="@drawable/coat0f" />
 
                     <ImageView
                         android:id="@+id/thirdX"
