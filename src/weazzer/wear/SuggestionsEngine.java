@@ -125,7 +125,7 @@ public class SuggestionsEngine {
 	 */
 	private float getNewHF(WeatherData currentWeatherData, ClothingArticle article, float currentHF)
 	{
-		float raport=currentWeatherData.feelsLike/article.getHeatFactor();
+		float raport=(TEMPERATURE_OFFSET + currentWeatherData.feelsLike)/(TEMPERATURE_OFFSET + article.getHeatFactor());
 		return currentHF*0.2f + raport*0.8f;
 	}
 	
