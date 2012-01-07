@@ -19,8 +19,9 @@ import org.json.JSONObject;
  */
 public class DummyProvider implements WeatherProvider {
 
-	private final String SERVER  = "http://api.wunderground.com";
-	private final String API_KEY = "bf4be9ffc282fa45";
+	private static final String PROTOCOL = "http";
+	private static final String SERVER   = "api.wunderground.com";
+	private static final String API_KEY  = "bf4be9ffc282fa45";
 	
 	/** The measurement unit. */
 	private MeasurementUnit measurementUnit = MeasurementUnit.Celsius;
@@ -38,11 +39,13 @@ public class DummyProvider implements WeatherProvider {
 	/**
 	 * Makes an HTTP GET request and returns the response as a string
 	 */	
-	private static String sendGetRequest(String loc) throws Exception
-	{
+	private static String sendGetRequest(String serverPath) throws Exception
+	{		
 		String result = null;
 
-		URL url = new URL(loc);
+		URI uri = new URI(PROTOCOL, SERVER, serverPath, null);
+		URL url = uri.toURL();
+		
 		URLConnection conn = url.openConnection();
 		
 		// Get the response
@@ -69,8 +72,8 @@ public class DummyProvider implements WeatherProvider {
 	public ArrayList<WeatherData> getCurrentWeather() throws IllegalStateException {		
 		String url = 
 			String.format(
-				"%s/api/%s/hourly/q/%s.json", 
-				SERVER, API_KEY, getLocationStr(location)
+				"/api/%s/hourly/q/%s.json", 
+				API_KEY, getLocationStr(location)
 			);
 		String response = null;
 		
@@ -121,8 +124,8 @@ public class DummyProvider implements WeatherProvider {
 	public ArrayList<WeatherForecast> getWeatherForecast(int daysCount) throws IllegalStateException {	
 		String url = 
 			String.format(
-				"%s/api/%s/forecast7day/q/%s.json", 
-				SERVER, API_KEY, getLocationStr(location)
+				"/api/%s/forecast7day/q/%s.json", 
+				API_KEY, getLocationStr(location)
 			);
 		String response = null;
 		
@@ -177,8 +180,8 @@ public class DummyProvider implements WeatherProvider {
 		
 		String url = 
 			String.format(
-				"%s/api/%s/geolookup/q/%s.json", 
-				SERVER, API_KEY, city
+				"/api/%s/geolookup/q/%s.json", 
+				API_KEY, city
 			);
 		String response = null;
 		
