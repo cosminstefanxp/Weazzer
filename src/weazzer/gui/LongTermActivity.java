@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import weazzer.weather.DummyProvider;
 import weazzer.weather.WeatherForecast;
+import weazzer.weather.WeatherLocation;
 import weazzer.weather.WeatherProvider.MeasurementUnit;
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * @author cosmin
@@ -23,24 +25,51 @@ import android.widget.ListView;
  */
 public class LongTermActivity extends Activity {
 
+	WeatherLocation weatherLocation;
+	MeasurementUnit mu;
+	String systemUnit;
+	
 	@Override
 	public void onStart() {
 		super.onStart();
 		setContentView(R.layout.long_term);
 
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(getBaseContext());
-		String measurementUnit = prefs.getString("muPref", "Celsius");
-		MeasurementUnit mu = MeasurementUnit.Farenheit;;
-		if (measurementUnit.equals("Celsius"))
-			mu = MeasurementUnit.Celsius;
+		getPreferences();
 
 		DummyProvider provider = new DummyProvider();
 		provider.setMeasurementUnit(mu);
+		provider.setLocation(weatherLocation);
 		ArrayList<WeatherForecast> forecast = provider.getWeatherForecast(7);
 		
 		final ListView lv1 = (ListView) findViewById(R.id.nextDaysView);
-		lv1.setAdapter(new WeatherForecastAdapter(this, forecast, measurementUnit));
+		lv1.setAdapter(new WeatherForecastAdapter(this, forecast, systemUnit));
+	}
+	
+	private void getPreferences() {
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(getBaseContext());
+		systemUnit = prefs.getString("suPref", "Metric");
+		mu = MeasurementUnit.Farenheit;;
+		if (systemUnit.equals("Metric"))
+			mu = MeasurementUnit.Celsius;
+		// Weather location - null if missing
+				// Get the selected value
+				String[] locations = prefs.getString("locationPref", "").split("[ ,]");
+				// Check if it's ok
+				if (locations.length != 3) {
+					prefs.edit().remove("locationPref").commit();
+					Toast.makeText(
+							getBaseContext(),
+							"Missing location information. Please set your location in the settings section!",
+							Toast.LENGTH_LONG).show();
+					weatherLocation = new WeatherLocation("Bucharest", "Romania");
+				} else {
+					weatherLocation = new WeatherLocation();
+					weatherLocation.city = prefs.getString("cityLocationPref",
+							"Bucharest");
+					weatherLocation.country = prefs.getString("countryLocationPref",
+							"Romania");
+				}
 	}
 	
 	/*
