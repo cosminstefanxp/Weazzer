@@ -14,7 +14,7 @@ public class WeatherLocation {
 
 	/** The country. */
 	public String country = "";
-
+	
 	/**
 	 * Instantiates a new weather location.
 	 * 
@@ -22,13 +22,15 @@ public class WeatherLocation {
 	 *            the city
 	 * @param country
 	 *            the country
+	 * @param country
+	 *            the state            
 	 */
 	public WeatherLocation(String city, String country) {
 		super();
 		this.city = city;
 		this.country = country;
 	}
-
+	
 	/**
 	 * Instantiates a new weather location.
 	 */
@@ -43,6 +45,6 @@ public class WeatherLocation {
 	 */
 	@Override
 	public String toString() {
-		return "WeatherLocation [city=" + city + ", country=" + country + "]";
+		return String.format("WeatherLocation [city=%s, country=%s]", city, country);
 	}
 }
