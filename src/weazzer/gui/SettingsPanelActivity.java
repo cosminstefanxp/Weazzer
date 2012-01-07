@@ -31,7 +31,7 @@ public class SettingsPanelActivity extends PreferenceActivity {
 		// Set the title accordingly, if a selection was already made
 		if (finalLocationPref.getValue()!=null) {
 			//Get the selected value
-			String[] locations=finalLocationPref.getValue().split("[ ,]");
+			String[] locations=finalLocationPref.getValue().split("[,]");
 			//Check if it's ok
 			if(locations.length!=3)
 			{
@@ -45,7 +45,7 @@ public class SettingsPanelActivity extends PreferenceActivity {
 			Editor editor=pref.edit();
 			editor.putString("countryLocationPref", locations[2]);
 			editor.commit();
-			finalLocationPref.setSummary(locations[0] + ", " + locations[2]);
+			finalLocationPref.setSummary(locations[0] + "," + locations[2]);
 			finalLocationPref.setEnabled(true);
 		}
 
@@ -57,14 +57,14 @@ public class SettingsPanelActivity extends PreferenceActivity {
 				ListPreference locationPref = (ListPreference) findPreference("locationPref");
 
 				// Set accordingly
-				String[] locations=((String)newValue).split("[ ,]");				
+				String[] locations=((String)newValue).split("[,]");				
 				SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 				Editor editor=pref.edit();
 				editor.putString("countryLocationPref", locations[2]);
 				editor.commit();
 				cityLocationPref.setText(locations[0]);	
 				cityLocationPref.setTitle("City - " + cityLocationPref.getText());
-				locationPref.setSummary(locations[0] + ", " + locations[2]);
+				locationPref.setSummary(locations[0] + "," + locations[2]);
 
 				return true;
 			}
@@ -89,7 +89,7 @@ public class SettingsPanelActivity extends PreferenceActivity {
 					String[] suggestedLocations = new String[SettingsPanelActivity.locations.size()];
 					// Prepare the list of cities
 					for (int i = 0; i < SettingsPanelActivity.locations.size(); i++) {
-						suggestedLocations[i] = SettingsPanelActivity.locations.get(i).city+", "+SettingsPanelActivity.locations.get(i).country;
+						suggestedLocations[i] = SettingsPanelActivity.locations.get(i).city+","+SettingsPanelActivity.locations.get(i).country;
 					}
 
 					// Set the city list
