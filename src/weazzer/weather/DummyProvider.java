@@ -15,7 +15,7 @@ import org.json.JSONObject;
 /**
  * The Class DummyProvider.
  * 
- * @author cosmin, filip
+ * @author filip
  */
 public class DummyProvider implements WeatherProvider {
 
@@ -23,10 +23,10 @@ public class DummyProvider implements WeatherProvider {
 	private final String API_KEY = "bf4be9ffc282fa45";
 	
 	/** The measurement unit. */
-	MeasurementUnit measurementUnit = MeasurementUnit.Celsius;
+	private MeasurementUnit measurementUnit = MeasurementUnit.Celsius;
 
 	/** The location. */
-	String location = "Bucharest";
+	private WeatherLocation location = new WeatherLocation("Bucharest", "Romania");
 
 	/**
 	 * Instantiates a new dummy provider.
@@ -38,11 +38,11 @@ public class DummyProvider implements WeatherProvider {
 	/**
 	 * Makes an HTTP GET request and returns the response as a string
 	 */	
-	private static String sendGetRequest(String location) throws Exception
+	private static String sendGetRequest(String loc) throws Exception
 	{
 		String result = null;
 
-		URL url = new URL(location);
+		URL url = new URL(loc);
 		URLConnection conn = url.openConnection();
 		
 		// Get the response
@@ -58,16 +58,19 @@ public class DummyProvider implements WeatherProvider {
 		return result;
 	}
 
+	private String getLocationStr(WeatherLocation location)
+	{ return location.country + "/" + location.city; }
+	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see weazzer.weather.WeatherProvider#getCurrentWeather()
 	 */
-	public ArrayList<WeatherData> getCurrentWeather() throws IllegalStateException {
+	public ArrayList<WeatherData> getCurrentWeather() throws IllegalStateException {		
 		String url = 
 			String.format(
 				"%s/api/%s/hourly/q/%s.json", 
-				SERVER, API_KEY, location
+				SERVER, API_KEY, getLocationStr(location)
 			);
 		String response = null;
 		
@@ -116,11 +119,10 @@ public class DummyProvider implements WeatherProvider {
 	 * @see weazzer.weather.WeatherProvider#getWeatherForecast(int)
 	 */
 	public ArrayList<WeatherForecast> getWeatherForecast(int daysCount) throws IllegalStateException {	
-
 		String url = 
 			String.format(
 				"%s/api/%s/forecast7day/q/%s.json", 
-				SERVER, API_KEY, location
+				SERVER, API_KEY, getLocationStr(location)
 			);
 		String response = null;
 		
@@ -172,12 +174,61 @@ public class DummyProvider implements WeatherProvider {
 	 */
 	public ArrayList<WeatherLocation> getSuggestedLocation(String country,
 			String city) throws IllegalStateException {
-		// TODO Auto-generated method stub
-		ArrayList<WeatherLocation> locations = new ArrayList<WeatherLocation>();
-		locations.add(new WeatherLocation("Pitesti", "Romania"));
-		locations.add(new WeatherLocation("Bucuresti", "Romania"));
-
-		return locations;
+		
+		String url = 
+			String.format(
+				"%s/api/%s/geolookup/q/%s.json", 
+				SERVER, API_KEY, city
+			);
+		String response = null;
+		
+		// Talk to the server
+		try {
+			response = sendGetRequest(url);
+		}
+		catch (Exception ex) {
+			throw new IllegalStateException("No Internet connection");
+		}
+		
+		// Parse the response from the server
+		try {
+			ArrayList<WeatherLocation> locations = new ArrayList<WeatherLocation>();
+		
+			JSONObject json = new JSONObject(response);
+			
+			if (json.has("location")) {
+				// Only one result
+				JSONObject res = json.getJSONObject("location");
+				locations.add(
+					new WeatherLocation(
+						res.getString("city"),
+						res.getString("state").length() > 0 ? res.getString("state") : res.getString("country_name")
+					)					
+				);				
+			}
+			else {
+				// Possible more than one result for the city
+				json = json.getJSONObject("response");
+				if (json.has("results")) {
+					JSONArray suggestions = json.getJSONArray("results");
+					for (int i = 0; i < suggestions.length(); i++) {
+						JSONObject res = suggestions.getJSONObject(i);				
+						locations.add(
+							new WeatherLocation(
+								res.getString("city"),
+								res.getString("state").length() > 0 ? res.getString("state") : res.getString("country_name")
+							)		
+						);
+					}			
+				}
+			}
+			
+			return locations;
+		}
+		catch (Exception ex) {
+			throw new IllegalStateException("Malformed response from server");
+		}
+				
 	}
 	
 	/*
@@ -195,7 +246,7 @@ public class DummyProvider implements WeatherProvider {
 	 * @see weazzer.weather.WeatherProvider#setMeasurementUnit()
 	 */
 	public void setMeasurementUnit(MeasurementUnit value) {
-		measurementUnit = value;
+		this.measurementUnit = value;
 	}
 
 	/*
@@ -204,8 +255,7 @@ public class DummyProvider implements WeatherProvider {
 	 * @see weazzer.weather.WeatherProvider#getSelectedLocation()
 	 */
 	public WeatherLocation getSelectedLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return location;
 	}
 
 	/*
@@ -216,8 +266,7 @@ public class DummyProvider implements WeatherProvider {
 	 * )
 	 */
 	public void setLocation(WeatherLocation location) {
-		// TODO Auto-generated method stub
-
+		this.location = location;
 	}
 
 }
