@@ -520,9 +520,13 @@ public class MainPanelActivity extends Activity {
 			Intent settingsActivity = new Intent(getBaseContext(),
 					SettingsPanelActivity.class);
 			startActivity(settingsActivity);
-		default:
-			return super.onOptionsItemSelected(item);
-		}
+			break;case R.id.refresh_menu_button:
+				onStart();
+				break;
+			default:
+				return super.onOptionsItemSelected(item);
+			}
+			return true;
 	}	
 
 	/*
