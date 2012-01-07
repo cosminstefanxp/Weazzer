@@ -176,7 +176,7 @@ public class MainPanelActivity extends Activity {
 	private WeatherProvider weatherProvider;
 	/** A period from 0 to 3. */
 	private int currentPeriod;
-	/** °C or °F from preferences. */
+	/** ï¿½C or ï¿½F from preferences. */
 	private String measurementUnitSuffix;
 	/** Celsius or Fahrenheit from preferences. */
 	private String measurementUnit;
@@ -258,7 +258,7 @@ public class MainPanelActivity extends Activity {
 
 		// Initialize providers and indexes.
 		weatherProvider = new DummyProvider();
-		suggestionsEngine = new SuggestionsEngine();
+		suggestionsEngine = new SuggestionsEngine(getBaseContext());
 		currentPeriod = 0;
 		clothesSuggestion = new ClothesSuggestion[4];
 	}
@@ -486,7 +486,7 @@ public class MainPanelActivity extends Activity {
 		// Measurement unit
 		measurementUnit = prefs.getString("muPref", "Celsius");
 		measurementUnitSuffix = measurementUnit.equals(
-				"Celsius") ? "°C" : "°F";
+				"Celsius") ? "ï¿½C" : "ï¿½F";
 		// Weather location - null if missing
 		//Get the selected value
 		String[] locations=prefs.getString("locationPref", "").split("[ ,]");
