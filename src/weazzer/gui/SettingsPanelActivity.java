@@ -26,7 +26,6 @@ public class SettingsPanelActivity extends PreferenceActivity {
 		EditTextPreference countryLocationPref = (EditTextPreference) findPreference("countryLocationPref");
 		EditTextPreference cityLocationPref = (EditTextPreference) findPreference("cityLocationPref");
 		ListPreference finalLocationPref = (ListPreference) findPreference("locationPref");
-		Preference searchLocationPref = (Preference) findPreference("searchLocationPref");
 
 		// Set the title accordingly, if a selection was already made
 		if (finalLocationPref.getValue()!=null) {
@@ -66,7 +65,7 @@ public class SettingsPanelActivity extends PreferenceActivity {
 			}
 		});
 
-		searchLocationPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		cityLocationPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {
 				Toast.makeText(getBaseContext(), "Searching for your location!", Toast.LENGTH_SHORT).show();
 

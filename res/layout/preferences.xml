@@ -42,11 +42,6 @@
                     android:name="City"
                     android:summary="Edit the full name of the city for the weather data"
                     android:title="City" />
-
-                <Preference
-                    android:key="searchLocationPref"
-                    android:summary="Search for the location, using the fields above"
-                    android:title="Search" />
             </PreferenceCategory>
 
             <PreferenceCategory android:title="Selected Weather Location" >
