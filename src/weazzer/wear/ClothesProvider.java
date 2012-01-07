@@ -104,12 +104,12 @@ public class ClothesProvider {
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.pants5f, 27.0f);
+				R.drawable.pants5f, 29.0f);
 		pantsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.pants6f, 30.0f);
+				R.drawable.pants6f, 32.0f);
 		pantsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("pantalon",
