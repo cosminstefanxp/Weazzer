@@ -53,23 +53,23 @@ public class LongTermActivity extends Activity {
 		if (systemUnit.equals("Metric"))
 			mu = MeasurementUnit.Celsius;
 		// Weather location - null if missing
-				// Get the selected value
-				String[] locations = prefs.getString("locationPref", "").split("[,]");
-				// Check if it's ok
-				if (locations.length != 2) {
-					prefs.edit().remove("locationPref").commit();
-					Toast.makeText(
-							getBaseContext(),
-							"Missing location information. Please set your location in the settings section!",
-							Toast.LENGTH_LONG).show();
-					weatherLocation = new WeatherLocation("Bucharest", "Romania");
-				} else {
-					weatherLocation = new WeatherLocation();
-					weatherLocation.city = prefs.getString("cityLocationPref",
-							"Bucharest");
-					weatherLocation.country = prefs.getString("countryLocationPref",
-							"Romania");
-				}
+		// Get the selected value
+		String[] locations = prefs.getString("locationPref", "").split("[,]");
+		// Check if it's ok
+		if (locations.length != 2) {
+			prefs.edit().remove("locationPref").commit();
+			Toast.makeText(
+					getBaseContext(),
+					"Missing location information. Please set your location in the settings section!",
+					Toast.LENGTH_LONG).show();
+			weatherLocation = new WeatherLocation("Bucharest", "Romania");
+		} else {
+			weatherLocation = new WeatherLocation();
+			weatherLocation.city = prefs.getString("cityLocationPref",
+					"Bucharest");
+			weatherLocation.country = prefs.getString("countryLocationPref",
+					"Romania");
+		}
 	}
 	
 	/*
