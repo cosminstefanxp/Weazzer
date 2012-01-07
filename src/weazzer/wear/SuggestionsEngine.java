@@ -10,6 +10,7 @@ import weazzer.wear.ClothingArticle.UserSex;
 import weazzer.weather.WeatherData;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
 /**
@@ -110,10 +111,12 @@ public class SuggestionsEngine {
 		
 		//Save the preferences
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		prefs.edit().putFloat("userPreferenceTopHF", this.topHF);
-		prefs.edit().putFloat("userPreferenceBottomHF", this.bottomHF);
-		prefs.edit().putFloat("userPreferenceOvercoatHF", this.overcoatHF);
-		prefs.edit().putFloat("userPreferenceAccessoriesHF", this.accessoriesHF);
+		Editor editor=prefs.edit();
+		editor.putFloat("userPreferenceTopHF", this.topHF);
+		editor.putFloat("userPreferenceBottomHF", this.bottomHF);
+		editor.putFloat("userPreferenceOvercoatHF", this.overcoatHF);
+		editor.putFloat("userPreferenceAccessoriesHF", this.accessoriesHF);
+		editor.commit();
 	}
 	
 	/**
