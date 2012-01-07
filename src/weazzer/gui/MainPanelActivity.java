@@ -309,7 +309,7 @@ public class MainPanelActivity extends Activity {
 			e.printStackTrace();
 		}
 		TextView locationLabel = (TextView) findViewById(R.id.locationLabel);
-		locationLabel.setText(weatherLocation.city);
+		locationLabel.setText(weatherLocation.city.substring(0,1).toUpperCase()+weatherLocation.city.substring(1));
 	}
 
 	/**
