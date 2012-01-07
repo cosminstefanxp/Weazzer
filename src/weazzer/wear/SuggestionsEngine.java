@@ -16,6 +16,18 @@ import weazzer.weather.WeatherData;
  * should keep different variables/parameters for the user's preferences.
  */
 public class SuggestionsEngine {
+	
+	/** The pants heat factor. */
+	private int pantsHF;
+	
+	/** The shirts heat factor. */
+	private int shirtsHF;
+	
+	/** The overcoat heat factor. */
+	private int overcoatHF;
+	
+	/** The accessories heat factor. */
+	private int accessoriesHF;
 
 	/**
 	 * Gets the suggestion for a specific type of article, based on the given
