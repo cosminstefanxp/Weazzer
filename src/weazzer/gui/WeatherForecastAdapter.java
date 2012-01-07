@@ -29,7 +29,7 @@ public class WeatherForecastAdapter extends BaseAdapter {
 	/** The inflater. */
 	private LayoutInflater mInflater;
 	
-	private String measurementUnit;
+	private String systemUnit;
 	
 	private String measurementUnitSuffix;
 
@@ -43,12 +43,12 @@ public class WeatherForecastAdapter extends BaseAdapter {
 	 */
 	public WeatherForecastAdapter(Context context,
 			ArrayList<WeatherForecast> results,
-			String measurementUnit) {
+			String systemUnit) {
 		forecast = results;
 		mInflater = LayoutInflater.from(context);
-		this.measurementUnit = measurementUnit;
-		measurementUnitSuffix = measurementUnit.equals(
-				"Celsius") ? "°C" : "°F";
+		this.systemUnit = systemUnit;
+		measurementUnitSuffix = systemUnit.equals(
+				"Metric") ? "°C" : "°F";
 	}
 
 	/*
@@ -114,7 +114,7 @@ public class WeatherForecastAdapter extends BaseAdapter {
 	
 	private Float convertTemp(Float temperature) {
 		// convert if Fahrenheit
-		if(!measurementUnit.equals("Celsius")) {
+		if(!systemUnit.equals("Metric")) {
 			return temperature*9/5+32;
 		}
 		return temperature;
