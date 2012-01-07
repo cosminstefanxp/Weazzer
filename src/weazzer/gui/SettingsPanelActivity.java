@@ -30,22 +30,7 @@ public class SettingsPanelActivity extends PreferenceActivity {
 
 		// Set the title accordingly, if a selection was already made
 		if (finalLocationPref.getValue()!=null) {
-			//Get the selected value
-			String[] locations=finalLocationPref.getValue().split("[ ,]");
-			//Check if it's ok
-			if(locations.length!=3)
-			{
-				Toast.makeText(getBaseContext(), "Illegal value for location! Resetting!", Toast.LENGTH_SHORT).show();
-				finalLocationPref.setValue(null);
-			}
-
-			//Set stuff accordingly
-			cityLocationPref.setText(locations[0]);
-			SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-			Editor editor=pref.edit();
-			editor.putString("countryLocationPref", locations[2]);
-			editor.commit();
-			finalLocationPref.setSummary(locations[0] + ", " + locations[2]);
+			finalLocationPref.setSummary(finalLocationPref.getValue());
 			finalLocationPref.setEnabled(true);
 		}
 
@@ -57,14 +42,14 @@ public class SettingsPanelActivity extends PreferenceActivity {
 				ListPreference locationPref = (ListPreference) findPreference("locationPref");
 
 				// Set accordingly
-				String[] locations=((String)newValue).split("[ ,]");				
+				String[] locations=((String)newValue).split("[,]");				
 				SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 				Editor editor=pref.edit();
-				editor.putString("countryLocationPref", locations[2]);
+				editor.putString("countryLocationPref", locations[1]);
 				editor.commit();
 				cityLocationPref.setText(locations[0]);	
 				cityLocationPref.setTitle("City - " + cityLocationPref.getText());
-				locationPref.setSummary(locations[0] + ", " + locations[2]);
+				locationPref.setSummary(locations[0] + "," + locations[1]);
 
 				return true;
 			}
@@ -89,9 +74,9 @@ public class SettingsPanelActivity extends PreferenceActivity {
 					String[] suggestedLocations = new String[SettingsPanelActivity.locations.size()];
 					// Prepare the list of cities
 					for (int i = 0; i < SettingsPanelActivity.locations.size(); i++) {
-						suggestedLocations[i] = SettingsPanelActivity.locations.get(i).city+", "+SettingsPanelActivity.locations.get(i).country;
+						suggestedLocations[i] = SettingsPanelActivity.locations.get(i).city+","+SettingsPanelActivity.locations.get(i).country;
 					}
-
+					
 					// Set the city list
 					locationPref.setEntryValues(suggestedLocations);
 					locationPref.setEntries(suggestedLocations);
@@ -99,6 +84,12 @@ public class SettingsPanelActivity extends PreferenceActivity {
 					locationPref.setValueIndex(0);
 					locationPref.setSummary(suggestedLocations[0]);
 
+					SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+					Editor editor=pref.edit();
+					editor.putString("countryLocationPref", SettingsPanelActivity.locations.get(0).country);
+					editor.putString("cityLocationPref", SettingsPanelActivity.locations.get(0).country);
+					editor.commit();
+					
 					Toast.makeText(getBaseContext(), "Select the location from the list above!",
 							Toast.LENGTH_LONG).show();
 				}
