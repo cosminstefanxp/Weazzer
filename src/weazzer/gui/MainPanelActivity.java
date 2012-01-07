@@ -263,7 +263,7 @@ public class MainPanelActivity extends Activity {
 
 		// Initialize providers and indexes.
 		weatherProvider = new DummyProvider();
-		suggestionsEngine = new SuggestionsEngine(getBaseContext());
+		suggestionsEngine = new SuggestionsEngine(getApplicationContext());
 		currentPeriod = 0;
 		clothesSuggestion = new ClothesSuggestion[4];
 	}
@@ -522,6 +522,7 @@ public class MainPanelActivity extends Activity {
 			initializeUI();
 			refreshUI();
 		} catch (Exception e) {
+			e.printStackTrace();
 			showDialog(0);
 		}
 	}
@@ -533,7 +534,7 @@ public class MainPanelActivity extends Activity {
 	 */
 	private void getPreferences() {
 		// Get the xml/preferences.xml preferences
-		prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
 		// Gender
 		gender = prefs.getString("genderPref", "male");
@@ -552,7 +553,7 @@ public class MainPanelActivity extends Activity {
 					getBaseContext(),
 					"Missing location information. Please set your location in the settings section!",
 					Toast.LENGTH_LONG).show();
-			weatherLocation = new WeatherLocation("<Missing>", "<Missing>");
+			weatherLocation = new WeatherLocation("Bucharest", "Romania");
 		} else {
 			weatherLocation = new WeatherLocation();
 			weatherLocation.city = prefs.getString("cityLocationPref",

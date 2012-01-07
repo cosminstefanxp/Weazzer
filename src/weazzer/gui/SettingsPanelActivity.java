@@ -6,6 +6,7 @@ import weazzer.weather.DummyProvider;
 import weazzer.weather.WeatherLocation;
 import weazzer.weather.WeatherProvider;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -40,8 +41,10 @@ public class SettingsPanelActivity extends PreferenceActivity {
 
 			//Set stuff accordingly
 			cityLocationPref.setText(locations[0]);
-			SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-			pref.edit().putString("countryLocationPref", locations[2]);
+			SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			Editor editor=pref.edit();
+			editor.putString("countryLocationPref", locations[2]);
+			editor.commit();
 			finalLocationPref.setSummary(locations[0] + ", " + locations[2]);
 			finalLocationPref.setEnabled(true);
 		}
@@ -55,8 +58,10 @@ public class SettingsPanelActivity extends PreferenceActivity {
 
 				// Set accordingly
 				String[] locations=((String)newValue).split("[ ,]");				
-				SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-				pref.edit().putString("countryLocationPref", locations[2]);
+				SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+				Editor editor=pref.edit();
+				editor.putString("countryLocationPref", locations[2]);
+				editor.commit();
 				cityLocationPref.setText(locations[0]);	
 				cityLocationPref.setTitle("City - " + cityLocationPref.getText());
 				locationPref.setSummary(locations[0] + ", " + locations[2]);
