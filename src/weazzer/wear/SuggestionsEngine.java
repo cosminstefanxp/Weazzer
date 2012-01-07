@@ -20,7 +20,7 @@ import android.preference.PreferenceManager;
  */
 public class SuggestionsEngine {
 	
-	private final Float MIN_TEMPERATURE = -20.f;
+	private final Float TEMPERATURE_OFFSET = 20.f;
 	
 	/** The pants heat factor. */
 	private float bottomHF;
@@ -48,10 +48,10 @@ public class SuggestionsEngine {
 		int bestIndex = suggestions.size()-1;
 		float bestValue = 99999.f;
 		
-		float temp = weather.feelsLike + MIN_TEMPERATURE;
+		float temp = weather.feelsLike + TEMPERATURE_OFFSET;
 		for (int i = 0; i < suggestions.size(); ++i) {
 			ClothingArticle a = suggestions.get(i);
-			float f = (a.getHeatFactor() + MIN_TEMPERATURE) * factor;
+			float f = (a.getHeatFactor() + TEMPERATURE_OFFSET) * factor;
 			if (Math.abs(f-temp) < bestValue) {
 				bestIndex = i;
 				bestValue = Math.abs(f-temp);
