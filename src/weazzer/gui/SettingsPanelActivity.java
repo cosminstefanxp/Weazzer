@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import weazzer.weather.DummyProvider;
 import weazzer.weather.WeatherLocation;
 import weazzer.weather.WeatherProvider;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.widget.Toast;
@@ -23,7 +25,6 @@ public class SettingsPanelActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.layout.preferences);
 
 		// Prepare preference selection for location selection
-		EditTextPreference countryLocationPref = (EditTextPreference) findPreference("countryLocationPref");
 		EditTextPreference cityLocationPref = (EditTextPreference) findPreference("cityLocationPref");
 		ListPreference finalLocationPref = (ListPreference) findPreference("locationPref");
 
@@ -39,8 +40,9 @@ public class SettingsPanelActivity extends PreferenceActivity {
 			}
 
 			//Set stuff accordingly
-			countryLocationPref.setText(locations[2]);
 			cityLocationPref.setText(locations[0]);
+			SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+			pref.edit().putString("countryLocationPref", locations[2]);
 			finalLocationPref.setSummary(locations[0] + ", " + locations[2]);
 			finalLocationPref.setEnabled(true);
 		}
@@ -49,15 +51,14 @@ public class SettingsPanelActivity extends PreferenceActivity {
 		finalLocationPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				// Get preferences for country and city
-				EditTextPreference countryLocationPref = (EditTextPreference) findPreference("countryLocationPref");
 				EditTextPreference cityLocationPref = (EditTextPreference) findPreference("cityLocationPref");
 				ListPreference locationPref = (ListPreference) findPreference("locationPref");
 
 				// Set accordingly
 				String[] locations=((String)newValue).split("[ ,]");				
-				countryLocationPref.setText(locations[2]);
+				SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+				pref.edit().putString("countryLocationPref", locations[2]);
 				cityLocationPref.setText(locations[0]);	
-				countryLocationPref.setTitle("Country - " + countryLocationPref.getText());
 				cityLocationPref.setTitle("City - " + cityLocationPref.getText());
 				locationPref.setSummary(locations[0] + ", " + locations[2]);
 
@@ -69,20 +70,18 @@ public class SettingsPanelActivity extends PreferenceActivity {
 			public boolean onPreferenceClick(Preference preference) {
 				Toast.makeText(getBaseContext(), "Searching for your location!", Toast.LENGTH_SHORT).show();
 
-				// Get preferences for country and city
-				EditTextPreference countryLocationPref = (EditTextPreference) findPreference("countryLocationPref");
+				// Get preferences for city
 				EditTextPreference cityLocationPref = (EditTextPreference) findPreference("cityLocationPref");
 				ListPreference locationPref = (ListPreference) findPreference("locationPref");
 
 				// Search for the given suggestion
 				WeatherProvider weatherProvider = new DummyProvider();
-				SettingsPanelActivity.locations = weatherProvider.getSuggestedLocation(countryLocationPref
-						.getText(), cityLocationPref.getText());
+				SettingsPanelActivity.locations = weatherProvider.getSuggestedLocation("", cityLocationPref.getText());
 
 				if (SettingsPanelActivity.locations == null || SettingsPanelActivity.locations.isEmpty()) {
 					Toast.makeText(getBaseContext(),
-							"No location was found with the given country and city name. Please try again!",
-							Toast.LENGTH_LONG).show();
+							"No location was found with the given city name. Please try again!",
+							Toast.LENGTH_SHORT).show();
 				} else {
 					String[] suggestedLocations = new String[SettingsPanelActivity.locations.size()];
 					// Prepare the list of cities

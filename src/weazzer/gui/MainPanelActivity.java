@@ -558,6 +558,7 @@ public class MainPanelActivity extends Activity {
 			weatherLocation.country = prefs.getString("countryLocationPref",
 					"Romania");
 		}
+		
 	}
 
 	/*

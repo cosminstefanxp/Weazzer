@@ -32,12 +32,6 @@
             <PreferenceCategory android:title="Search Location" >
 
                 <EditTextPreference
-                    android:key="countryLocationPref"
-                    android:name="Country"
-                    android:summary="Edit the country for the weather data"
-                    android:title="Country" />
-
-                <EditTextPreference
                     android:key="cityLocationPref"
                     android:name="City"
                     android:summary="Edit the full name of the city for the weather data"
