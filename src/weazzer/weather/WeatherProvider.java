@@ -28,7 +28,7 @@ public interface WeatherProvider {
 	 * 
 	 * @return the current weather
 	 */
-	public ArrayList<WeatherData> getCurrentWeather();
+	public ArrayList<WeatherData> getCurrentWeather() throws IllegalStateException;
 
 	/**
 	 * Gets the weather forecast for a given number of days.
@@ -37,7 +37,7 @@ public interface WeatherProvider {
 	 *            the days count
 	 * @return the weather forecast
 	 */
-	public ArrayList<WeatherForecast> getWeatherForecast(int daysCount);
+	public ArrayList<WeatherForecast> getWeatherForecast(int daysCount) throws IllegalStateException;
 
 	/**
 	 * Queries the servers and gets suggested locations, given search items for
@@ -50,7 +50,7 @@ public interface WeatherProvider {
 	 * @return the suggested location
 	 */
 	public ArrayList<WeatherLocation> getSuggestedLocation(String country,
-			String city);
+			String city) throws IllegalStateException;
 
 	/**
 	 * Gets the selected location.

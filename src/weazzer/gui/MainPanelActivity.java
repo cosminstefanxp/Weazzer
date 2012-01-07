@@ -17,6 +17,10 @@ import weazzer.weather.WeatherData;
 import weazzer.weather.WeatherLocation;
 import weazzer.weather.WeatherProvider;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -93,7 +97,7 @@ public class MainPanelActivity extends Activity {
 
 		void leftSwipe() {
 			if (owner == findViewById(R.id.mainWeatherImageView)) {
-				if (currentPeriod == 3) 
+				if (currentPeriod == 3)
 					toLongTermAction(owner);
 				else if (currentPeriod < 3)
 					currentPeriod++;
@@ -105,7 +109,7 @@ public class MainPanelActivity extends Activity {
 		// index in the array.
 		void upSwipe() {
 			if (owner == findViewById(R.id.mainWeatherImageView)) {
-				if (currentPeriod == 3) 
+				if (currentPeriod == 3)
 					toLongTermAction(owner);
 				else if (currentPeriod < 3)
 					currentPeriod++;
@@ -178,8 +182,8 @@ public class MainPanelActivity extends Activity {
 	private int currentPeriod;
 	/** �C or �F from preferences. */
 	private String measurementUnitSuffix;
-	/** Celsius or Fahrenheit from preferences. */
-	private String measurementUnit;
+	/** Metric or Farenheit from preferences. */
+	private String systemUnit;
 	/** The location from preferences. */
 	private WeatherLocation weatherLocation;
 	/** The current suggestion engine. */
@@ -189,6 +193,7 @@ public class MainPanelActivity extends Activity {
 	/** The current weather. */
 	private List<WeatherData> weather;
 	private SharedPreferences prefs;
+	private String windSuffix;
 
 	/**
 	 * The listener interface for receiving myTouch events. The class that is
@@ -269,7 +274,7 @@ public class MainPanelActivity extends Activity {
 	private void initializeUI() {
 		try {
 			for (int currentPeriod = 0; currentPeriod < 4; currentPeriod++) {
-				WeatherData currentWeatherData =weather.get(currentPeriod);
+				WeatherData currentWeatherData = weather.get(currentPeriod);
 				String prefix = null;
 				switch (currentPeriod) {
 				case 0:
@@ -288,8 +293,8 @@ public class MainPanelActivity extends Activity {
 				int idTemperatureLabel = R.id.class.getField(
 						prefix + "NextPeriodValueLabel").getInt(null);
 				TextView temperatureLabel = (TextView) findViewById(idTemperatureLabel);
-				temperatureLabel.setText(convertTemp(currentWeatherData.getTemperature())
-						+ measurementUnitSuffix);
+				temperatureLabel.setText(convertTemp(currentWeatherData
+						.getTemperature()) + measurementUnitSuffix);
 				int idWhenLabel = R.id.class.getField(
 						prefix + "NextPeriodTitleLabel").getInt(null);
 				TextView whenLabel = (TextView) findViewById(idWhenLabel);
@@ -318,10 +323,17 @@ public class MainPanelActivity extends Activity {
 		centralImage.setImageResource(getResourceIdForWeather(true,
 				currentWeatherData.getIcon()));
 		TextView feelsLike = (TextView) findViewById(R.id.feelsLikeLabel);
-		feelsLike.setText(convertTemp(currentWeatherData.getFeelsLike())+measurementUnitSuffix);
-		TextView weatherNowLabel = (TextView) findViewById(R.id.mainTemperatureLabel);		
-		weatherNowLabel.setText(convertTemp(currentWeatherData.getTemperature())
+		feelsLike.setText(convertTemp(currentWeatherData.getFeelsLike())
 				+ measurementUnitSuffix);
+		TextView weatherNowLabel = (TextView) findViewById(R.id.mainTemperatureLabel);
+		TextView windLabel = (TextView) findViewById(R.id.windLabel);
+		windLabel.setText("wind: "
+				+ convertWind(currentWeatherData.getWindSpeed()) + " "
+				+ windSuffix);
+
+		weatherNowLabel
+				.setText(convertTemp(currentWeatherData.getTemperature())
+						+ measurementUnitSuffix);
 		LinearLayout columnLayouts[] = {
 				(LinearLayout) findViewById(R.id.firstNextPeriodLayout),
 				(LinearLayout) findViewById(R.id.secondNextPeriodLayout),
@@ -335,105 +347,142 @@ public class MainPanelActivity extends Activity {
 		}
 
 		// clothes stuff
-		
+
 		int bottomIndex = clothesSuggestion[currentPeriod].getBottomIndex();
 		int topIndex = clothesSuggestion[currentPeriod].getTopIndex();
 		int overcoatIndex = clothesSuggestion[currentPeriod].getOvercoatIndex();
-		if (bottomIndex==0) {
-			((ImageView) findViewById(R.id.bottomTopArrow)).setVisibility(ImageView.INVISIBLE);
+		if (bottomIndex == 0) {
+			((ImageView) findViewById(R.id.bottomTopArrow))
+					.setVisibility(ImageView.INVISIBLE);
 		} else {
-			((ImageView) findViewById(R.id.bottomTopArrow)).setVisibility(ImageView.VISIBLE);
+			((ImageView) findViewById(R.id.bottomTopArrow))
+					.setVisibility(ImageView.VISIBLE);
 		}
-		
-		if (topIndex==0) {
-			((ImageView) findViewById(R.id.upTopArrow)).setVisibility(ImageView.INVISIBLE);
+
+		if (topIndex == 0) {
+			((ImageView) findViewById(R.id.upTopArrow))
+					.setVisibility(ImageView.INVISIBLE);
 		} else {
-			((ImageView) findViewById(R.id.upTopArrow)).setVisibility(ImageView.VISIBLE);
+			((ImageView) findViewById(R.id.upTopArrow))
+					.setVisibility(ImageView.VISIBLE);
 		}
-		
-		if (overcoatIndex==0) {
-			((ImageView) findViewById(R.id.overcoatTopArrow)).setVisibility(ImageView.INVISIBLE);
+
+		if (overcoatIndex == 0) {
+			((ImageView) findViewById(R.id.overcoatTopArrow))
+					.setVisibility(ImageView.INVISIBLE);
 		} else {
-			((ImageView) findViewById(R.id.overcoatTopArrow)).setVisibility(ImageView.VISIBLE);
+			((ImageView) findViewById(R.id.overcoatTopArrow))
+					.setVisibility(ImageView.VISIBLE);
 		}
-		
-		if (bottomIndex==clothesSuggestion[currentPeriod].getBottomSuggestions().size()-1) {
-			((ImageView) findViewById(R.id.downBottomArrow)).setVisibility(ImageView.INVISIBLE);
+
+		if (bottomIndex == clothesSuggestion[currentPeriod]
+				.getBottomSuggestions().size() - 1) {
+			((ImageView) findViewById(R.id.downBottomArrow))
+					.setVisibility(ImageView.INVISIBLE);
 		} else {
-			((ImageView) findViewById(R.id.downBottomArrow)).setVisibility(ImageView.VISIBLE);
+			((ImageView) findViewById(R.id.downBottomArrow))
+					.setVisibility(ImageView.VISIBLE);
 		}
-		
-		if (overcoatIndex==clothesSuggestion[currentPeriod].getOvercoatSuggestions().size()-1) {
-			((ImageView) findViewById(R.id.downOvercoatArrow)).setVisibility(ImageView.INVISIBLE);
+
+		if (overcoatIndex == clothesSuggestion[currentPeriod]
+				.getOvercoatSuggestions().size() - 1) {
+			((ImageView) findViewById(R.id.downOvercoatArrow))
+					.setVisibility(ImageView.INVISIBLE);
 		} else {
-			((ImageView) findViewById(R.id.downOvercoatArrow)).setVisibility(ImageView.VISIBLE);
+			((ImageView) findViewById(R.id.downOvercoatArrow))
+					.setVisibility(ImageView.VISIBLE);
 		}
-		
-		if (topIndex==clothesSuggestion[currentPeriod].getTopSuggestions().size()-1) {
-			((ImageView) findViewById(R.id.downTopArrow)).setVisibility(ImageView.INVISIBLE);
+
+		if (topIndex == clothesSuggestion[currentPeriod].getTopSuggestions()
+				.size() - 1) {
+			((ImageView) findViewById(R.id.downTopArrow))
+					.setVisibility(ImageView.INVISIBLE);
 		} else {
-			((ImageView) findViewById(R.id.downTopArrow)).setVisibility(ImageView.VISIBLE);
+			((ImageView) findViewById(R.id.downTopArrow))
+					.setVisibility(ImageView.VISIBLE);
 		}
-		
-		
+
 		int resourceId = clothesSuggestion[currentPeriod]
 				.getBottomSuggestions().get(bottomIndex).getResource();
 		((ImageView) findViewById(R.id.BottomClothesView))
 				.setImageResource(resourceId);
-		resourceId = clothesSuggestion[currentPeriod]
-				.getTopSuggestions().get(topIndex).getResource();
+		resourceId = clothesSuggestion[currentPeriod].getTopSuggestions()
+				.get(topIndex).getResource();
 		((ImageView) findViewById(R.id.TopClothesView))
 				.setImageResource(resourceId);
-		resourceId = clothesSuggestion[currentPeriod]
-				.getOvercoatSuggestions().get(overcoatIndex).getResource();
+		resourceId = clothesSuggestion[currentPeriod].getOvercoatSuggestions()
+				.get(overcoatIndex).getResource();
 		((ImageView) findViewById(R.id.OvercoatClothesView))
 				.setImageResource(resourceId);
-		
-		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(0))	{	
-			((ImageView) findViewById(R.id.firstExtraView)).setImageResource
-				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(0).getResource());
-			((ImageView) findViewById(R.id.firstX)).setVisibility(ImageView.INVISIBLE);
-		}
-		else { 
-			((ImageView) findViewById(R.id.firstExtraView)).setImageResource
-				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(0).getResourceGray());
-			((ImageView) findViewById(R.id.firstX)).setVisibility(ImageView.VISIBLE);
-		}
-		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(1))			{
-			((ImageView) findViewById(R.id.secondExtraView)).setImageResource
-				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(1).getResource());
-			((ImageView) findViewById(R.id.secondX)).setVisibility(ImageView.INVISIBLE);
-		}
-		else {
-			((ImageView) findViewById(R.id.secondExtraView)).setImageResource
-				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(1).getResourceGray());
-			((ImageView) findViewById(R.id.secondX)).setVisibility(ImageView.VISIBLE);
-		}
-		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(2)) {			
-			((ImageView) findViewById(R.id.thirdExtraView)).setImageResource
-				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(2).getResource());
-			((ImageView) findViewById(R.id.thirdX)).setVisibility(ImageView.INVISIBLE);
-		}
-		else {
-			((ImageView) findViewById(R.id.thirdExtraView)).setImageResource
-				(clothesSuggestion[currentPeriod].getAccessoriesSuggestions().get(2).getResourceGray());
-			((ImageView) findViewById(R.id.thirdX)).setVisibility(ImageView.VISIBLE);
-		}
-		
-		if (currentPeriod==0) {
-			((ImageView) findViewById(R.id.imageView1)).setVisibility(ImageView.INVISIBLE);
+
+		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(0)) {
+			((ImageView) findViewById(R.id.firstExtraView))
+					.setImageResource(clothesSuggestion[currentPeriod]
+							.getAccessoriesSuggestions().get(0).getResource());
+			((ImageView) findViewById(R.id.firstX))
+					.setVisibility(ImageView.INVISIBLE);
 		} else {
-			((ImageView) findViewById(R.id.imageView1)).setVisibility(ImageView.VISIBLE);
+			((ImageView) findViewById(R.id.firstExtraView))
+					.setImageResource(clothesSuggestion[currentPeriod]
+							.getAccessoriesSuggestions().get(0)
+							.getResourceGray());
+			((ImageView) findViewById(R.id.firstX))
+					.setVisibility(ImageView.VISIBLE);
+		}
+		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(1)) {
+			((ImageView) findViewById(R.id.secondExtraView))
+					.setImageResource(clothesSuggestion[currentPeriod]
+							.getAccessoriesSuggestions().get(1).getResource());
+			((ImageView) findViewById(R.id.secondX))
+					.setVisibility(ImageView.INVISIBLE);
+		} else {
+			((ImageView) findViewById(R.id.secondExtraView))
+					.setImageResource(clothesSuggestion[currentPeriod]
+							.getAccessoriesSuggestions().get(1)
+							.getResourceGray());
+			((ImageView) findViewById(R.id.secondX))
+					.setVisibility(ImageView.VISIBLE);
+		}
+		if (clothesSuggestion[currentPeriod].getAccessoriesSelect().get(2)) {
+			((ImageView) findViewById(R.id.thirdExtraView))
+					.setImageResource(clothesSuggestion[currentPeriod]
+							.getAccessoriesSuggestions().get(2).getResource());
+			((ImageView) findViewById(R.id.thirdX))
+					.setVisibility(ImageView.INVISIBLE);
+		} else {
+			((ImageView) findViewById(R.id.thirdExtraView))
+					.setImageResource(clothesSuggestion[currentPeriod]
+							.getAccessoriesSuggestions().get(2)
+							.getResourceGray());
+			((ImageView) findViewById(R.id.thirdX))
+					.setVisibility(ImageView.VISIBLE);
+		}
+
+		if (currentPeriod == 0) {
+			((ImageView) findViewById(R.id.imageView1))
+					.setVisibility(ImageView.INVISIBLE);
+		} else {
+			((ImageView) findViewById(R.id.imageView1))
+					.setVisibility(ImageView.VISIBLE);
 		}
 	}
 
 	private String convertTemp(Float temperature) {
 		Float newTemperature = temperature;
 		// convert if Fahrenheit
-		if(!measurementUnit.equals("Celsius")) {
-			newTemperature = temperature*9/5+32;
+		if (!systemUnit.equals("Metric")) {
+			newTemperature = temperature * 9 / 5 + 32;
 		}
 		return (new DecimalFormat("#").format(newTemperature));
+	}
+
+	private String convertWind(Float wind) {
+		Float newWind = wind;
+		// convert if Fahrenheit
+		if (!windSuffix.equals("mph")) {
+			newWind = wind / 1.6f;
+		}
+		return (new DecimalFormat("#").format(newWind));
 	}
 
 	private int getResourceIdForWeather(Boolean big, String iconName) {
@@ -462,13 +511,17 @@ public class MainPanelActivity extends Activity {
 	public void onStart() {
 		super.onStart();
 		getPreferences();
-		weather = weatherProvider.getCurrentWeather();
-		for(int period = 0 ;  period<4;period++)
-		clothesSuggestion[period] = suggestionsEngine.getSuggestion(
-				weather.get(period), gender.equals("male") ? UserSex.Male
-						: UserSex.Female);
-		initializeUI();
-		refreshUI();
+		try {
+			weather = weatherProvider.getCurrentWeather();
+			for (int period = 0; period < 4; period++)
+				clothesSuggestion[period] = suggestionsEngine.getSuggestion(
+						weather.get(period),
+						gender.equals("male") ? UserSex.Male : UserSex.Female);
+			initializeUI();
+			refreshUI();
+		} catch (Exception e) {
+			showDialog(0);
+		}
 	}
 
 	/**
@@ -478,32 +531,32 @@ public class MainPanelActivity extends Activity {
 	 */
 	private void getPreferences() {
 		// Get the xml/preferences.xml preferences
-		prefs = PreferenceManager
-				.getDefaultSharedPreferences(getBaseContext());
+		prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
 		// Gender
 		gender = prefs.getString("genderPref", "male");
 		// Measurement unit
-		measurementUnit = prefs.getString("muPref", "Celsius");
-		measurementUnitSuffix = measurementUnit.equals(
-				"Celsius") ? "�C" : "�F";
+		systemUnit = prefs.getString("suPref", "Metric");
+		measurementUnitSuffix = systemUnit.equals("Metric") ? "�C" : "�F";
+		windSuffix = systemUnit.equals("Metric") ? "km/h" : "mph";
+
 		// Weather location - null if missing
-		//Get the selected value
-		String[] locations=prefs.getString("locationPref", "").split("[ ,]");
-		//Check if it's ok
-		if(locations.length!=3)
-		{
+		// Get the selected value
+		String[] locations = prefs.getString("locationPref", "").split("[ ,]");
+		// Check if it's ok
+		if (locations.length != 3) {
 			prefs.edit().remove("locationPref").commit();
-			Toast.makeText(getBaseContext(),
+			Toast.makeText(
+					getBaseContext(),
 					"Missing location information. Please set your location in the settings section!",
 					Toast.LENGTH_LONG).show();
-			weatherLocation=new WeatherLocation("<Missing>", "<Missing>");
-		}
-		else
-		{
+			weatherLocation = new WeatherLocation("<Missing>", "<Missing>");
+		} else {
 			weatherLocation = new WeatherLocation();
-			weatherLocation.city = prefs.getString("cityLocationPref", "Bucharest");
-			weatherLocation.country = prefs.getString("countryLocationPref","Romania");
+			weatherLocation.city = prefs.getString("cityLocationPref",
+					"Bucharest");
+			weatherLocation.country = prefs.getString("countryLocationPref",
+					"Romania");
 		}
 	}
 
@@ -520,14 +573,15 @@ public class MainPanelActivity extends Activity {
 			Intent settingsActivity = new Intent(getBaseContext(),
 					SettingsPanelActivity.class);
 			startActivity(settingsActivity);
-			break;case R.id.refresh_menu_button:
-				onStart();
-				break;
-			default:
-				return super.onOptionsItemSelected(item);
-			}
-			return true;
-	}	
+			break;
+		case R.id.refresh_menu_button:
+			onStart();
+			break;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+		return true;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -558,52 +612,67 @@ public class MainPanelActivity extends Activity {
 	 */
 	public void onSaveSuggestions(View v) {
 		WeatherData currentWeatherData = weather.get(currentPeriod);
-		suggestionsEngine.updateUserChoice(currentWeatherData,clothesSuggestion[currentPeriod]);
+		suggestionsEngine.updateUserChoice(currentWeatherData,
+				clothesSuggestion[currentPeriod]);
+		Context context = getApplicationContext();
+		CharSequence text = "Choice saved!";
+		int duration = Toast.LENGTH_SHORT;
+
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();
+
+		for (int period = 0; period < 4; period++)
+			if (period != currentPeriod)
+				clothesSuggestion[period] = suggestionsEngine.getSuggestion(
+						weather.get(period),
+						gender.equals("male") ? UserSex.Male : UserSex.Female);
 	}
-	
+
 	public void onFirstExtraToggle(View v) {
-		ArrayList<Boolean> choice = clothesSuggestion[currentPeriod].getAccessoriesSelect();
+		ArrayList<Boolean> choice = clothesSuggestion[currentPeriod]
+				.getAccessoriesSelect();
 		choice.set(0, !choice.get(0));
 		refreshUI();
 	}
-	
+
 	public void onSecondExtraToggle(View v) {
-		ArrayList<Boolean> choice = clothesSuggestion[currentPeriod].getAccessoriesSelect();
+		ArrayList<Boolean> choice = clothesSuggestion[currentPeriod]
+				.getAccessoriesSelect();
 		choice.set(1, !choice.get(1));
 		refreshUI();
 	}
-	
+
 	public void onThirdExtraToggle(View v) {
-		ArrayList<Boolean> choice = clothesSuggestion[currentPeriod].getAccessoriesSelect();
+		ArrayList<Boolean> choice = clothesSuggestion[currentPeriod]
+				.getAccessoriesSelect();
 		choice.set(2, !choice.get(2));
 		refreshUI();
 	}
 
-	
 	public void onLeftArrowPress(View v) {
 		if (currentPeriod > 0)
 			currentPeriod--;
 		refreshUI();
 	}
-	
+
 	public void onRightArrowPress(View v) {
-		if (currentPeriod == 3) 
+		if (currentPeriod == 3)
 			toLongTermAction(null);
 		else if (currentPeriod < 3)
 			currentPeriod++;
 		refreshUI();
 	}
-	
+
 	public void onOvercoatDownPress(View v) {
 		if (clothesSuggestion[currentPeriod].getOvercoatIndex() < clothesSuggestion[currentPeriod]
 				.getOvercoatSuggestions().size() - 1) {
 			clothesSuggestion[currentPeriod]
 					.setOvercoatIndex(clothesSuggestion[currentPeriod]
 							.getOvercoatIndex() + 1);
-		}	
+		}
 		refreshUI();
 	}
-	
+
 	public void onBottomDownPress(View v) {
 		if (clothesSuggestion[currentPeriod].getBottomIndex() < clothesSuggestion[currentPeriod]
 				.getBottomSuggestions().size() - 1) {
@@ -613,26 +682,24 @@ public class MainPanelActivity extends Activity {
 		}
 		refreshUI();
 	}
-	
+
 	public void onTopDownPress(View v) {
 		if (clothesSuggestion[currentPeriod].getTopIndex() < clothesSuggestion[currentPeriod]
 				.getTopSuggestions().size() - 1) {
 			clothesSuggestion[currentPeriod]
-					.setTopIndex(clothesSuggestion[currentPeriod]
-							.getTopIndex() + 1);
+					.setTopIndex(clothesSuggestion[currentPeriod].getTopIndex() + 1);
 		}
 		refreshUI();
 	}
-	
+
 	public void onTopUpPress(View v) {
 		if (clothesSuggestion[currentPeriod].getTopIndex() > 0) {
 			clothesSuggestion[currentPeriod]
-					.setTopIndex(clothesSuggestion[currentPeriod]
-							.getTopIndex() - 1);
+					.setTopIndex(clothesSuggestion[currentPeriod].getTopIndex() - 1);
 		}
 		refreshUI();
 	}
-	
+
 	public void onBottomUpPress(View v) {
 		if (clothesSuggestion[currentPeriod].getBottomIndex() > 0) {
 			clothesSuggestion[currentPeriod]
@@ -641,7 +708,7 @@ public class MainPanelActivity extends Activity {
 		}
 		refreshUI();
 	}
-	
+
 	public void onOvercoatUpPress(View v) {
 		if (clothesSuggestion[currentPeriod].getOvercoatIndex() > 0) {
 			clothesSuggestion[currentPeriod]
@@ -649,5 +716,20 @@ public class MainPanelActivity extends Activity {
 							.getOvercoatIndex() - 1);
 		}
 		refreshUI();
+	}
+
+	protected Dialog onCreateDialog(int id) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Internet connection cannot be found.")
+				.setCancelable(false)
+				.setPositiveButton("Exit",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								MainPanelActivity.this.finish();
+							}
+						});
+		AlertDialog alert = builder.create();
+
+		return alert;
 	}
 }

@@ -38,26 +38,23 @@ public class DummyProvider implements WeatherProvider {
 	/**
 	 * Makes an HTTP GET request and returns the response as a string
 	 */	
-	private static String sendGetRequest(String location)
+	private static String sendGetRequest(String location) throws Exception
 	{
 		String result = null;
-		try
-		{
-			URL url = new URL(location);
-			URLConnection conn = url.openConnection();
-			
-			// Get the response
-			BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			StringBuffer sb = new StringBuffer();
-			String line;
-			while ((line = rd.readLine()) != null) {
-				sb.append(line);
-			}
-			rd.close();
-			result = sb.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
+
+		URL url = new URL(location);
+		URLConnection conn = url.openConnection();
+		
+		// Get the response
+		BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		StringBuffer sb = new StringBuffer();
+		String line;
+		while ((line = rd.readLine()) != null) {
+			sb.append(line);
 		}
+		rd.close();
+		result = sb.toString();
+
 		return result;
 	}
 
@@ -66,15 +63,22 @@ public class DummyProvider implements WeatherProvider {
 	 * 
 	 * @see weazzer.weather.WeatherProvider#getCurrentWeather()
 	 */
-	public ArrayList<WeatherData> getCurrentWeather() {
+	public ArrayList<WeatherData> getCurrentWeather() throws IllegalStateException {
+		String url = 
+			String.format(
+				"%s/api/%s/hourly/q/%s.json", 
+				SERVER, API_KEY, location
+			);
+		String response = null;
+		
+		try {
+			response = sendGetRequest(url);
+		}
+		catch (Exception ex) {
+			throw new IllegalStateException("No Internet connection");
+		}
 
 		try {
-			String url = 
-					String.format(
-						"%s/api/%s/hourly/q/%s.json", 
-						SERVER, API_KEY, location
-					);
-			String response = sendGetRequest(url);
 			JSONObject json = new JSONObject(response);
 			JSONArray hourlyData = 
 				json.getJSONArray("hourly_forecast");
@@ -102,10 +106,8 @@ public class DummyProvider implements WeatherProvider {
 			return weatherList;
 		}
 		catch (Exception ex) {
-			System.out.println(ex);
-		}
-		
-		return null;
+			throw new IllegalStateException("Malformed response from server");
+		}		
 	}
 
 	/*
@@ -113,15 +115,25 @@ public class DummyProvider implements WeatherProvider {
 	 * 
 	 * @see weazzer.weather.WeatherProvider#getWeatherForecast(int)
 	 */
-	public ArrayList<WeatherForecast> getWeatherForecast(int daysCount) {	
+	public ArrayList<WeatherForecast> getWeatherForecast(int daysCount) throws IllegalStateException {	
 
+		String url = 
+			String.format(
+				"%s/api/%s/forecast7day/q/%s.json", 
+				SERVER, API_KEY, location
+			);
+		String response = null;
+		
+		// Talk to the server
 		try {
-			String url = 
-					String.format(
-						"%s/api/%s/forecast7day/q/%s.json", 
-						SERVER, API_KEY, location
-					);
-			String response = sendGetRequest(url);
+			response = sendGetRequest(url);
+		}
+		catch (Exception ex) {
+			throw new IllegalStateException("No Internet connection");
+		}
+		
+		// Parse the response from the server
+		try {
 			JSONObject json = new JSONObject(response);
 			JSONArray forecastData = 
 				json.getJSONObject("forecast")
@@ -131,7 +143,7 @@ public class DummyProvider implements WeatherProvider {
 			ArrayList<WeatherForecast> wf = new ArrayList<WeatherForecast>();
 			for (int i = 0; i < daysCount && i < forecastData.length(); i++) {
 				JSONObject day = forecastData.getJSONObject(i);
-
+	
 				WeatherForecast forecast = new WeatherForecast();
 				forecast.forecastDate = new GregorianCalendar();
 				forecast.forecastDate.add(Calendar.DAY_OF_MONTH, i);
@@ -141,18 +153,33 @@ public class DummyProvider implements WeatherProvider {
 				forecast.windDirection = day.getJSONObject("avewind").getString("dir");
 				forecast.windSpeed = Float.parseFloat(day.getJSONObject("avewind").getString("kph")); // TODO: or miles?
 				forecast.icon = day.getString("icon");
-
+	
 				wf.add(forecast);
 			}
 			return wf;
 		}
 		catch (Exception ex) {
-			System.out.println(ex);
+			throw new IllegalStateException("Malformed response from server");
 		}
-		
-		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * weazzer.weather.WeatherProvider#getSuggestedLocation(java.lang.String,
+	 * java.lang.String)
+	 */
+	public ArrayList<WeatherLocation> getSuggestedLocation(String country,
+			String city) throws IllegalStateException {
+		// TODO Auto-generated method stub
+		ArrayList<WeatherLocation> locations = new ArrayList<WeatherLocation>();
+		locations.add(new WeatherLocation("Pitesti", "Romania"));
+		locations.add(new WeatherLocation("Bucuresti", "Romania"));
+
+		return locations;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -179,23 +206,6 @@ public class DummyProvider implements WeatherProvider {
 	public WeatherLocation getSelectedLocation() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * weazzer.weather.WeatherProvider#getSuggestedLocation(java.lang.String,
-	 * java.lang.String)
-	 */
-	public ArrayList<WeatherLocation> getSuggestedLocation(String country,
-			String city) {
-		// TODO Auto-generated method stub
-		ArrayList<WeatherLocation> locations = new ArrayList<WeatherLocation>();
-		locations.add(new WeatherLocation("Pitesti", "Romania"));
-		locations.add(new WeatherLocation("Bucuresti", "Romania"));
-
-		return locations;
 	}
 
 	/*
