@@ -54,9 +54,9 @@ public class LongTermActivity extends Activity {
 			mu = MeasurementUnit.Celsius;
 		// Weather location - null if missing
 				// Get the selected value
-				String[] locations = prefs.getString("locationPref", "").split("[ ,]");
+				String[] locations = prefs.getString("locationPref", "").split("[,]");
 				// Check if it's ok
-				if (locations.length != 3) {
+				if (locations.length != 2) {
 					prefs.edit().remove("locationPref").commit();
 					Toast.makeText(
 							getBaseContext(),
