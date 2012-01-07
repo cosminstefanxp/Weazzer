@@ -22,13 +22,7 @@
             android:title="System of units" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Weather Provider" >
-
-        <PreferenceScreen
-            android:key="weatherLocationPrefScreen"
-            android:summary="Select your location for the weather data"
-            android:title="Weather Location" >
-
+   
             <PreferenceCategory android:title="Search Location" >
 
                 <EditTextPreference
@@ -48,7 +42,6 @@
                     android:summary="Weather location was not selected!"
                     android:title="Weather Location" />
             </PreferenceCategory>
-        </PreferenceScreen>
-    </PreferenceCategory>
+
 
 </PreferenceScreen>

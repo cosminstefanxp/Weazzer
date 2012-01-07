@@ -522,7 +522,7 @@ public class MainPanelActivity extends Activity {
 			initializeUI();
 			refreshUI();
 		} catch (Exception e) {
-			showDialog(0);
+			//showDialog(0);
 		}
 	}
 
