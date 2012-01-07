@@ -20,6 +20,8 @@ import android.preference.PreferenceManager;
  */
 public class SuggestionsEngine {
 	
+	private final Float MIN_TEMPERATURE = -20.f;
+	
 	/** The pants heat factor. */
 	private float bottomHF;
 	
@@ -41,6 +43,24 @@ public class SuggestionsEngine {
 		loadUserPreferences();
 	}
 
+	private int getBestFit(WeatherData weather, ArrayList<ClothingArticle> suggestions, float factor)
+	{
+		int bestIndex = suggestions.size()-1;
+		float bestValue = 99999.f;
+		
+		float temp = weather.feelsLike + MIN_TEMPERATURE;
+		for (int i = 0; i < suggestions.size(); ++i) {
+			ClothingArticle a = suggestions.get(i);
+			float f = (a.getHeatFactor() + MIN_TEMPERATURE) * factor;
+			if (Math.abs(f-temp) < bestValue) {
+				bestIndex = i;
+				bestValue = Math.abs(f-temp);
+			}
+		}
+		
+		return bestIndex;
+	}
+	
 	/**
 	 * Gets the suggestion for a specific type of article, based on the given
 	 * articles list and the weather information.
@@ -52,18 +72,22 @@ public class SuggestionsEngine {
 	public ClothesSuggestion getSuggestion(WeatherData weather, UserSex gender) {
 		ClothesProvider clothesProvider = new ClothesProvider();
 		ClothesSuggestion CS = new ClothesSuggestion();
+		
+		CS.setTopSuggestions(clothesProvider.getShirts(gender));		
 		CS.setBottomSuggestions(clothesProvider.getPants(gender));
-		CS.setTopSuggestions(clothesProvider.getShirts(gender));
 		CS.setOvercoatSuggestions(clothesProvider.getOvercoats(gender));
+		
+		CS.setTopIndex(getBestFit(weather, clothesProvider.getShirts(gender), topHF));
+		CS.setBottomIndex(getBestFit(weather, clothesProvider.getPants(gender), bottomHF));
+		CS.setOvercoatIndex(getBestFit(weather, clothesProvider.getOvercoats(gender), overcoatHF));
+		
 		CS.setAccessoriesSuggestions(clothesProvider.getAccessories(gender));
-		CS.setTopIndex(0);
-		CS.setBottomIndex(0);
-		CS.setOvercoatIndex(0);
+		
 		ArrayList<Boolean> accesoriesSelect = new ArrayList<Boolean>();
 		accesoriesSelect.add(true);
 		accesoriesSelect.add(false);
 		accesoriesSelect.add(true);
-		CS.setAccessoriesSelect(accesoriesSelect);		
+		CS.setAccessoriesSelect(accesoriesSelect);
 		return CS;
 	}
 
