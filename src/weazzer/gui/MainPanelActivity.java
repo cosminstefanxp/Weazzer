@@ -511,8 +511,10 @@ public class MainPanelActivity extends Activity {
 	public void onStart() {
 		super.onStart();
 		getPreferences();
+		weatherProvider.setLocation(weatherLocation);
 		try {
 			weather = weatherProvider.getCurrentWeather();
+			
 			for (int period = 0; period < 4; period++)
 				clothesSuggestion[period] = suggestionsEngine.getSuggestion(
 						weather.get(period),

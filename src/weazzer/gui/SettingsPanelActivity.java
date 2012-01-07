@@ -13,7 +13,6 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.widget.Toast;
 
 public class SettingsPanelActivity extends PreferenceActivity {
@@ -66,17 +65,16 @@ public class SettingsPanelActivity extends PreferenceActivity {
 			}
 		});
 
-		cityLocationPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-			public boolean onPreferenceClick(Preference preference) {
+		cityLocationPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			public boolean onPreferenceChange(Preference preference, Object o) {
 				Toast.makeText(getBaseContext(), "Searching for your location!", Toast.LENGTH_SHORT).show();
 
 				// Get preferences for city
-				EditTextPreference cityLocationPref = (EditTextPreference) findPreference("cityLocationPref");
 				ListPreference locationPref = (ListPreference) findPreference("locationPref");
 
 				// Search for the given suggestion
 				WeatherProvider weatherProvider = new DummyProvider();
-				SettingsPanelActivity.locations = weatherProvider.getSuggestedLocation("", cityLocationPref.getText());
+				SettingsPanelActivity.locations = weatherProvider.getSuggestedLocation("", o.toString());
 
 				if (SettingsPanelActivity.locations == null || SettingsPanelActivity.locations.isEmpty()) {
 					Toast.makeText(getBaseContext(),
