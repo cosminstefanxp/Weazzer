@@ -180,7 +180,7 @@ public class MainPanelActivity extends Activity {
 	private WeatherProvider weatherProvider;
 	/** A period from 0 to 3. */
 	private int currentPeriod;
-	/** ï¿½C or ï¿½F from preferences. */
+	/** °C or °F from preferences. */
 	private String measurementUnitSuffix;
 	/** Metric or Farenheit from preferences. */
 	private String systemUnit;
@@ -539,7 +539,7 @@ public class MainPanelActivity extends Activity {
 		gender = prefs.getString("genderPref", "male");
 		// Measurement unit
 		systemUnit = prefs.getString("suPref", "Metric");
-		measurementUnitSuffix = systemUnit.equals("Metric") ? "ï¿½C" : "ï¿½F";
+		measurementUnitSuffix = systemUnit.equals("Metric") ? "°C" : "°F";
 		windSuffix = systemUnit.equals("Metric") ? "km/h" : "mph";
 
 		// Weather location - null if missing

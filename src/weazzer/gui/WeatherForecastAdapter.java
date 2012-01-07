@@ -100,7 +100,7 @@ public class WeatherForecastAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.forecastDate.setText(forecast.get(position).getForecastDate()
+		holder.forecastDate.setText("on " + forecast.get(position).getForecastDate()
 				.get(Calendar.DAY_OF_MONTH)
 				+ "/"
 				+ (forecast.get(position).getForecastDate().get(Calendar.MONTH)+1));
