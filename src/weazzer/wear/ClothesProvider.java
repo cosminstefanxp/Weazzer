@@ -73,7 +73,7 @@ public class ClothesProvider {
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.pants4m, 25.0f);
+				R.drawable.pants4m, 30.0f);
 		pantsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("pantalon",
@@ -135,17 +135,17 @@ public class ClothesProvider {
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.shirt4m, 18.0f);
+				R.drawable.shirt4m, 20.0f);
 		shirtsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.shirt5m, 24.0f);
+				R.drawable.shirt5m, 27.0f);
 		shirtsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.shirt6m, 27.0f);
+				R.drawable.shirt6m, 28.0f);
 		shirtsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
