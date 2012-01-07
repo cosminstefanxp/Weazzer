@@ -177,6 +177,7 @@ public final class R {
         public static final int nextDaysView=0x7f070007;
         public static final int overcoatTopArrow=0x7f070039;
         public static final int positioningLayout2=0x7f070020;
+        public static final int refresh_menu_button=0x7f070048;
         public static final int secondExtraView=0x7f070042;
         public static final int secondNextPeriodImageView=0x7f070013;
         public static final int secondNextPeriodLayout=0x7f070010;
@@ -214,8 +215,9 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f050000;
+        public static final int refresh_menu_label=0x7f050002;
         public static final int settings_menu_label=0x7f050001;
-        public static final int smaller=0x7f050003;
-        public static final int time=0x7f050002;
+        public static final int smaller=0x7f050004;
+        public static final int time=0x7f050003;
     }
 }
