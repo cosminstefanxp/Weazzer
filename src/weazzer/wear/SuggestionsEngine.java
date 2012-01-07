@@ -85,9 +85,9 @@ public class SuggestionsEngine {
 		CS.setAccessoriesSuggestions(clothesProvider.getAccessories(gender));
 		
 		ArrayList<Boolean> accesoriesSelect = new ArrayList<Boolean>();
-		accesoriesSelect.add(true);
-		accesoriesSelect.add(false);
-		accesoriesSelect.add(true);
+		accesoriesSelect.add(weather.weatherCondition.toLowerCase().contains("sun"));
+		accesoriesSelect.add(weather.feelsLike < 5);
+		accesoriesSelect.add(weather.weatherCondition.toLowerCase().contains("rain"));
 		CS.setAccessoriesSelect(accesoriesSelect);
 		return CS;
 	}
