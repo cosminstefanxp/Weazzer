@@ -58,237 +58,237 @@ public class ClothesProvider {
 		// PANTS Male
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.pants1m, 2.0f);
+				R.drawable.pants1m, -16.0f);
 		pantsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.pants2m, 2.0f);
+				R.drawable.pants2m, 0.0f);
 		pantsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.pants3m, 2.0f);
+				R.drawable.pants3m, 10.0f);
 		pantsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.pants4m, 2.0f);
+				R.drawable.pants4m, 25.0f);
 		pantsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.pants5m, 2.0f);
+				R.drawable.pants5m, 35.0f);
 		pantsMen.add(clothingArticle);
 				
 		// pants Female
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.pants1f, 2.0f);
+				R.drawable.pants1f, -16.0f);
 		pantsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.pants2f, 2.0f);
+				R.drawable.pants2f, 0.0f);
 		pantsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.pants3f, 2.0f);
+				R.drawable.pants3f, 10.0f);
 		pantsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.pants4f, 2.0f);
+				R.drawable.pants4f, 20.0f);
 		pantsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.pants5f, 2.0f);
+				R.drawable.pants5f, 27.0f);
 		pantsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.pants6f, 2.0f);
+				R.drawable.pants6f, 30.0f);
 		pantsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("pantalon",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.pants7f, 2.0f);
+				R.drawable.pants7f, 35.0f);
 		pantsWomen.add(clothingArticle);
 		
 		// TOPS Male
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.shirt1m, 2.0f);
+				R.drawable.shirt1m, 0.0f);
 		shirtsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.shirt2m, 2.0f);
+				R.drawable.shirt2m, 5.0f);
 		shirtsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.shirt3m, 2.0f);
+				R.drawable.shirt3m, 10.0f);
 		shirtsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.shirt4m, 2.0f);
+				R.drawable.shirt4m, 18.0f);
 		shirtsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.shirt5m, 2.0f);
+				R.drawable.shirt5m, 24.0f);
 		shirtsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.shirt6m, 2.0f);
+				R.drawable.shirt6m, 27.0f);
 		shirtsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.shirt7m, 2.0f);
+				R.drawable.shirt7m, 30.0f);
 		shirtsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.shirt8m, 2.0f);
+				R.drawable.shirt8m, 33.0f);
 		shirtsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Male,
-				R.drawable.shirt9m, 2.0f);
+				R.drawable.shirt9m, 36.0f);
 		shirtsMen.add(clothingArticle);
 		
 		// tops Female
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.shirt1f, 2.0f);
+				R.drawable.shirt1f, 0.0f);
 		shirtsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.shirt2f, 2.0f);
+				R.drawable.shirt2f, 5.0f);
 		shirtsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.shirt3f, 2.0f);
+				R.drawable.shirt3f, 10.0f);
 		shirtsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.shirt4f, 2.0f);
+				R.drawable.shirt4f, 15.0f);
 		shirtsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.shirt5f, 2.0f);
+				R.drawable.shirt5f, 20.0f);
 		shirtsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.shirt6f, 2.0f);
+				R.drawable.shirt6f, 25.0f);
 		shirtsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.shirt7f, 2.0f);
+				R.drawable.shirt7f, 28.0f);
 		shirtsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.shirt8f, 2.0f);
+				R.drawable.shirt8f, 33.0f);
 		shirtsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("tricou",
 				ClothingArticle.Type.Pants, UserSex.Female,
-				R.drawable.shirt9f, 2.0f);
+				R.drawable.shirt9f, 37.0f);
 		shirtsWomen.add(clothingArticle);
 		
 		// OVERCOAT Male
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Male,
-				R.drawable.coat1m, 2.0f);
+				R.drawable.coat1m, -16.0f);
 		overcoatsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Male,
-				R.drawable.coat2m, 2.0f);
+				R.drawable.coat2m, -10.0f);
 		overcoatsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Male,
-				R.drawable.coat3m, 2.0f);
+				R.drawable.coat3m, 0.0f);
 		overcoatsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Male,
-				R.drawable.coat4m, 2.0f);
+				R.drawable.coat4m, 5.0f);
 		overcoatsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Male,
-				R.drawable.coat5m, 2.0f);
+				R.drawable.coat5m, 10.0f);
 		overcoatsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Male,
-				R.drawable.coat6m, 2.0f);
+				R.drawable.coat6m, 12.0f);
 		overcoatsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Male,
-				R.drawable.coat7m, 2.0f);
+				R.drawable.coat7m, 15.0f);
 		overcoatsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Male,
-				R.drawable.coat8m, 2.0f);
+				R.drawable.coat8m, 18.0f);
 		overcoatsMen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Male,
-				R.drawable.coat0m, 2.0f);
+				R.drawable.coat0m, 25.0f);
 		overcoatsMen.add(clothingArticle);
 		
 		// Overcoat Female
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Female,
-				R.drawable.coat1f, 2.0f);
+				R.drawable.coat1f, -16.0f);
 		overcoatsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Female,
-				R.drawable.coat2f, 2.0f);
+				R.drawable.coat2f, -10.0f);
 		overcoatsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Female,
-				R.drawable.coat3f, 2.0f);
+				R.drawable.coat3f, -5.0f);
 		overcoatsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Female,
-				R.drawable.coat4f, 2.0f);
+				R.drawable.coat4f, 10.0f);
 		overcoatsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Female,
-				R.drawable.coat5f, 2.0f);
+				R.drawable.coat5f, 15.0f);
 		overcoatsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Female,
-				R.drawable.coat6f, 2.0f);
+				R.drawable.coat6f, 20.0f);
 		overcoatsWomen.add(clothingArticle);
 		
 		clothingArticle = new ClothingArticle("geaca",
 				ClothingArticle.Type.Overcoat, UserSex.Female,
-				R.drawable.coat0f, 2.0f);
+				R.drawable.coat0f, 25.0f);
 		overcoatsWomen.add(clothingArticle);
 		
 		// ACCESSORIES Male

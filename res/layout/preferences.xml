@@ -14,12 +14,12 @@
             android:summary="Select gender for clothes"
             android:title="Gender Selection" />
         <ListPreference
-            android:defaultValue="Celsius"
-            android:entries="@array/muArray"
-            android:entryValues="@array/muValues"
-            android:key="muPref"
-            android:summary="Select temperature unit"
-            android:title="Temperature" />
+            android:defaultValue="Metric"
+            android:entries="@array/suArray"
+            android:entryValues="@array/suValues"
+            android:key="suPref"
+            android:summary="Select system of units"
+            android:title="System of units" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Weather Provider" >
@@ -42,11 +42,6 @@
                     android:name="City"
                     android:summary="Edit the full name of the city for the weather data"
                     android:title="City" />
-
-                <Preference
-                    android:key="searchLocationPref"
-                    android:summary="Search for the location, using the fields above"
-                    android:title="Search" />
             </PreferenceCategory>
 
             <PreferenceCategory android:title="Selected Weather Location" >

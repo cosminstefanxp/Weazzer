@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 import weazzer.wear.ClothingArticle.UserSex;
 import weazzer.weather.WeatherData;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 /**
  * The Class SuggestionEngine that provides the best match for a clothing
@@ -18,16 +21,25 @@ import weazzer.weather.WeatherData;
 public class SuggestionsEngine {
 	
 	/** The pants heat factor. */
-	private int pantsHF;
+	private float bottomHF;
 	
 	/** The shirts heat factor. */
-	private int shirtsHF;
+	private float topHF;
 	
 	/** The overcoat heat factor. */
-	private int overcoatHF;
+	private float overcoatHF;
 	
 	/** The accessories heat factor. */
-	private int accessoriesHF;
+	private float accessoriesHF;
+	
+	/** The context. */
+	private Context context;
+	
+	public SuggestionsEngine(Context context)
+	{
+		this.context=context;
+		loadUserPreferences();
+	}
 
 	/**
 	 * Gets the suggestion for a specific type of article, based on the given
@@ -63,7 +75,34 @@ public class SuggestionsEngine {
 	 * @param clothesSuggestion the clothes suggestion
 	 */
 	public void updateUserChoice(WeatherData currentWeatherData, ClothesSuggestion clothesSuggestion) {
-		// TODO implementation		
+		
+		//Update the factors
+		this.topHF = getNewHF(currentWeatherData, clothesSuggestion.getTopSuggestions().get(
+				clothesSuggestion.getTopIndex()), topHF);
+		this.bottomHF = getNewHF(currentWeatherData, clothesSuggestion.getBottomSuggestions().get(
+				clothesSuggestion.getBottomIndex()), bottomHF);
+		this.overcoatHF = getNewHF(currentWeatherData, clothesSuggestion.getOvercoatSuggestions().get(
+				clothesSuggestion.getOvercoatIndex()), overcoatHF);
+		
+		//Save the preferences
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		prefs.edit().putFloat("userPreferenceTopHF", this.topHF);
+		prefs.edit().putFloat("userPreferenceBottomHF", this.bottomHF);
+		prefs.edit().putFloat("userPreferenceOvercoatHF", this.overcoatHF);
+		prefs.edit().putFloat("userPreferenceAccessoriesHF", this.accessoriesHF);
+	}
+	
+	/**
+	 * Gets the new heat factor according to the user choice for the weather.
+	 *
+	 * @param currentWeatherData the current weather data
+	 * @param article the article
+	 * @return the new heat factor
+	 */
+	private float getNewHF(WeatherData currentWeatherData, ClothingArticle article, float currentHF)
+	{
+		float raport=currentWeatherData.feelsLike/article.getHeatFactor();
+		return currentHF*0.2f + raport*0.8f;
 	}
 	
 	/**
@@ -71,7 +110,19 @@ public class SuggestionsEngine {
 	 */
 	public void resetFactorySettings()
 	{
-		//TODO: implementation
+		bottomHF=topHF=overcoatHF=accessoriesHF=1.0f;
+	}
+	
+	/**
+	 * Loads the heat factors from the user preferences.
+	 */
+	private void loadUserPreferences()
+	{
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		bottomHF=prefs.getFloat("userPreferenceBottomHF", 1.0f);
+		topHF=prefs.getFloat("userPreferenceShirtHF", 1.0f);
+		overcoatHF=prefs.getFloat("userPreferenceOvercoatHF", 1.0f);
+		accessoriesHF=prefs.getFloat("userPreferenceAccessoriesHF", 1.0f);
 	}
 
 }

@@ -9,14 +9,14 @@
    <item>male</item>
    <item>female</item>
 </string-array>
-<string-array name="muArray">
-   <item>Celsius</item>
-   <item>Fahrenheit</item>
+<string-array name="suArray">
+   <item>Metric</item>
+   <item>Imperial</item>
 </string-array>
  
-<string-array name="muValues">
-   <item>Celsius</item>
-   <item>Fahrenheit</item>
+<string-array name="suValues">
+   <item>Metric</item>
+   <item>Imperial</item>
 </string-array>
 <string-array name="locationValues"></string-array>
 <string-array name="locationArray"></string-array>
